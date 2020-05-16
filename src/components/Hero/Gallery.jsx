@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import useWindowWidth from '../../../hooks/useWindowWidth';
+import useWindowWidth from '../../hooks/useWindowWidth';
 
-import { primaryColor } from '../../../constants/websiteColors';
+import { primaryColor } from '../../constants/websiteColors';
 
-import { Heading2 as GalleryTitle, Heading4 } from '../../General/Headings';
+import { Heading2 as GalleryTitle, Heading4 } from '../General/Headings';
 
 const GalleryContainer = styled.section`
   box-sizing: border-box;
@@ -74,35 +74,35 @@ function Gallery() {
   const width = useWindowWidth();
   const imageData = [
     {
-      src: 'https://source.unsplash.com/random',
+      src: 'https://source.unsplash.com/random/?nature',
       style: {
         gridColumn: '1',
         gridRow: '1',
       },
     },
     {
-      src: 'https://source.unsplash.com/random',
+      src: 'https://source.unsplash.com/random/?architecture',
       style: {
         gridColumn: '2/4',
         gridRow: '1',
       },
     },
     {
-      src: 'https://source.unsplash.com/random',
+      src: 'https://source.unsplash.com/random/?business',
       style: {
         gridColumn: '4/6',
         gridRow: '1/3',
       },
     },
     {
-      src: 'https://source.unsplash.com/random',
+      src: 'https://source.unsplash.com/random/?lake',
       style: {
         gridColumn: '1/3',
         gridRow: '2',
       },
     },
     {
-      src: 'https://source.unsplash.com/random',
+      src: 'https://source.unsplash.com/random/?mountains',
       style: {
         gridColumn: '3',
         gridRow: '2',

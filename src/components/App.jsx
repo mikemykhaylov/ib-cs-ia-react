@@ -1,9 +1,13 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components/macro';
 import { Normalize } from 'styled-normalize';
+
 import fontFaces from '../fonts/fontsSetup';
 import { darkGrayColor } from '../constants/websiteColors';
-import Hero from './Hero';
+
+import Hero from '../containers/Hero';
+import Reservation from '../containers/Reservation';
 
 const GlobalStyle = createGlobalStyle`
 ${fontFaces}
@@ -23,11 +27,18 @@ html {
 
 function App() {
   return (
-    <>
+    <Router>
       <Normalize />
       <GlobalStyle />
-      <Hero />
-    </>
+      <Switch>
+        <Route path="/" exact>
+          <Hero />
+        </Route>
+        <Route path="/reserve">
+          <Reservation />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

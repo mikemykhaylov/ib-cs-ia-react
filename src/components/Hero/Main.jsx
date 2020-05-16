@@ -1,16 +1,17 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { Link } from 'react-router-dom';
 
-import { primaryColor } from '../../../constants/websiteColors';
-import heroImage from '../../../images/Hero Image.jpg';
+import { primaryColor } from '../../constants/websiteColors';
+import heroImage from '../../images/Hero Image.jpg';
 
-import { PrimaryButton } from '../../General/Buttons';
-import Navbar from '../../General/Navbar';
-import { Heading1, Heading3, Heading5 } from '../../General/Headings';
+import { PrimaryButton } from '../General/Buttons';
+import Navbar from '../General/Navbar';
+import { Heading1, Heading3, Heading5 } from '../General/Headings';
 
-import Scissors from '../../icons/Scissors';
-import Razor from '../../icons/Razor';
-import AfroPick from '../../icons/AfroPick';
+import Scissors from '../Icons/Scissors';
+import Razor from '../Icons/Razor';
+import AfroPick from '../Icons/AfroPick';
 
 const MainContainer = styled.div`
   align-items: center;
@@ -24,7 +25,6 @@ const MainContainer = styled.div`
   justify-content: flex-start;
   min-height: 100vh;
   margin-bottom: 100px;
-  padding: calc(100vw * 100 / 1920);
   padding-bottom: 100px;
   width: 100%;
   & > *:not(:first-child) {
@@ -33,7 +33,7 @@ const MainContainer = styled.div`
 `;
 
 const MainHeading = styled(Heading1)`
-  margin-top: 96px;
+  margin-top: calc(100vh * 160 / 1080);
   text-align: center;
   @media (min-width: 992px) {
     margin-top: 128px;
@@ -90,7 +90,9 @@ function Main() {
           <Heading3>45$</Heading3>
         </MainService>
       </MainServicesContainer>
-      <PrimaryButton>Reserve</PrimaryButton>
+      <Link to="/reserve/step1">
+        <PrimaryButton>Reserve</PrimaryButton>
+      </Link>
     </MainContainer>
   );
 }

@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import storyImage from '../../../images/Story Image.jpg';
-import { Heading2 as StoryTitle, Heading4, Text } from '../../General/Headings';
-import { SecondaryButton } from '../../General/Buttons';
+import storyImage from '../../images/Story Image.jpg';
+import { Heading2 as StoryTitle, Heading4, Text } from '../General/Headings';
+import { SecondaryButton } from '../General/Buttons';
 
-import { primaryColor } from '../../../constants/websiteColors';
+import { primaryColor } from '../../constants/websiteColors';
 
 const StoryContainer = styled.section`
   box-sizing: border-box;

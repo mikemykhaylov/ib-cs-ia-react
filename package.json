@@ -16,13 +16,13 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-is": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-router-prop-types": "^1.0.4",
     "styled-components": "^5.1.0",
     "styled-normalize": "^8.0.7"
   },
   "optionalDependencies": {
     "react-redux": "^7.2.0",
-    "react-router-dom": "^5.2.0",
-    "react-router-prop-types": "^1.0.4",
     "redux": "^4.0.5"
   },
   "devDependencies": {

@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { Heading2 as MapTitle, Heading4 } from '../../General/Headings';
+import { Heading2 as MapTitle, Heading4 } from '../General/Headings';
 
-import mapImage from '../../../images/Map.png';
-import { primaryColor } from '../../../constants/websiteColors';
+import mapImage from '../../images/Map.png';
+import { primaryColor } from '../../constants/websiteColors';
 
 const MapContainer = styled.section`
   width: 100%;

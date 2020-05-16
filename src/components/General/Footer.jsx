@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import Logo from '../icons/Logo';
+import styled from 'styled-components/macro';
+import Logo from '../Icons/Logo';
 import { primaryColor, grayColor } from '../../constants/websiteColors';
 import { Heading2, Heading4, Text } from './Headings';
 

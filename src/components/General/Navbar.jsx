@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
-import Logo from '../icons/Logo';
-import Login from '../icons/Login';
-import Menu from '../icons/Menu';
+import { Link } from 'react-router-dom';
+
+import Logo from '../Icons/Logo';
+import Login from '../Icons/Login';
+import Menu from '../Icons/Menu';
+
 import { Heading4, Heading5 } from './Headings';
 import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
 import useWindowWidth from '../../hooks/useWindowWidth';
@@ -11,6 +14,8 @@ const NavbarContainer = styled.header`
   display: flex;
   justify-content: space-between;
   width: calc(100vw - 2 * 100vw * 100 / 1920);
+  margin: calc(100vw * 100 / 1920);
+  margin-bottom: 0;
   flex-direction: column;
   align-items: center;
   & > *:not(:last-child) {
@@ -69,7 +74,9 @@ function Navbar() {
       {width >= 992 ? (
         <>
           <NavbarMenu>
-            <Logo color={primaryColor} height={40} />
+            <Link to="/">
+              <Logo color={primaryColor} height={40} />
+            </Link>
             <Heading5>BARBERS</Heading5>
             <Heading5>WORKS</Heading5>
             <Heading5>LOCATIONS</Heading5>
@@ -84,7 +91,9 @@ function Navbar() {
       ) : (
         <>
           <NavbarMobileTopMenu>
-            <Logo color={primaryColor} height={40} />
+            <Link to="/">
+              <Logo color={primaryColor} height={40} />
+            </Link>
             <NavbarMobileButton onClick={() => setShowMobileNav(!showMobileNav)}>
               <Menu color={lightGrayColor} height={40} />
             </NavbarMobileButton>
