@@ -16,9 +16,3 @@ parserOptions:
   sourceType: module
 plugins:
   - react
-settings:
-  import/resolver: 
-    node:
-      extensions:
-        - .js
-        - .jsx
