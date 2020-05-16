@@ -6,7 +6,7 @@ function Logo({ color, height }) {
     <svg
       height={height}
       viewBox="0 0 1553 343"
-      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
       style={{
         fillRule: 'evenodd',
         clipRule: 'evenodd',

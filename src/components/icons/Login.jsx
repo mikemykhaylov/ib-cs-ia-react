@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 
 function Login({ firstColor, secondColor, height }) {
   return (
-    <svg
-      height={height}
-      version="1.1"
-      viewBox="0 0 512 512"
-      style={{ enableBackground: 'new 0 0 512 512' }}
-    >
+    <svg height={height} viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M356.453,243.741l-54.781-38.621c-9.926-6.997-23.644,0.128-23.644,12.26v23.621H15c-8.284,0-15,6.716-15,15
 			s6.716,15,15,15h263.028v23.62c0,12.212,13.791,19.203,23.643,12.26l54.781-38.62

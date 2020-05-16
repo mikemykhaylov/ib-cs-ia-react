@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 
 function Equipment({ color, height }) {
   return (
-    <svg
-      height={height}
-      enableBackground="new 0 0 64 64"
-      viewBox="0 0 64 64"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg height={height} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
       <g>
         <path
           d="m27 33h6c1.103 0 2-.897 2-2v-2c0-1.103-.897-2-2-2h-6c-1.103 0-2 .897-2 2v2c0 1.103.897 2 2 2zm0-4h6l.001 2h-6.001z"
