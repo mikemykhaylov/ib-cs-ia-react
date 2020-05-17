@@ -94,7 +94,7 @@ function Navbar() {
             <Link to="/">
               <Logo color={primaryColor} height={40} />
             </Link>
-            <NavbarMobileButton onClick={() => setShowMobileNav(!showMobileNav)}>
+            <NavbarMobileButton aria-label="Show Mobile Navigation" onClick={() => setShowMobileNav(!showMobileNav)}>
               <Menu color={lightGrayColor} height={40} />
             </NavbarMobileButton>
           </NavbarMobileTopMenu>

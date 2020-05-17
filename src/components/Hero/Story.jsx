@@ -68,7 +68,7 @@ const StoryDescription = styled(Text)`
 function Story() {
   return (
     <StoryContainer>
-      <StoryImage src={storyImage} />
+      <StoryImage alt="Front view of our barbershop" src={storyImage} />
       <StoryWrap>
         <StoryTitle>Who are we?</StoryTitle>
         <StorySubtitle color={primaryColor}>Traditions coupled with innovation</StorySubtitle>
