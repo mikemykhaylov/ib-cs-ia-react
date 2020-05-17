@@ -1,5 +1,5 @@
 {
-  "name": "react_template",
+  "name": "dywizjon303",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --config webpack.dev.js --hot",
@@ -12,6 +12,8 @@
     "@yarnpkg/pnpify": "^2.0.0-rc.22",
     "babel-plugin-macros": "^2.8.0",
     "firebase": "^7.14.4",
+    "framer-motion": "^1.11.0",
+    "ky": "^0.20.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

@@ -38,7 +38,7 @@ const FooterWrap = styled.div`
   align-items: center;
   & > *:not(:last-child) {
     margin-bottom: 32px;
-  };
+  }
   @media (min-width: 992px) {
     flex-direction: row;
     align-items: flex-start;
