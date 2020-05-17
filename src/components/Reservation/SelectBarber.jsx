@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, Link } from 'react-router-dom';
@@ -168,7 +169,7 @@ function SelectBarber({ time, timeFirst, currentBarber, setCurrentBarber }) {
 
 SelectBarber.propTypes = {
   time: PropTypes.instanceOf(Date).isRequired,
-  timeFirst: PropTypes.bool.isRequired,
+  timeFirst: PropTypes.bool,
   currentBarber: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,

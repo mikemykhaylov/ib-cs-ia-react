@@ -114,10 +114,12 @@ function Reservation() {
     case false:
       [Step2Component, Step3Component] = [Step3Component, Step2Component];
       break;
-    default:
+    case null:
       Step2Component = <Redirect to={`${match.path}/step1`} />;
       Step3Component = <Redirect to={`${match.path}/step1`} />;
       Step4Component = <Redirect to={`${match.path}/step1`} />;
+      break;
+    default:
       break;
   }
 

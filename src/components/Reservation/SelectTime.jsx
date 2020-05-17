@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, Link } from 'react-router-dom';
@@ -117,7 +118,8 @@ function SelectTime({ time, setTime, timeFirst, currentBarber }) {
               busyTimes.map((appointment) => new Date(appointment.time).getUTCHours() + 2),
             );
             setLoadedBusyHours(true);
-          });
+          })
+          .catch(() => {  })
       }, 500);
       // Aborting request if user leaves page before loading available times
       return () => controller.abort();
@@ -216,7 +218,7 @@ function SelectTime({ time, setTime, timeFirst, currentBarber }) {
 SelectTime.propTypes = {
   time: PropTypes.instanceOf(Date).isRequired,
   setTime: PropTypes.func.isRequired,
-  timeFirst: PropTypes.bool.isRequired,
+  timeFirst: PropTypes.bool,
   currentBarber: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,
