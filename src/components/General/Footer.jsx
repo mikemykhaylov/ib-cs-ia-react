@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import Logo from '../Icons/Logo';
-import { primaryColor, grayColor } from '../../constants/websiteColors';
+import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
 import { Heading2, Heading4, Text } from './Headings';
 
 const FooterContainer = styled.footer`
@@ -107,10 +107,10 @@ function Footer() {
         </FooterContactSection>
       </FooterWrap>
       <FooterCredits>
-        <FooterCreditsText color={grayColor}>
+        <FooterCreditsText color={lightGrayColor}>
           Copyright © Dywizjon 303 all rights reserved. Developed by Mykhaylo Mykhaylov
         </FooterCreditsText>
-        <FooterCreditsText color={grayColor}>
+        <FooterCreditsText color={lightGrayColor}>
           Icons made by Freepik and Eucalyp from www.flaticon.com
         </FooterCreditsText>
       </FooterCredits>

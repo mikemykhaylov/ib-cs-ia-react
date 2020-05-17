@@ -74,7 +74,7 @@ function Navbar() {
       {width >= 992 ? (
         <>
           <NavbarMenu>
-            <Link to="/">
+            <Link aria-label="Go to the main page" to="/">
               <Logo color={primaryColor} height={40} />
             </Link>
             <Heading5>BARBERS</Heading5>
@@ -91,7 +91,7 @@ function Navbar() {
       ) : (
         <>
           <NavbarMobileTopMenu>
-            <Link to="/">
+            <Link aria-label="Go to the main page" to="/">
               <Logo color={primaryColor} height={40} />
             </Link>
             <NavbarMobileButton aria-label="Show Mobile Navigation" onClick={() => setShowMobileNav(!showMobileNav)}>
