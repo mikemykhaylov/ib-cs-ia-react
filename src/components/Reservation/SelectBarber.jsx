@@ -89,13 +89,13 @@ function SelectBarber({ time, timeFirst, currentBarber, setCurrentBarber }) {
       let fetchedAvailableBarbers;
       if (timeFirst) {
         fetchedAvailableBarbers = await ky
-          .post('https://us-central1-dywizjon-303.cloudfunctions.net/api/barbers/available', {
+          .post('https://europe-west3-dywizjon-303.cloudfunctions.net/api/barbers/available', {
             json: { time: time.toISOString() },
           })
           .json();
       } else {
         fetchedAvailableBarbers = await ky
-          .get('https://us-central1-dywizjon-303.cloudfunctions.net/api/barbers/all')
+          .get('https://europe-west3-dywizjon-303.cloudfunctions.net/api/barbers/all')
           .json();
       }
       setAvailableBarbers(fetchedAvailableBarbers);

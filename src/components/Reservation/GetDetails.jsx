@@ -175,7 +175,7 @@ function GetDetails({ time, currentBarber, userInfo, setUserInfo, setFinishedRes
       return;
     }
     const response = await ky
-      .post('https://us-central1-dywizjon-303.cloudfunctions.net/api/appointments', {
+      .post('https://europe-west3-dywizjon-303.cloudfunctions.net/api/appointments', {
         json: newAppointment,
       })
       .json();

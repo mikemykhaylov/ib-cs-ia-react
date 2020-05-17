@@ -108,7 +108,7 @@ function SelectTime({ time, setTime, timeFirst, currentBarber }) {
       const { signal } = controller;
       // Slowing down the loading, so user thinks it is loading
       setTimeout(() => {
-        ky.post('https://us-central1-dywizjon-303.cloudfunctions.net/api/appointments/getforday', {
+        ky.post('https://europe-west3-dywizjon-303.cloudfunctions.net/api/appointments/getforday', {
           json: { day: time.toISOString().substring(0, 10), barberID: currentBarber.id },
           signal,
         })
