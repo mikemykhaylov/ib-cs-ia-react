@@ -8,8 +8,8 @@
     "prettier": "prettier --config ./.prettierrc.yml --write \"./src/**/*.js?(x)\"",
     "eslint": "eslint -c ./.eslintrc.yml \"./src/**/*.js?(x)\""
   },
+  "license": "MIT",
   "dependencies": {
-    "@yarnpkg/pnpify": "^2.0.0-rc.22",
     "babel-plugin-macros": "^2.8.0",
     "firebase": "^7.14.4",
     "framer-motion": "^1.11.0",
@@ -17,7 +17,6 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-is": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-router-prop-types": "^1.0.4",
     "styled-components": "^5.1.0",
@@ -52,7 +51,6 @@
     "js-beautify": "^1.11.0",
     "mini-css-extract-plugin": "^0.9.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "pnp-webpack-plugin": "^1.6.4",
     "prettier": "^2.0.5",
     "regenerator-runtime": "^0.13.5",
     "terser-webpack-plugin": "^2.3.6",

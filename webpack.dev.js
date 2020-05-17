@@ -1,7 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 
-const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
@@ -9,12 +8,8 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
-    plugins: [PnpWebpackPlugin],
   },
   mode: 'development',
-  resolveLoader: {
-    plugins: [PnpWebpackPlugin.moduleLoader(module)],
-  },
   devtool: 'source-map',
   entry: './src/index.jsx',
   output: {
@@ -28,7 +23,7 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: require.resolve('babel-loader'),
+          loader: 'babel-loader',
         },
       },
       {
@@ -38,14 +33,14 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
             options: { hmr: true, esModule: true },
           },
-          { loader: require.resolve('css-loader'), options: { sourceMap: true, esModule: true } },
+          { loader: 'css-loader', options: { sourceMap: true, esModule: true } },
         ],
       },
       {
         test: /\.(png|jpg|gif|woff2?)$/,
         use: [
           {
-            loader: require.resolve('file-loader'),
+            loader: 'file-loader',
           },
         ],
       },
