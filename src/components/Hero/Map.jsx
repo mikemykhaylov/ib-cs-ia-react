@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { Heading2 as MapTitle, Heading4 } from '../General/Headings';
+import ReactMapboxGl, { Marker, ZoomControl } from 'react-mapbox-gl';
 
-import mapImage from '../../images/Map.png';
+import { Heading2 as MapTitle, Heading4 } from '../General/Headings';
+import Location from '../Icons/Location';
+
 import { primaryColor } from '../../constants/websiteColors';
 
 const MapContainer = styled.section`
@@ -21,23 +23,35 @@ const MapSubtitle = styled(Heading4)`
   margin-bottom: 64px;
 `;
 
-const MapImage = styled.img.attrs(() => ({
-  src: mapImage,
-}))`
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
-  @media (min-width: 992px) {
-    height: 700px;
-  }
-`;
+const MapGL = ReactMapboxGl({
+  accessToken:
+    'pk.eyJ1IjoiamF5dGVlamVlIiwiYSI6ImNrYThrZ2hzbzBkcGoyeG8zc2NtaHQ2YzgifQ.1UiyuJ_rZkCd3W57XTAaPg',
+    scrollZoom: false
+});
 
 function Map() {
   return (
     <MapContainer>
       <MapTitle>Location</MapTitle>
       <MapSubtitle color={primaryColor}>We are waiting for you</MapSubtitle>
-      <MapImage />
+      <MapGL
+        // eslint-disable-next-line react/style-prop-object
+        style="mapbox://styles/jayteejee/ckab8ccdh2dt31io598i49sz3"
+        containerStyle={{
+          height: '600px',
+          width: '100%',
+        }}
+        center={[21.033424, 52.207035]}
+        zoom={[12]}
+      >
+        <Marker coordinates={[21.033424, 52.207035]} anchor="bottom">
+          <Location color={primaryColor} height={48} />
+        </Marker>
+        <ZoomControl />
+        {/* <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>
+          <Feature coordinates={[21.033424, 52.207035]} properties={{}} />
+        </Layer> */}
+      </MapGL>
     </MapContainer>
   );
 }
