@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components/macro';
 import { Normalize } from 'styled-normalize';
 
 import fontFaces from '../fonts/fontsSetup';
 import { darkGrayColor } from '../constants/websiteColors';
+import Loading from './General/Loading';
 
-import Hero from '../containers/Hero';
-import Reservation from '../containers/Reservation';
+const Hero = React.lazy(() => import('../containers/Hero'));
+const Reservation = React.lazy(() => import('../containers/Reservation'));
 
 const GlobalStyle = createGlobalStyle`
 ${fontFaces}
@@ -32,10 +33,14 @@ function App() {
       <GlobalStyle />
       <Switch>
         <Route path="/" exact>
-          <Hero />
+          <Suspense fallback={<Loading width="100vw" height="100vh" />}>
+            <Hero />
+          </Suspense>
         </Route>
         <Route path="/reserve">
-          <Reservation />
+          <Suspense fallback={<Loading width="100vw" height="100vh" />}>
+            <Reservation />
+          </Suspense>
         </Route>
       </Switch>
     </Router>
