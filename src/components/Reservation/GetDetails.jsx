@@ -4,9 +4,8 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import ky from 'ky';
 
-import { Heading2, Heading4, Heading3, Heading5 } from '../General/Headings';
+import { Heading2, Heading4, Heading3 } from '../General/Headings';
 import {
-  darkerGrayColor,
   grayColor,
   lightGrayColor,
   primaryColor,
@@ -15,6 +14,7 @@ import Barber from '../Icons/Barber';
 import { SecondaryButton, PrimaryButton } from '../General/Buttons';
 
 import { validateCreateAppointment } from '../../utils/validateInput';
+import { Input, FormRow, FormContainer } from '../General/Form';
 
 const GetDetailsWrap = styled.div`
   display: flex;
@@ -41,41 +41,6 @@ const GetDetailsContainer = styled.div`
   }
   @media (min-width: 576px) {
     width: 400px;
-  }
-`;
-
-const GetDetailsFormRow = styled.div`
-  display: flex;
-  & > *:not(:last-child) {
-    margin-right: 16px;
-  }
-`;
-
-const GetDetailsInputGroup = styled.div`
-  flex-grow: 1;
-  text-align: left;
-  & > *:first-child {
-    margin-bottom: 16px;
-  }
-  & > *:nth-child(2) {
-    margin-bottom: 8px;
-  }
-`;
-
-const GetDetailsInput = styled.input`
-  background-color: ${darkerGrayColor};
-  border: none;
-  border-radius: 5px;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 9px 12px;
-  width: 100%;
-  font-family: Montserrat;
-  font-size: 16px;
-  line-height: 24px;
-  color: ${lightGrayColor};
-  &::placeholder {
-    color: ${grayColor};
   }
 `;
 
@@ -195,65 +160,39 @@ function GetDetails({ time, currentBarber, userInfo, setUserInfo, setFinishedRes
         Step 4: Details and confirmation
       </Heading2>
       <GetDetailsWrap>
-        <GetDetailsContainer>
+        <FormContainer>
           <Heading3>Contact information</Heading3>
-          <GetDetailsFormRow>
-            <GetDetailsInputGroup>
-              <Heading4>First name:</Heading4>
-              <GetDetailsInput
-                name="firstName"
-                onChange={handleInput}
-                value={userInfo.firstName}
-                placeholder="Enter first name:"
-              />
-              {errorsObj && !errorsObj.valid && errorsObj.errors.firstName && (
-                <Heading5 color={primaryColor}>{errorsObj.errors.firstName}</Heading5>
-              )}
-            </GetDetailsInputGroup>
-            <GetDetailsInputGroup>
-              <Heading4>Last name:</Heading4>
-              <GetDetailsInput
-                name="lastName"
-                onChange={handleInput}
-                value={userInfo.lastName}
-                placeholder="Enter last name:"
-              />
-              {errorsObj && !errorsObj.valid && errorsObj.errors.lastName && (
-                <Heading5 color={primaryColor}>{errorsObj.errors.lastName}</Heading5>
-              )}
-            </GetDetailsInputGroup>
-          </GetDetailsFormRow>
-          <GetDetailsFormRow>
-            <GetDetailsInputGroup>
-              <Heading4>Email:</Heading4>
-              <GetDetailsInput
-                name="email"
-                onChange={handleInput}
-                value={userInfo.email}
-                type="email"
-                placeholder="Enter email:"
-              />
-              {errorsObj && !errorsObj.valid && errorsObj.errors.email && (
-                <Heading5 color={primaryColor}>{errorsObj.errors.email}</Heading5>
-              )}
-            </GetDetailsInputGroup>
-          </GetDetailsFormRow>
-          <GetDetailsFormRow>
-            <GetDetailsInputGroup>
-              <Heading4>Phone Number:</Heading4>
-              <GetDetailsInput
-                name="phoneNumber"
-                onChange={handleInput}
-                value={userInfo.phoneNumber}
-                type="tel"
-                placeholder="Enter phone number:"
-              />
-              {errorsObj && !errorsObj.valid && errorsObj.errors.phoneNumber && (
-                <Heading5 color={primaryColor}>{errorsObj.errors.phoneNumber}</Heading5>
-              )}
-            </GetDetailsInputGroup>
-          </GetDetailsFormRow>
-        </GetDetailsContainer>
+          <FormRow>
+            <Input
+              heading="First name"
+              value={userInfo.firstName}
+              onChange={handleInput}
+              errorsObj={errorsObj}
+            />
+            <Input
+              heading="Last name"
+              value={userInfo.lastName}
+              onChange={handleInput}
+              errorsObj={errorsObj}
+            />
+          </FormRow>
+          <FormRow>
+            <Input
+              heading="Email"
+              value={userInfo.email}
+              onChange={handleInput}
+              errorsObj={errorsObj}
+            />
+          </FormRow>
+          <FormRow>
+            <Input
+              heading="Phone number"
+              value={userInfo.phoneNumber}
+              onChange={handleInput}
+              errorsObj={errorsObj}
+            />
+          </FormRow>
+        </FormContainer>
         <GetDetailsContainer>
           <Heading3>Reservation Summary</Heading3>
           <ReservationSummaryTimeRow>
