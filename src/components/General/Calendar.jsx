@@ -50,7 +50,7 @@ const Days = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 32px);
   grid-auto-rows: 32px;
-  grid-gap: 16px;
+  grid-gap: 8px;
   & > :first-child {
     grid-column-start: ${(props) => props.dayOfWeekOfMonthBeginning};
   }

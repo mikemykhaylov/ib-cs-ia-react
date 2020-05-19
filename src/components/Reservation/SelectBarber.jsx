@@ -5,7 +5,7 @@ import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import ky from 'ky';
 
-import { Heading2, Heading3, Heading4 } from '../General/Headings';
+import { Heading2, Heading3, Heading5 } from '../General/Headings';
 import { SecondaryButton, PrimaryButton } from '../General/Buttons';
 import Loading from '../General/Loading';
 
@@ -16,11 +16,11 @@ const SelectBarberWrap = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: ${(props) =>
-    props.loading
-      ? 'repeat(auto-fill, minmax(250px, 1fr))'
+    props.loaded
+      ? 'repeat(auto-fill, minmax(225px, 1fr))'
       : 'repeat(auto-fit, minmax(250px, 1fr))'};
   grid-auto-rows: auto;
-  grid-gap: 96px;
+  grid-gap: 64px;
 `;
 
 const BarberCard = styled.div`
@@ -39,6 +39,7 @@ const BarberImage = styled.div`
   width: 100%;
   background-image: url(${(props) => props.src});
   background-size: cover;
+  background-position: center center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,7 +55,7 @@ const BarberDescription = styled.div`
   padding: 32px;
   box-sizing: border-box;
   & > *:first-child {
-    margin-bottom: 32px;
+    margin-bottom: 16px;
   }
 `;
 
@@ -106,7 +107,7 @@ function SelectBarber({ time, timeFirst, currentBarber, setCurrentBarber }) {
   // Mapping available barbers to BarberCards
   const barberCards =
     availableBarbers.length > 0 ? (
-      <SelectBarberWrap loading={loadedBarbers ? 1 : 0}>
+      <SelectBarberWrap loaded={loadedBarbers ? 1 : 0}>
         {availableBarbers.map((availableBarber) => (
           <BarberCard
             key={availableBarber.id}
@@ -122,7 +123,7 @@ function SelectBarber({ time, timeFirst, currentBarber, setCurrentBarber }) {
             )}
             <BarberDescription>
               <Heading3>{`${availableBarber.firstName} ${availableBarber.lastName}`}</Heading3>
-              <Heading4>{availableBarber.specialization}</Heading4>
+              <Heading5>{availableBarber.specialization}</Heading5>
             </BarberDescription>
           </BarberCard>
         ))}

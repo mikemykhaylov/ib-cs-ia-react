@@ -35,9 +35,10 @@ const MotionContainer = styled(motion.div)`
 
 const ContentContainer = styled.div`
   margin-top: calc(100vh * 96 / 1080);
-  padding: 0 calc(100vw * 245 / 1920);
+  padding: 0 calc(100vw * 196 / 1920);
   margin-bottom: 100px;
-  min-height: calc(100vh - 45px - 100px - 100vh * 96 / 1080);
+  min-height: calc(100vh - 45px);
+  box-sizing: border-box;
   display: flex;
   justify-content: flex-start;
   align-items: center;

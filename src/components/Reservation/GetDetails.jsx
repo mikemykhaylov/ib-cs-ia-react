@@ -25,7 +25,7 @@ const GetDetailsWrap = styled.div`
   & > *:not(:last-child) {
     margin-bottom: 64px;
   }
-  @media (min-width: 1200px) {
+  @media (min-width: 992px) {
     align-items: flex-start;
     flex-direction: row;
     & > *:not(:last-child) {
@@ -37,7 +37,7 @@ const GetDetailsWrap = styled.div`
 const GetDetailsContainer = styled.div`
   width: 100%;
   & > *:not(:last-child) {
-    margin-bottom: 32px;
+    margin-bottom: 16px;
   }
   @media (min-width: 576px) {
     width: 400px;

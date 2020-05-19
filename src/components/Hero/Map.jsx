@@ -38,7 +38,7 @@ function Map() {
         // eslint-disable-next-line react/style-prop-object
         style="mapbox://styles/jayteejee/ckab8ccdh2dt31io598i49sz3"
         containerStyle={{
-          height: '600px',
+          height: '50vh',
           width: '100%',
         }}
         center={[21.033424, 52.207035]}

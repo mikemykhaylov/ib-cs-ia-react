@@ -5,10 +5,9 @@ import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
 import { Heading2, Heading4, Text } from './Headings';
 
 const FooterContainer = styled.footer`
-  width: 100%;
-  box-sizing: border-box;
-  padding: calc(100vw * 100 / 1920);
-  padding-top: 100px;
+  width: calc(100vw - 2 * 100vw * 50 / 1920);
+  margin: calc(100vw * 50 / 1920);
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -32,26 +31,30 @@ const FooterWrap = styled.div`
   width: 100%;
   max-width: 850px;
   margin-bottom: 64px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 1fr;
+  grid-gap: 32px;
+  /* flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   & > *:not(:last-child) {
     margin-bottom: 32px;
-  }
+  } */
   @media (min-width: 992px) {
-    flex-direction: row;
+    grid-template-columns: repeat(3, 1fr);
+    /* flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
     & > *:not(:last-child) {
       margin-bottom: 0px;
-    }
+    } */
   }
 `;
 
 const FooterContactSection = styled.div`
   text-align: center;
-  max-width: 230px;
+  min-width: 230px;
   & > *:not(:last-child) {
     margin-bottom: 32px;
   }
@@ -95,7 +98,11 @@ function Footer() {
         </FooterContactSection>
         <FooterContactSection>
           <Heading4>CONTACTS</Heading4>
-          <Text>(303) 555-0105 stanley.baker@example.com</Text>
+          <Text>
+            (303) 555-0105
+            <br />
+            stanley.baker@example.com
+          </Text>
         </FooterContactSection>
         <FooterContactSection>
           <Heading4>WORKING HOURS</Heading4>

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
+import useWindowWidth from '../../hooks/useWindowWidth';
+
 import { Heading2, Heading4 } from '../General/Headings';
 
 import Time from '../Icons/Time';
@@ -37,6 +39,7 @@ const Way = styled.div`
 
 function SelectWay({ setTimeFirst }) {
   const history = useHistory();
+  const windowWidth = useWindowWidth();
   const handleWaySelect = (timeFirst) => {
     setTimeFirst(timeFirst);
     history.push('/reserve/step2');
@@ -51,11 +54,11 @@ function SelectWay({ setTimeFirst }) {
       </Heading2>
       <SelectWayWrap>
         <Way onClick={() => handleWaySelect(true)}>
-          <Time color={primaryColor} height={240} />
+          <Time color={primaryColor} height={windowWidth >= 768 ? 180 : 240} />
           <Heading4>Reserve for a specific time</Heading4>
         </Way>
         <Way onClick={() => handleWaySelect(false)}>
-          <Barber color={primaryColor} height={240} />
+          <Barber color={primaryColor} height={windowWidth >= 768 ? 180 : 240} />
           <Heading4>Reserve for a specific master</Heading4>
         </Way>
       </SelectWayWrap>

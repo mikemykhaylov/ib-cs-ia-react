@@ -46,6 +46,9 @@ const TimePicker = styled.div`
   grid-template-columns: repeat(3, minmax(80px, 100px));
   grid-auto-rows: 50px;
   grid-gap: 32px;
+  @media (min-width: 992px) {
+    grid-template-columns: repeat(4, minmax(80px, 100px));
+  }
 `;
 
 const Time = styled.div`

@@ -60,8 +60,11 @@ const StorySubtitle = styled(Heading4)`
 const StoryDescription = styled(Text)`
   width: 100%;
   margin-bottom: 64px;
+  @media (min-width: 992px) {
+    width: 50vw;
+  }
   @media (min-width: 1200px) {
-    max-width: calc(100vw / 2 - 10px - 100vw * 245 / 1920);
+    width: calc(100vw / 2 - 40px - 100vw * 245 / 1920);
   }
 `;
 

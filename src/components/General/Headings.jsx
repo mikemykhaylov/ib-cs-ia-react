@@ -15,7 +15,7 @@ export const Heading2 = styled.h2`
   font-family: Merriweather;
   font-style: normal;
   font-weight: 900;
-  font-size: 3.375rem;
+  font-size: 3rem;
   color: ${(props) => props.color || lightGrayColor};
 `;
 export const Heading3 = styled.h3`

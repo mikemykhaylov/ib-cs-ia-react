@@ -30,13 +30,17 @@ const MainContainer = styled.div`
   & > *:not(:first-child) {
     margin-bottom: 64px;
   }
+  @media (min-width: 992px) {
+    height: 100vh;
+    padding-bottom: 0;
+  }
 `;
 
 const MainHeading = styled(Heading1)`
-  margin-top: calc(100vh * 160 / 1080);
+  margin-top: calc(100vh * 96 / 1080);
   text-align: center;
   @media (min-width: 992px) {
-    margin-top: 128px;
+    margin-top: 5vw;
   }
 `;
 
@@ -48,7 +52,7 @@ const MainServicesContainer = styled.div`
   & > *:not(:last-child) {
     margin-bottom: 64px;
   }
-  @media (min-width: 576px) {
+  @media (min-width: 768px) {
     flex-direction: row;
     width: 560px;
     & > *:not(:last-child) {

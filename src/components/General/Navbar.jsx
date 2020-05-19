@@ -13,8 +13,8 @@ import useWindowWidth from '../../hooks/useWindowWidth';
 const NavbarContainer = styled.header`
   display: flex;
   justify-content: space-between;
-  width: calc(100vw - 2 * 100vw * 100 / 1920);
-  margin: calc(100vw * 100 / 1920);
+  width: calc(100vw - 2 * 100vw * 50 / 1920);
+  margin: calc(100vw * 50 / 1920);
   margin-bottom: 0;
   flex-direction: column;
   align-items: center;
