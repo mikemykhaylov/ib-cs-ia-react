@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
@@ -80,35 +80,36 @@ const LogoutButton = styled.button`
   border: none;
   background: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 `;
 
 function Navbar({ loginPage }) {
   const width = useWindowWidth();
   const [showMobileNav, setShowMobileNav] = useState(false);
-  let userActionButton = firebase.auth().currentUser ? (
-    <LogoutButton onClick={() => firebase.auth().signOut()}>
-      <Logout firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
-    </LogoutButton>
-  ) : (
-    <LoginLink to="/login">
-      <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
-    </LoginLink>
-  );
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      userActionButton = (
-        <LogoutButton onClick={() => firebase.auth().signOut()}>
-          <Logout firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
-        </LogoutButton>
-      );
-    } else {
-      userActionButton = (
-        <LoginLink to="/login">
-          <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
-        </LoginLink>
-      );
-    }
-  });
+  const [loggedIn, setLoggedIn] = useState(null);
+  let userActionButton;
+  if (loggedIn !== null) {
+    userActionButton = loggedIn ? (
+      <LogoutButton onClick={() => firebase.auth().signOut()}>
+        <Logout firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+      </LogoutButton>
+    ) : (
+      <LoginLink to="/login">
+        <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+      </LoginLink>
+    );
+  }
+  useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
   return (
     <NavbarContainer>
       {width >= 992 ? (
