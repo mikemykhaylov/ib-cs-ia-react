@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import ky from 'ky';
 
 import Navbar from '../components/General/Navbar';

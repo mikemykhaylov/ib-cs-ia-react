@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 import Navbar from '../components/General/Navbar';
 import { Heading2, Heading3, LinkText } from '../components/General/Headings';
