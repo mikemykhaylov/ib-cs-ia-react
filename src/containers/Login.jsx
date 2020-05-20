@@ -31,13 +31,6 @@ const LoginContainer = styled.div`
   }
 `;
 
-const FormControls = styled.div`
-  text-align: center;
-  & > *:first-child {
-    margin-bottom: 16px;
-  }
-`;
-
 const ErrorContainer = styled.div`
   width: 100%;
   text-align: center;
@@ -55,7 +48,8 @@ function Login() {
   const handleInput = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setInProcessOfLoggingIn(true);
     const barberData = { ...userInfo };
     const errors = validateUserCredentials(barberData, false);
@@ -104,15 +98,13 @@ function Login() {
               errorsObj={errorsObj}
             />
           </FormRow>
-        </FormContainer>
-        <FormControls>
           <Link to="/forgotpassword">
             <LinkText color={grayColor}>Forgot your password?</LinkText>
           </Link>
-          <PrimaryButton onClick={handleSubmit}>
+          <PrimaryButton type="submit" onClick={handleSubmit}>
             {inProcessOfLoggingIn ? <Loading height="100%" width="100%" /> : 'Log in'}
           </PrimaryButton>
-        </FormControls>
+        </FormContainer>
       </LoginContainer>
       <Footer />
     </>

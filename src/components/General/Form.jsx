@@ -10,7 +10,7 @@ import {
 } from '../../constants/websiteColors';
 import { Heading4, Heading5 } from './Headings';
 
-export const FormContainer = styled.div`
+export const FormContainer = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
