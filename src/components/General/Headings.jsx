@@ -56,4 +56,3 @@ export const Text = styled.p`
 export const LinkText = styled(Text)`
   text-decoration: underline;
 `;
-

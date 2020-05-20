@@ -26,7 +26,7 @@ const MapSubtitle = styled(Heading4)`
 const MapGL = ReactMapboxGl({
   accessToken:
     'pk.eyJ1IjoiamF5dGVlamVlIiwiYSI6ImNrYThrZ2hzbzBkcGoyeG8zc2NtaHQ2YzgifQ.1UiyuJ_rZkCd3W57XTAaPg',
-    scrollZoom: false
+  scrollZoom: false,
 });
 
 function Map() {

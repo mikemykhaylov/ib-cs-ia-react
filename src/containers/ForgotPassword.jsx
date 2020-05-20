@@ -57,7 +57,7 @@ function ForgotPassword() {
       newErrorsObj = { valid: false, errors: { email: 'Must not be empty' } };
     }
     if (newErrorsObj && !newErrorsObj.valid) {
-      setErrorsObj({...newErrorsObj})
+      setErrorsObj({ ...newErrorsObj });
       return;
     }
     try {
@@ -66,7 +66,7 @@ function ForgotPassword() {
       let errorMsg = err.code.split('/')[1].replace(/-/g, ' ');
       errorMsg = errorMsg.charAt(0).toUpperCase() + errorMsg.slice(1);
       setDBErrors({ error: errorMsg });
-      return
+      return;
     }
     setSentPasswordReset(true);
   };
@@ -74,7 +74,9 @@ function ForgotPassword() {
     <>
       <Navbar />
       <ForgotPasswordContainer>
-        <Heading2>{sentPasswordReset ? 'Successfully sent password reset link' : 'Reset password'}</Heading2>
+        <Heading2>
+          {sentPasswordReset ? 'Successfully sent password reset link' : 'Reset password'}
+        </Heading2>
         {!sentPasswordReset && (
           <>
             {DBErrors.error && (

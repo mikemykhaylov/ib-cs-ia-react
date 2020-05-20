@@ -122,7 +122,7 @@ function SelectTime({ time, setTime, timeFirst, currentBarber }) {
             );
             setLoadedBusyHours(true);
           })
-          .catch(() => {  })
+          .catch(() => {});
       }, 500);
       // Aborting request if user leaves page before loading available times
       return () => controller.abort();

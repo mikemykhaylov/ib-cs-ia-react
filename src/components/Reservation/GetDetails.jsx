@@ -5,11 +5,7 @@ import styled from 'styled-components/macro';
 import ky from 'ky';
 
 import { Heading2, Heading4, Heading3 } from '../General/Headings';
-import {
-  grayColor,
-  lightGrayColor,
-  primaryColor,
-} from '../../constants/websiteColors';
+import { grayColor, lightGrayColor, primaryColor } from '../../constants/websiteColors';
 import Barber from '../Icons/Barber';
 import { SecondaryButton, PrimaryButton } from '../General/Buttons';
 
