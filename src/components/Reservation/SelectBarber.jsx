@@ -144,7 +144,7 @@ function SelectBarber({ time, timeFirst, currentBarber, setCurrentBarber }) {
         <ButtonsContainer>
           <SecondaryButton
             onClick={() => {
-              // Resetting the time on going back to previous step
+              // Resetting the barber on going back to previous step
               setCurrentBarber({
                 firstName: '',
                 lastName: '',

@@ -110,7 +110,7 @@ function Reservation() {
   );
 
   // If user chose master before time, we swap the components
-  // If user has decided yet, we make all next steps unavailable
+  // If user has not decided yet, we make all next steps unavailable
   switch (timeFirst) {
     case false:
       [Step2Component, Step3Component] = [Step3Component, Step2Component];

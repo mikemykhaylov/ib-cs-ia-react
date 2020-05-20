@@ -57,18 +57,6 @@ const GalleryImageDarken = styled.div`
 `;
 
 // TODO Add fullscreen image view
-// const GalleryFullscreenImage = styled.div`
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100vw;
-//   height: 100vh;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   overflow: hidden;
-//   background-color: rgba(35, 35, 35, 0.8);
-// `;
 
 function Gallery() {
   const width = useWindowWidth();

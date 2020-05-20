@@ -48,9 +48,6 @@ function Map() {
           <Location color={primaryColor} height={48} />
         </Marker>
         <ZoomControl />
-        {/* <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>
-          <Feature coordinates={[21.033424, 52.207035]} properties={{}} />
-        </Layer> */}
       </MapGL>
     </MapContainer>
   );

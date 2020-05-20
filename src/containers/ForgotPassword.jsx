@@ -41,13 +41,22 @@ const ErrorContainer = styled.div`
 `;
 
 function ForgotPassword() {
+  // The email user enters
   const [userEmail, setUserEmail] = useState('');
+
+  // Determines, if the user has submitted the reset form
   const [sentPasswordReset, setSentPasswordReset] = useState(false);
+
+  // Validation and db errors
   const [errorsObj, setErrorsObj] = useState(null);
   const [DBErrors, setDBErrors] = useState({ error: null });
+
+  // Form input handler
   const handleInput = (e) => {
     setUserEmail(e.target.value);
   };
+
+  // Form submit handler
   const handleSubmit = async () => {
     let newErrorsObj = null;
     if (!isEmail(userEmail)) {

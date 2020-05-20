@@ -38,16 +38,26 @@ const ErrorContainer = styled.div`
 
 function Login() {
   const history = useHistory();
+
+  // Email and password user enters
   const [userInfo, setUserInfo] = useState({
     email: '',
     password: '',
   });
+
+  // Validation and db errors
   const [errorsObj, setErrorsObj] = useState(null);
   const [DBErrors, setDBErrors] = useState({ error: null });
+
+  // Determines if user has submitted the form
   const [inProcessOfLoggingIn, setInProcessOfLoggingIn] = useState(false);
+
+  // Form input handler
   const handleInput = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
+
+  // Form submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     setInProcessOfLoggingIn(true);

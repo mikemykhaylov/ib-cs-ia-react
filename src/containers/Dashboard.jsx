@@ -99,12 +99,16 @@ const AppointmentTimeSpan = styled.span`
 `;
 
 function Dashboard() {
+  // User data from firebase.auth()
+  const { currentUser: firebaseCurrentUser } = firebase.auth();
+
+  // Default date to show appointments for
   const currentLocalDate = new Date();
   const currentPolandISODate = `${currentLocalDate.toISOString().slice(0, 11)}02:00:00+02:00`;
   const currentPolandDate = new Date(currentPolandISODate);
-
   const [time, setTime] = useState(currentPolandDate);
-  const { currentUser: firebaseCurrentUser } = firebase.auth();
+
+  // Assembling used data from firebase to component user
   const [currentUser, setCurrentUser] = useState({
     displayName: firebaseCurrentUser.displayName,
     profileImageURL: firebaseCurrentUser.photoURL,
@@ -112,9 +116,13 @@ function Dashboard() {
     id: firebaseCurrentUser.uid,
   });
 
+  // Determines the appointments for selected time and whether appointments
+  // are in the process of loading
   const [appointments, setAppointments] = useState([]);
   const [loadedAppointments, setLoadedAppointments] = useState(false);
 
+  // On component mount we load additional info about the barber,
+  // which is not stored in firebase user
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
@@ -126,12 +134,14 @@ function Dashboard() {
           signal,
         },
       );
+      // Adding this new data to existing component user
       setCurrentUser({ ...currentUser, ...barber });
     })();
     // Aborting request if user leaves page before loading available times
     return () => controller.abort();
   }, []);
 
+  // Loading all appointments for selected date
   useEffect(() => {
     setLoadedAppointments(false);
     const controller = new AbortController();
@@ -143,6 +153,7 @@ function Dashboard() {
           'https://europe-west3-dywizjon-303.cloudfunctions.net/api/appointments/getforday/name',
           {
             json: { day: time.toISOString().substring(0, 10), barberID: currentUser.id },
+            // Getting and passing the user token with the request
             headers: new Headers({
               Authorization: `Bearer ${token}`,
             }),
@@ -157,6 +168,7 @@ function Dashboard() {
     return () => controller.abort();
   }, [time]);
 
+  // Mapping appointments to cards
   let appointmentsCards;
   if (appointments.length === 0) {
     appointmentsCards = <Heading4>No appointments for this day</Heading4>;
@@ -203,6 +215,8 @@ function Dashboard() {
             day: 'numeric',
           })}`}
         </Heading3>
+        {/* If appointments are loading, or there are none for the date,
+        we set the loaded to false, therefore stretching the grids */}
         <AppointmentsWrap loaded={!(!loadedAppointments || appointments.length === 0)}>
           {loadedAppointments ? appointmentsCards : <Loading height="80px" width="100%" />}
         </AppointmentsWrap>

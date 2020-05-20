@@ -56,14 +56,15 @@ const GetDetailsInput = styled.input`
   }
 `;
 
+const toCamelCase = (str) => {
+  return str
+    .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) => {
+      return index === 0 ? word.toLowerCase() : word.toUpperCase();
+    })
+    .replace(/\s+/g, '');
+};
+
 export const Input = ({ heading, value, type, onChange, errorsObj }) => {
-  const toCamelCase = (str) => {
-    return str
-      .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) => {
-        return index === 0 ? word.toLowerCase() : word.toUpperCase();
-      })
-      .replace(/\s+/g, '');
-  };
   return (
     <GetDetailsInputGroup>
       <Heading4>{heading}:</Heading4>

@@ -114,11 +114,14 @@ function Navbar({ loginPage }) {
   const [showMobileNav, setShowMobileNav] = useState(false);
   const [loggedIn, setLoggedIn] = useState(null);
 
+  // Logout handler
   const handleLogout = async () => {
     setLoggedIn(false);
     await firebase.auth().signOut();
     history.push('/');
   };
+
+  // Showing the user login or logout button and a photo
   let userActionButton;
   if (loggedIn !== null) {
     userActionButton = loggedIn ? (
@@ -136,6 +139,8 @@ function Navbar({ loginPage }) {
       </CenteredLink>
     );
   }
+
+  // Subscribing to auth change to display proper user actions
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
