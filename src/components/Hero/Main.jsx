@@ -37,6 +37,9 @@ const MainContainer = styled.div`
     height: 100vh;
     padding-bottom: 0;
   }
+  @supports (-webkit-touch-callout: none) {
+    background-attachment: scroll;
+  }
 `;
 
 const MainHeadingContainer = styled.div`
