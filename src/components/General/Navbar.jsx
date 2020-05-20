@@ -5,13 +5,14 @@ import styled from 'styled-components/macro';
 
 import Logo from '../Icons/Logo';
 import Login from '../Icons/Login';
+import Logout from '../Icons/Logout';
 import Menu from '../Icons/Menu';
 
 import { Heading4, Heading5 } from './Headings';
+
 import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
 import firebase from '../../utils/firebaseSetup';
 import useWindowWidth from '../../hooks/useWindowWidth';
-import Logout from '../Icons/Logout';
 
 const NavbarContainer = styled.header`
   display: flex;
@@ -69,7 +70,30 @@ const NavbarMobileButton = styled.button`
   cursor: pointer;
 `;
 
-const LoginLink = styled(Link)`
+const UserActions = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  & > *:not(:last-child) {
+    margin-right: 20px;
+  }
+  @media (min-width: 1520px) {
+    & > *:not(:last-child) {
+      margin-right: 40px;
+    }
+  }
+`;
+
+const UserImage = styled.img`
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+`;
+
+const CenteredLink = styled(Link)`
   display: flex;
   align-items: center;
 `;
@@ -90,20 +114,26 @@ function Navbar({ loginPage }) {
   const [showMobileNav, setShowMobileNav] = useState(false);
   const [loggedIn, setLoggedIn] = useState(null);
 
-  const handleLogout = () => {
-    firebase.auth().signOut();
+  const handleLogout = async () => {
+    setLoggedIn(false);
+    await firebase.auth().signOut();
     history.push('/');
   };
   let userActionButton;
   if (loggedIn !== null) {
     userActionButton = loggedIn ? (
-      <LogoutButton onClick={handleLogout}>
-        <Logout firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
-      </LogoutButton>
+      <UserActions>
+        <CenteredLink to="/dashboard">
+          <UserImage src={firebase.auth().currentUser.photoURL} />
+        </CenteredLink>
+        <LogoutButton onClick={handleLogout}>
+          <Logout firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+        </LogoutButton>
+      </UserActions>
     ) : (
-      <LoginLink to="/login">
+      <CenteredLink to="/login">
         <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
-      </LoginLink>
+      </CenteredLink>
     );
   }
   useEffect(() => {
