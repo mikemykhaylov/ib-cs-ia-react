@@ -9,6 +9,8 @@ import Loading from './General/Loading';
 
 const Hero = React.lazy(() => import('../containers/Hero'));
 const Reservation = React.lazy(() => import('../containers/Reservation'));
+const Login = React.lazy(() => import('../containers/Login'));
+const ForgotPassword = React.lazy(() => import('../containers/ForgotPassword'));
 
 const GlobalStyle = createGlobalStyle`
 ${fontFaces}
@@ -40,6 +42,16 @@ function App() {
         <Route path="/reserve">
           <Suspense fallback={<Loading width="100vw" height="100vh" />}>
             <Reservation />
+          </Suspense>
+        </Route>
+        <Route path="/login">
+          <Suspense fallback={<Loading width="100vw" height="100vh" />}>
+            <Login />
+          </Suspense>
+        </Route>
+        <Route path="/forgotpassword">
+          <Suspense fallback={<Loading width="100vw" height="100vh" />}>
+            <ForgotPassword />
           </Suspense>
         </Route>
       </Switch>

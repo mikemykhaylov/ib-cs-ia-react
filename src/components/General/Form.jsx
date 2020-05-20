@@ -11,6 +11,9 @@ import { Heading4, Heading5 } from './Headings';
 
 export const FormContainer = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   & > *:not(:last-child) {
     margin-bottom: 16px;
   }
@@ -20,6 +23,7 @@ export const FormContainer = styled.div`
 `;
 
 export const FormRow = styled.div`
+  width: 100%;
   display: flex;
   & > *:not(:last-child) {
     margin-right: 16px;
@@ -61,10 +65,7 @@ export const Input = ({ heading, value, type, onChange, errorsObj }) => {
   };
   return (
     <GetDetailsInputGroup>
-      <Heading4>
-        {heading}
-        :
-      </Heading4>
+      <Heading4>{heading}:</Heading4>
       <GetDetailsInput
         name={toCamelCase(heading)}
         onChange={onChange}
@@ -77,7 +78,7 @@ export const Input = ({ heading, value, type, onChange, errorsObj }) => {
       )}
     </GetDetailsInputGroup>
   );
-}
+};
 
 Input.propTypes = {
   heading: PropTypes.string.isRequired,
@@ -87,9 +88,13 @@ Input.propTypes = {
   errorsObj: PropTypes.shape({
     valid: PropTypes.bool,
     errors: PropTypes.object,
-  }).isRequired,
+  }),
 };
 
 Input.defaultProps = {
-  type: 'text'
-}
+  type: 'text',
+  errorsObj: {
+    valid: true,
+    errors: {},
+  },
+};

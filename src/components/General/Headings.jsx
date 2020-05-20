@@ -52,3 +52,8 @@ export const Text = styled.p`
   line-height: 24px;
   color: ${(props) => props.color || lightGrayColor};
 `;
+
+export const LinkText = styled(Text)`
+  text-decoration: underline;
+`;
+

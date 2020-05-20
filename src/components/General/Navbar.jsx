@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import styled from 'styled-components/macro';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components/macro';
 
 import Logo from '../Icons/Logo';
 import Login from '../Icons/Login';
@@ -8,7 +9,9 @@ import Menu from '../Icons/Menu';
 
 import { Heading4, Heading5 } from './Headings';
 import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
+import firebase from '../../utils/firebaseSetup';
 import useWindowWidth from '../../hooks/useWindowWidth';
+import Logout from '../Icons/Logout';
 
 const NavbarContainer = styled.header`
   display: flex;
@@ -66,9 +69,46 @@ const NavbarMobileButton = styled.button`
   cursor: pointer;
 `;
 
-function Navbar() {
+const LoginLink = styled(Link)`
+  display: flex;
+  align-items: center;
+`;
+
+const LogoutButton = styled.button`
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+`;
+
+function Navbar({ loginPage }) {
   const width = useWindowWidth();
   const [showMobileNav, setShowMobileNav] = useState(false);
+  let userActionButton = firebase.auth().currentUser ? (
+    <LogoutButton onClick={() => firebase.auth().signOut()}>
+      <Logout firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+    </LogoutButton>
+  ) : (
+    <LoginLink to="/login">
+      <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+    </LoginLink>
+  );
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      userActionButton = (
+        <LogoutButton onClick={() => firebase.auth().signOut()}>
+          <Logout firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+        </LogoutButton>
+      );
+    } else {
+      userActionButton = (
+        <LoginLink to="/login">
+          <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+        </LoginLink>
+      );
+    }
+  });
   return (
     <NavbarContainer>
       {width >= 992 ? (
@@ -85,7 +125,7 @@ function Navbar() {
           <NavbarMenu>
             <Heading5>RU</Heading5>
             <Heading5>PL</Heading5>
-            <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+            {loginPage ? null : userActionButton}
           </NavbarMenu>
         </>
       ) : (
@@ -94,7 +134,10 @@ function Navbar() {
             <Link aria-label="Go to the main page" to="/">
               <Logo color={primaryColor} height={40} />
             </Link>
-            <NavbarMobileButton aria-label="Show Mobile Navigation" onClick={() => setShowMobileNav(!showMobileNav)}>
+            <NavbarMobileButton
+              aria-label="Show Mobile Navigation"
+              onClick={() => setShowMobileNav(!showMobileNav)}
+            >
               <Menu color={lightGrayColor} height={40} />
             </NavbarMobileButton>
           </NavbarMobileTopMenu>
@@ -109,7 +152,7 @@ function Navbar() {
               <NavbarMenu>
                 <Heading4>RU</Heading4>
                 <Heading4>PL</Heading4>
-                <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+                {loginPage ? null : userActionButton}
               </NavbarMenu>
             </>
           ) : null}
@@ -118,5 +161,13 @@ function Navbar() {
     </NavbarContainer>
   );
 }
+
+Navbar.propTypes = {
+  loginPage: PropTypes.bool,
+};
+
+Navbar.defaultProps = {
+  loginPage: false,
+};
 
 export default Navbar;
