@@ -1,8 +1,14 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import Logo from '../Icons/Logo';
-import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
+
 import { Heading2, Heading4, Text } from './Headings';
+
+import Logo from '../Icons/Logo';
+import PlaneRight from '../Icons/PlaneRight';
+import PlaneLeft from '../Icons/PlaneLeft';
+
+import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
+import useWindowWidth from '../../hooks/useWindowWidth';
 
 const FooterContainer = styled.footer`
   width: calc(100vw - 2 * 100vw * 50 / 1920);
@@ -18,7 +24,12 @@ const FooterArt = styled.div`
   display: flex;
   margin-bottom: 32px;
   & > *:not(:last-child) {
-    margin-right: 80px;
+    margin-right: 40px;
+  }
+  @media (min-width: 992px) {
+    & > *:not(:last-child) {
+      margin-right: 80px;
+    }
   }
 `;
 
@@ -35,20 +46,8 @@ const FooterWrap = styled.div`
   grid-template-columns: 1fr;
   grid-auto-rows: 1fr;
   grid-gap: 32px;
-  /* flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  & > *:not(:last-child) {
-    margin-bottom: 32px;
-  } */
   @media (min-width: 992px) {
     grid-template-columns: repeat(3, 1fr);
-    /* flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    & > *:not(:last-child) {
-      margin-bottom: 0px;
-    } */
   }
 `;
 
@@ -85,10 +84,13 @@ const FooterCreditsText = styled(Text)`
 `;
 
 function Footer() {
+  const width = useWindowWidth();
   return (
     <FooterContainer>
       <FooterArt>
+        {width > 768 && <PlaneLeft height={64} color={lightGrayColor} />}
         <Logo color={primaryColor} height={60} />
+        {width > 768 && <PlaneRight height={64} color={lightGrayColor} />}
       </FooterArt>
       <FooterTitle>Contact Us</FooterTitle>
       <FooterWrap>

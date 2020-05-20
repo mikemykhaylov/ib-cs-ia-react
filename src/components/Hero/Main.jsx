@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
-import { primaryColor } from '../../constants/websiteColors';
+import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
 import heroImage from '../../images/Hero Image.jpg';
+import useWindowWidth from '../../hooks/useWindowWidth';
 
 import { PrimaryButton } from '../General/Buttons';
 import Navbar from '../General/Navbar';
@@ -12,6 +13,8 @@ import { Heading1, Heading3, Heading5 } from '../General/Headings';
 import Scissors from '../Icons/Scissors';
 import Razor from '../Icons/Razor';
 import AfroPick from '../Icons/AfroPick';
+import PlaneLeft from '../Icons/PlaneLeft';
+import PlaneRight from '../Icons/PlaneRight';
 
 const MainContainer = styled.div`
   align-items: center;
@@ -36,11 +39,19 @@ const MainContainer = styled.div`
   }
 `;
 
-const MainHeading = styled(Heading1)`
+const MainHeadingContainer = styled.div`
+  display: flex;
   margin-top: calc(100vh * 96 / 1080);
+  align-items: center;
   text-align: center;
+  & > *:not(:last-child) {
+    margin-right: 40px;
+  }
   @media (min-width: 992px) {
     margin-top: 5vw;
+    & > *:not(:last-child) {
+      margin-right: 80px;
+    }
   }
 `;
 
@@ -73,10 +84,15 @@ const MainServiceName = styled(Heading5)`
 `;
 
 function Main() {
+  const width = useWindowWidth();
   return (
     <MainContainer>
       <Navbar />
-      <MainHeading>dywizjon 303</MainHeading>
+      <MainHeadingContainer>
+        {width > 768 && <PlaneLeft height={64} color={lightGrayColor} />}
+        <Heading1>dywizjon 303</Heading1>
+        {width > 768 && <PlaneRight height={64} color={lightGrayColor} />}
+      </MainHeadingContainer>
       <MainServicesContainer>
         <MainService>
           <Razor color={primaryColor} height={60} />
