@@ -69,7 +69,7 @@ const Day = styled.div`
   }
 `;
 
-function Calendar({ time, setTime }) {
+function Calendar({ time, setTime, allDates }) {
   const dayOfWeekOfMonthBeginning = new Date(time.getFullYear(), time.getMonth(), 1).getDay();
   const daysInCurrentMonth = new Date(time.getFullYear(), time.getMonth() + 1, 0).getDate();
   const days = [];
@@ -78,7 +78,9 @@ function Calendar({ time, setTime }) {
       <Day
         key={i}
         active={i === time.getDate()}
-        onClick={i >= new Date().getDate() ? () => setTime(new Date(time.setDate(i))) : null}
+        onClick={
+          i >= new Date().getDate() || allDates ? () => setTime(new Date(time.setDate(i))) : null
+        }
       >
         <Heading4>{i}</Heading4>
       </Day>
@@ -90,7 +92,8 @@ function Calendar({ time, setTime }) {
         <ChangeMonthButton
           onClick={
             time.getMonth() - 1 >= new Date().getMonth() ||
-            time.getFullYear() > new Date().getFullYear()
+            time.getFullYear() > new Date().getFullYear() ||
+            allDates
               ? () => setTime(new Date(time.setMonth(time.getMonth() - 1)))
               : null
           }
@@ -121,6 +124,11 @@ function Calendar({ time, setTime }) {
 Calendar.propTypes = {
   time: PropTypes.instanceOf(Date).isRequired,
   setTime: PropTypes.func.isRequired,
+  allDates: PropTypes.bool,
+};
+
+Calendar.defaultProps = {
+  allDates: false,
 };
 
 export default Calendar;

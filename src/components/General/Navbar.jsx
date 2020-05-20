@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
 import Logo from '../Icons/Logo';
@@ -86,12 +86,18 @@ const LogoutButton = styled.button`
 
 function Navbar({ loginPage }) {
   const width = useWindowWidth();
+  const history = useHistory();
   const [showMobileNav, setShowMobileNav] = useState(false);
   const [loggedIn, setLoggedIn] = useState(null);
+
+  const handleLogout = () => {
+    firebase.auth().signOut();
+    history.push('/');
+  };
   let userActionButton;
   if (loggedIn !== null) {
     userActionButton = loggedIn ? (
-      <LogoutButton onClick={() => firebase.auth().signOut()}>
+      <LogoutButton onClick={handleLogout}>
         <Logout firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
       </LogoutButton>
     ) : (

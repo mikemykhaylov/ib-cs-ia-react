@@ -13,7 +13,7 @@ import Footer from '../components/General/Footer';
 import { grayColor } from '../constants/websiteColors';
 import Loading from '../components/General/Loading';
 
-const LoginContainer = styled.div`
+const LoginContainer = styled.section`
   margin-top: calc(100vh * 96 / 1080);
   padding: 0 calc(100vw * 196 / 1920);
   margin-bottom: 100px;
@@ -67,7 +67,7 @@ function Login() {
       setInProcessOfLoggingIn(false);
       return;
     }
-    history.push('/');
+    history.push('/dashboard');
   };
   return (
     <>
