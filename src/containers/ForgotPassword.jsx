@@ -10,7 +10,7 @@ import firebase from '../utils/firebaseSetup';
 import { isEmail } from '../utils/validateInput';
 import Footer from '../components/General/Footer';
 
-const ForgotPasswordContainer = styled.div`
+const ForgotPasswordContainer = styled.section`
   margin-top: calc(100vh * 96 / 1080);
   padding: 0 calc(100vw * 196 / 1920);
   margin-bottom: 100px;
