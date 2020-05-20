@@ -228,9 +228,9 @@ function GetDetails({ time, currentBarber, userInfo, setUserInfo, setFinishedRes
           </ReservationSummaryBarberContainer>
         </GetDetailsContainer>
       </GetDetailsWrap>
-      {DBErrors.err && (
+      {DBErrors.error && (
         <ErrorContainer>
-          <Heading3>{DBErrors.err}</Heading3>
+          <Heading3>{DBErrors.error}</Heading3>
         </ErrorContainer>
       )}
       <ButtonsContainer>
