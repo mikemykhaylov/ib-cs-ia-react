@@ -3,7 +3,7 @@ const path = require('path');
 
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -93,6 +93,6 @@ module.exports = {
     new MiniCssExtractPlugin(),
     new BundleAnalyzerPlugin(),
     new CompressionPlugin(),
-    // new FaviconsWebpackPlugin('./public/logo.svg'),
+    new FaviconsWebpackPlugin('./public/logo.svg'),
   ],
 };
