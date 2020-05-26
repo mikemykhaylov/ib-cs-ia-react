@@ -4,6 +4,7 @@ import { createGlobalStyle } from 'styled-components/macro';
 import { Normalize } from 'styled-normalize';
 
 import Loading from './General/Loading';
+import NotFound from '../containers/NotFound';
 
 import fontFaces from '../fonts/fontsSetup';
 import { darkGrayColor } from '../constants/websiteColors';
@@ -76,6 +77,9 @@ function App() {
           <Suspense fallback={<Loading width="100vw" height="100vh" />}>
             <ForgotPassword />
           </Suspense>
+        </Route>
+        <Route path="/">
+          <NotFound />
         </Route>
       </Switch>
     </Router>
