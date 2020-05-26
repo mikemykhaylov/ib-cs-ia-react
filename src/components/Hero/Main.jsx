@@ -3,7 +3,6 @@ import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
 import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
-import heroImage from '../../images/Hero Image.jpg';
 import useWindowWidth from '../../hooks/useWindowWidth';
 
 import { PrimaryButton } from '../General/Buttons';
@@ -18,7 +17,8 @@ import PlaneRight from '../Icons/PlaneRight';
 
 const MainContainer = styled.div`
   align-items: center;
-  background: linear-gradient(rgba(35, 35, 35, 0.8), rgba(35, 35, 35, 0.8)), url(${heroImage});
+  background: linear-gradient(rgba(35, 35, 35, 0.8), rgba(35, 35, 35, 0.8)),
+    url('https://firebasestorage.googleapis.com/v0/b/dywizjon-303.appspot.com/o/mainPhotos%2FHero%20Image.jpg?alt=media&token=7451d4ef-82d1-4caf-a235-7fff1146bde8');
   background-position: center center;
   background-size: cover;
   background-attachment: fixed;

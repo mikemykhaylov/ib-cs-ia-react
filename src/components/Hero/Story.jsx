@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import storyImage from '../../images/Story Image.jpg';
 import { Heading2 as StoryTitle, Heading4, Text } from '../General/Headings';
 import { SecondaryButton } from '../General/Buttons';
 
@@ -71,7 +70,10 @@ const StoryDescription = styled(Text)`
 function Story() {
   return (
     <StoryContainer>
-      <StoryImage alt="Front view of our barbershop" src={storyImage} />
+      <StoryImage
+        alt="Front view of our barbershop"
+        src="https://firebasestorage.googleapis.com/v0/b/dywizjon-303.appspot.com/o/mainPhotos%2FStory%20Image.jpg?alt=media&token=b61c81ca-a625-45e0-9447-70db62744de7"
+      />
       <StoryWrap>
         <StoryTitle>Who are we?</StoryTitle>
         <StorySubtitle color={primaryColor}>Traditions coupled with innovation</StorySubtitle>
