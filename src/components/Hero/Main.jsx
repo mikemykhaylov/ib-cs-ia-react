@@ -93,24 +93,28 @@ function Main() {
       <Navbar />
       <MainHeadingContainer>
         {width > 768 && <PlaneLeft height={64} color={lightGrayColor} />}
-        <Heading1>dywizjon 303</Heading1>
+        <Heading1>
+          Dywizjon 303
+          <br />
+          Barbershop
+        </Heading1>
         {width > 768 && <PlaneRight height={64} color={lightGrayColor} />}
       </MainHeadingContainer>
       <MainServicesContainer>
         <MainService>
+          <Scissors color={primaryColor} height={60} />
+          <MainServiceName>Haircut</MainServiceName>
+          <Heading3>80zł</Heading3>
+        </MainService>
+        <MainService>
           <Razor color={primaryColor} height={60} />
           <MainServiceName>Shaving</MainServiceName>
-          <Heading3>40$</Heading3>
+          <Heading3>65zł</Heading3>
         </MainService>
         <MainService>
           <AfroPick color={primaryColor} height={60} />
-          <MainServiceName>Hairdo</MainServiceName>
-          <Heading3>50$</Heading3>
-        </MainService>
-        <MainService>
-          <Scissors color={primaryColor} height={60} />
-          <MainServiceName>Haircut</MainServiceName>
-          <Heading3>45$</Heading3>
+          <MainServiceName>Combo</MainServiceName>
+          <Heading3>130zł</Heading3>
         </MainService>
       </MainServicesContainer>
       <Link to="/reserve/step1">

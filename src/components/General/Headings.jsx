@@ -7,8 +7,11 @@ export const Heading1 = styled.h1`
   letter-spacing: 0.15em;
   font-style: normal;
   font-weight: bold;
-  font-size: 5rem;
+  font-size: 4rem;
   color: ${(props) => props.color || lightGrayColor};
+  @media (min-width: 576px) {
+    font-size: 5rem;
+  }
 `;
 
 export const Heading2 = styled.h2`
