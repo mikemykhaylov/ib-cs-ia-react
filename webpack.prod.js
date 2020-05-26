@@ -9,6 +9,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const CompressionPlugin = require('compression-webpack-plugin');
 const RobotstxtPlugin = require('robotstxt-webpack-plugin');
+const SitemapPlugin = require('sitemap-webpack-plugin').default;
 
 const robotsTxtOptions = {
   policy: [
@@ -22,6 +23,8 @@ const robotsTxtOptions = {
       allow: '/',
     },
   ],
+  sitemap: "https://303bs.pl/sitemap.xml",
+  host: "https://303bs.pl",
 };
 
 module.exports = {
@@ -109,6 +112,17 @@ module.exports = {
     new BundleAnalyzerPlugin(),
     new CompressionPlugin(),
     new FaviconsWebpackPlugin('./public/logo.svg'),
-    new RobotstxtPlugin(robotsTxtOptions)
+    new RobotstxtPlugin(robotsTxtOptions),
+    new SitemapPlugin('https://303bs.pl', [
+      '/',
+      '/reserve/step1',
+      '/reserve/step2',
+      '/reserve/step3',
+      '/reserve/step4',
+      '/reserve/success',
+      '/login',
+      '/dashboard',
+      '/forgotpassword'
+    ]),
   ],
 };
