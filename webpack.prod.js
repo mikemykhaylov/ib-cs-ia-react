@@ -8,6 +8,21 @@ const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const CompressionPlugin = require('compression-webpack-plugin');
+const RobotstxtPlugin = require('robotstxt-webpack-plugin');
+
+const robotsTxtOptions = {
+  policy: [
+    {
+      userAgent: 'Googlebot',
+      disallow: '/login',
+      crawlDelay: 2,
+    },
+    {
+      userAgent: '*',
+      allow: '/',
+    },
+  ],
+};
 
 module.exports = {
   resolve: {
@@ -18,7 +33,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/dist'),
     publicPath: '/',
-    filename: '[name].[hash].bundle.js'
+    filename: '[name].[hash].bundle.js',
   },
   module: {
     rules: [
@@ -94,5 +109,6 @@ module.exports = {
     new BundleAnalyzerPlugin(),
     new CompressionPlugin(),
     new FaviconsWebpackPlugin('./public/logo.svg'),
+    new RobotstxtPlugin(robotsTxtOptions)
   ],
 };
