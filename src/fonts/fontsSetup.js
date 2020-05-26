@@ -1,9 +1,10 @@
+import HelveticaNeueCondensedBoldWoff from './HelveticaNeue-BoldCondensed.woff';
+import HelveticaNeueCondensedBoldWoff2 from './HelveticaNeue-BoldCondensed.woff2';
+
 import MerriweatherBlackWoff from './Merriweather-Black.woff';
 import MerriweatherBlackWoff2 from './Merriweather-Black.woff2';
 import MerriweatherBoldWoff from './Merriweather-Bold.woff';
 import MerriweatherBoldWoff2 from './Merriweather-Bold.woff2';
-import MerriweatherLightWoff from './Merriweather-Light.woff';
-import MerriweatherLightWoff2 from './Merriweather-Light.woff2';
 
 import MontserratMediumWoff from './Montserrat-Medium.woff';
 import MontserratMediumWoff2 from './Montserrat-Medium.woff2';
@@ -22,6 +23,24 @@ const fontFaces = `
 }
 
 @font-face {
+  font-family: 'Merriweather';
+  src: url(${MerriweatherBoldWoff2}) format('woff2'),
+      url(${MerriweatherBoldWoff}) format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue Condensed';
+  src: local("Helvetica Neue Condensed Bold"),
+    local("HelveticaNeueCondensed-Bold"),
+    url(${HelveticaNeueCondensedBoldWoff2}) format('woff2'),
+    url(${HelveticaNeueCondensedBoldWoff}) format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Montserrat';
   src: url(${MontserratSemiBoldWoff2}) format('woff2'),
       url(${MontserratSemiBoldWoff}) format('woff');
@@ -34,22 +53,6 @@ const fontFaces = `
   src: url(${MontserratRegularWoff2}) format('woff2'),
       url(${MontserratRegularWoff}) format('woff');
   font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Merriweather';
-  src: url(${MerriweatherBoldWoff2}) format('woff2'),
-      url(${MerriweatherBoldWoff}) format('woff');
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Merriweather';
-  src: url(${MerriweatherLightWoff2}) format('woff2'),
-      url(${MerriweatherLightWoff}) format('woff');
-  font-weight: 300;
   font-style: normal;
 }
 

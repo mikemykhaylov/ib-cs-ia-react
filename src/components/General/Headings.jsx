@@ -3,9 +3,10 @@ import { lightGrayColor } from '../../constants/websiteColors';
 
 export const Heading1 = styled.h1`
   margin: 0;
-  font-family: Merriweather;
+  font-family: "Helvetica Neue Condensed";
+  letter-spacing: 0.15em;
   font-style: normal;
-  font-weight: 300;
+  font-weight: bold;
   font-size: 5rem;
   color: ${(props) => props.color || lightGrayColor};
 `;
