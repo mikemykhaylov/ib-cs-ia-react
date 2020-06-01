@@ -26,11 +26,12 @@ const SelectBarberWrap = styled.div`
 const BarberCard = styled.div`
   border-radius: 10px;
   background-color: ${darkerGrayColor};
-  border: ${(props) => props.active && `2px solid ${primaryColor}`};
+  border: 2px solid;
+  border-color: ${(props) => props.active ? primaryColor : darkerGrayColor};
   cursor: pointer;
   transition-duration: 200ms;
   &:hover {
-    border: 2px solid ${primaryColor};
+    border-color: ${primaryColor};
   }
 `;
 
