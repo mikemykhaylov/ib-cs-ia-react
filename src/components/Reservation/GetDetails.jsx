@@ -33,21 +33,21 @@ const GetDetailsWrap = styled.div`
 const GetDetailsContainer = styled.div`
   width: 100%;
   & > *:not(:last-child) {
-    margin-bottom: 16px;
+    margin-bottom: 32px;
   }
   @media (min-width: 576px) {
     width: 400px;
   }
 `;
 
-const ReservationSummaryTimeRow = styled.div`
+const ReservationSummaryRow = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
 `;
 
-const ReservationSummaryTime = styled.div`
-  text-align: center;
+const ReservationSummaryColumn = styled.div`
+  text-align: start;
 `;
 
 const ReservationSummaryBarberContainer = styled.div`
@@ -113,7 +113,14 @@ const ButtonsContainer = styled.div`
   }
 `;
 
-function GetDetails({ time, currentBarber, userInfo, setUserInfo, setFinishedReservation }) {
+function GetDetails({
+  time,
+  currentBarber,
+  currentService,
+  userInfo,
+  setUserInfo,
+  setFinishedReservation,
+}) {
   const history = useHistory();
 
   // Object containing all validation errors
@@ -129,7 +136,13 @@ function GetDetails({ time, currentBarber, userInfo, setUserInfo, setFinishedRes
 
   // Form submit handler
   const handleSubmit = async () => {
-    const newAppointment = { time: time.toISOString(), barberID: currentBarber.id, ...userInfo };
+    const newAppointment = {
+      time: time.toISOString(),
+      barberID: currentBarber.id,
+      serviceTitle: currentService.title,
+      hourHalves: currentService.hourHalves,
+      ...userInfo,
+    };
     const errors = await validateCreateAppointment(newAppointment);
     if (!errors.valid) {
       setErrorsObj(errors);
@@ -140,8 +153,8 @@ function GetDetails({ time, currentBarber, userInfo, setUserInfo, setFinishedRes
         json: newAppointment,
       })
       .json();
-    if (response.err) {
-      setDBErrors(response.err);
+    if (response.error) {
+      setDBErrors(response.error);
       return;
     }
     // Setting finishedReservation to true and allowing access to /reserve/success
@@ -191,8 +204,8 @@ function GetDetails({ time, currentBarber, userInfo, setUserInfo, setFinishedRes
         </FormContainer>
         <GetDetailsContainer>
           <Heading3>Reservation Summary</Heading3>
-          <ReservationSummaryTimeRow>
-            <ReservationSummaryTime>
+          <ReservationSummaryRow>
+            <ReservationSummaryColumn>
               <Heading4 color={lightGrayColor}>Date</Heading4>
               <Heading4 color={grayColor}>
                 {time.toLocaleDateString('en-GB', {
@@ -201,14 +214,24 @@ function GetDetails({ time, currentBarber, userInfo, setUserInfo, setFinishedRes
                   day: 'numeric',
                 })}
               </Heading4>
-            </ReservationSummaryTime>
-            <ReservationSummaryTime>
+            </ReservationSummaryColumn>
+            <ReservationSummaryColumn>
               <Heading4 color={lightGrayColor}>Time</Heading4>
               <Heading4 color={grayColor}>
                 {`${time.getUTCHours() + 2}:${time.getUTCMinutes().toString().padStart(2, '0')}`}
               </Heading4>
-            </ReservationSummaryTime>
-          </ReservationSummaryTimeRow>
+            </ReservationSummaryColumn>
+          </ReservationSummaryRow>
+          <ReservationSummaryRow>
+            <ReservationSummaryColumn>
+              <Heading4 color={lightGrayColor}>Service</Heading4>
+              <Heading4 color={grayColor}>{currentService.title}</Heading4>
+            </ReservationSummaryColumn>
+            <ReservationSummaryColumn>
+              <Heading4 color={lightGrayColor}>Money to bring</Heading4>
+              <Heading4 color={grayColor}>{`${currentService.price}zł`}</Heading4>
+            </ReservationSummaryColumn>
+          </ReservationSummaryRow>
           <ReservationSummaryBarberContainer>
             <Heading4>Barber</Heading4>
             <ReservationSummaryBarber>
@@ -245,6 +268,11 @@ GetDetails.propTypes = {
     specialization: PropTypes.string,
     profileImageURL: PropTypes.string,
     id: PropTypes.string,
+  }).isRequired,
+  currentService: PropTypes.shape({
+    price: PropTypes.number,
+    title: PropTypes.string,
+    hourHalves: PropTypes.number,
   }).isRequired,
   userInfo: PropTypes.shape({
     firstName: PropTypes.string,

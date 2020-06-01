@@ -3,7 +3,7 @@ import { lightGrayColor } from '../../constants/websiteColors';
 
 export const Heading1 = styled.h1`
   margin: 0;
-  font-family: "Helvetica Neue Condensed";
+  font-family: 'Helvetica Neue Condensed';
   letter-spacing: 0.15em;
   font-style: normal;
   font-weight: bold;

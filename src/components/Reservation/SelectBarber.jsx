@@ -27,7 +27,7 @@ const BarberCard = styled.div`
   border-radius: 10px;
   background-color: ${darkerGrayColor};
   border: 2px solid;
-  border-color: ${(props) => props.active ? primaryColor : darkerGrayColor};
+  border-color: ${(props) => (props.active ? primaryColor : darkerGrayColor)};
   cursor: pointer;
   transition-duration: 200ms;
   &:hover {

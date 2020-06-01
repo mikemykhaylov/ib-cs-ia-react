@@ -70,6 +70,11 @@ function Reservation() {
     profileImageURL: '',
     id: '',
   });
+  const [currentService, setCurrentService] = useState({
+    price: 0,
+    title: '',
+    hourHalves: 0,
+  });
   const [userInfo, setUserInfo] = useState({
     firstName: '',
     lastName: '',
@@ -82,7 +87,14 @@ function Reservation() {
 
   // By default, time comes before master
   let Step2Component = (
-    <SelectTime timeFirst={timeFirst} currentBarber={currentBarber} time={time} setTime={setTime} />
+    <SelectTime
+      timeFirst={timeFirst}
+      currentBarber={currentBarber}
+      time={time}
+      setTime={setTime}
+      currentService={currentService}
+      setCurrentService={setCurrentService}
+    />
   );
   let Step3Component = (
     <SelectBarber
@@ -96,6 +108,7 @@ function Reservation() {
     <GetDetails
       time={time}
       currentBarber={currentBarber}
+      currentService={currentService}
       userInfo={userInfo}
       setUserInfo={setUserInfo}
       setFinishedReservation={setFinishedReservation}

@@ -5,12 +5,23 @@ import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import ky from 'ky';
 
-import { Heading2, Heading3, Heading4 } from '../General/Headings';
+import Scissors from '../Icons/Scissors';
+
+import { Heading2, Heading3, Heading4, Heading5 } from '../General/Headings';
 import { PrimaryButton, SecondaryButton } from '../General/Buttons';
 import Calendar from '../General/Calendar';
 import Loading from '../General/Loading';
 
-import { grayColor, lightGrayColor, primaryColor } from '../../constants/websiteColors';
+import {
+  grayColor,
+  lightGrayColor,
+  primaryColor,
+  darkerGrayColor,
+} from '../../constants/websiteColors';
+import Razor from '../Icons/Razor';
+import Combo from '../Icons/Combo';
+import FatherSon from '../Icons/FatherSon';
+import Kid from '../Icons/Kid';
 
 const SelectTimeWrap = styled.div`
   display: flex;
@@ -38,6 +49,14 @@ const SelectorContainer = styled.div`
   & > *:first-child {
     margin-bottom: 32px;
     text-align: center;
+  }
+  @media (min-width: 992px) {
+    &:first-child {
+      align-items: flex-start;
+    }
+    &:not(:first-child) {
+      align-items: flex-end;
+    }
   }
 `;
 
@@ -74,6 +93,34 @@ const InactiveTime = styled.div`
   transition-duration: 200ms;
 `;
 
+const SelectServiceWrap = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: 1fr;
+  grid-gap: 32px;
+  width: 100%;
+`;
+
+const Service = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 32px;
+  background-color: ${darkerGrayColor};
+  border: 2px solid;
+  border-radius: 10px;
+  border-color: ${(props) => (props.active ? primaryColor : darkerGrayColor)};
+  box-sizing: border-box;
+  cursor: pointer;
+  transition-duration: 200ms;
+  &:hover {
+    border-color: ${primaryColor};
+  }
+  & > *:not(:last-child) {
+    margin-bottom: 16px;
+  }
+`;
+
 const ButtonsContainer = styled.div`
   width: 100%;
   display: flex;
@@ -94,7 +141,14 @@ const ButtonsContainer = styled.div`
   }
 `;
 
-function SelectTime({ time, setTime, timeFirst, currentBarber }) {
+function SelectTime({
+  time,
+  setTime,
+  timeFirst,
+  currentService,
+  setCurrentService,
+  currentBarber,
+}) {
   const history = useHistory();
 
   const [busyHours, setBusyHours] = useState([]);
@@ -103,6 +157,9 @@ function SelectTime({ time, setTime, timeFirst, currentBarber }) {
   // Determines whether user has already selected time, and not just got the value
   // from previously rendered component
   const [selectedTime, setSelectedTime] = useState(time.getUTCHours() !== 0);
+
+  // Determines whether user has already selected a service
+  const [selectedService, setSelectedService] = useState(false);
 
   // Load the available times for the master (only works in Barber First)
   if (!timeFirst) {
@@ -141,6 +198,24 @@ function SelectTime({ time, setTime, timeFirst, currentBarber }) {
     setSelectedTime(true);
   };
 
+  const handleServiceChange = ({ price, title, hourHalves }) => {
+    setCurrentService({ title, price, hourHalves });
+    setSelectedService(true);
+  };
+
+  const handleGoBack = () => {
+    const currentLocalDate = new Date();
+    const currentPolandISODate = `${currentLocalDate.toISOString().slice(0, 11)}02:00:00+02:00`;
+    const currentPolandDate = new Date(currentPolandISODate);
+    setTime(currentPolandDate);
+    setCurrentService({
+      price: 0,
+      title: '',
+      hourHalves: 0,
+    });
+    history.goBack();
+  };
+
   // Time options assembled in an array
   const timeSelectors = [];
   for (let i = 10; i <= 20; i += 1) {
@@ -164,6 +239,39 @@ function SelectTime({ time, setTime, timeFirst, currentBarber }) {
     }
   }
 
+  const serviceSelectors = [
+    {
+      icon: Scissors({ color: primaryColor, height: 60 }),
+      price: 80,
+      title: 'Haircut',
+      hourHalves: 2,
+    },
+    {
+      icon: Razor({ color: primaryColor, height: 60 }),
+      price: 65,
+      title: 'Shaving',
+      hourHalves: 2,
+    },
+    {
+      icon: Combo({ color: primaryColor, height: 60 }),
+      price: 130,
+      title: 'Combo',
+      hourHalves: 3,
+    },
+    {
+      icon: FatherSon({ color: primaryColor, height: 60 }),
+      price: 125,
+      title: 'Father / son',
+      hourHalves: 4,
+    },
+    {
+      icon: Kid({ color: primaryColor, height: 60 }),
+      price: 50,
+      title: 'Kid',
+      hourHalves: 2,
+    },
+  ];
+
   let timeSection;
   // If available times have loaded, or user chose Time First, we can show the timepicker
   // If available times are loading, we show the loading spinner
@@ -178,7 +286,7 @@ function SelectTime({ time, setTime, timeFirst, currentBarber }) {
       <Heading2>
         Reservation
         <br />
-        {`Step ${timeFirst ? 2 : 3}: Select day and time`}
+        {`Step ${timeFirst ? 2 : 3}: Select time and service`}
       </Heading2>
       <SelectTimeWrap>
         <SelectorContainer>
@@ -190,24 +298,25 @@ function SelectTime({ time, setTime, timeFirst, currentBarber }) {
           {timeSection}
         </SelectorContainer>
       </SelectTimeWrap>
+      <SelectServiceWrap>
+        {serviceSelectors.map(({ price, title, icon, hourHalves }) => (
+          <Service
+            key={title}
+            active={title === currentService.title}
+            onClick={() => handleServiceChange({ price, title, hourHalves })}
+          >
+            {icon}
+            <Heading5>{title}</Heading5>
+            <Heading5>{`${hourHalves * 30} min.`}</Heading5>
+            <Heading3>{`${price}zł`}</Heading3>
+          </Service>
+        ))}
+      </SelectServiceWrap>
       <ButtonsContainer>
-        <SecondaryButton
-          onClick={() => {
-            // Resetting the time on going back to previous step
-            const currentLocalDate = new Date();
-            const currentPolandISODate = `${currentLocalDate
-              .toISOString()
-              .slice(0, 11)}02:00:00+02:00`;
-            const currentPolandDate = new Date(currentPolandISODate);
-            setTime(currentPolandDate);
-            history.goBack();
-          }}
-        >
-          Back
-        </SecondaryButton>
+        <SecondaryButton onClick={handleGoBack}>Back</SecondaryButton>
         {
           // Showing the button only after user selected time
-          selectedTime && (
+          selectedTime && selectedService && (
             <Link to={`/reserve/step${timeFirst ? 3 : 4}`}>
               <PrimaryButton>Next</PrimaryButton>
             </Link>
@@ -222,6 +331,12 @@ SelectTime.propTypes = {
   time: PropTypes.instanceOf(Date).isRequired,
   setTime: PropTypes.func.isRequired,
   timeFirst: PropTypes.bool,
+  currentService: PropTypes.shape({
+    price: PropTypes.number,
+    title: PropTypes.string,
+    hourHalves: PropTypes.number,
+  }).isRequired,
+  setCurrentService: PropTypes.func.isRequired,
   currentBarber: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,

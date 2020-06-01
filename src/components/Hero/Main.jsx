@@ -11,7 +11,7 @@ import { Heading1, Heading3, Heading5 } from '../General/Headings';
 
 import Scissors from '../Icons/Scissors';
 import Razor from '../Icons/Razor';
-import AfroPick from '../Icons/AfroPick';
+import Combo from '../Icons/Combo';
 import PlaneLeft from '../Icons/PlaneLeft';
 import PlaneRight from '../Icons/PlaneRight';
 
@@ -112,7 +112,7 @@ function Main() {
           <Heading3>65zł</Heading3>
         </MainService>
         <MainService>
-          <AfroPick color={primaryColor} height={60} />
+          <Combo color={primaryColor} height={60} />
           <MainServiceName>Combo</MainServiceName>
           <Heading3>130zł</Heading3>
         </MainService>

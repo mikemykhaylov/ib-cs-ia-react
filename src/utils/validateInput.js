@@ -28,7 +28,10 @@ export const validateCreateAppointment = async (appointment) => {
     errors.email = 'Must be valid email address';
   }
   Object.keys(appointment).forEach((key) => {
-    if (!appointment[key] || appointment[key].trim() === '') {
+    if (
+      !appointment[key] ||
+      (typeof appointment[key] === 'string' && appointment[key].trim() === '')
+    ) {
       errors[key] = 'Must not be empty';
     }
   });
