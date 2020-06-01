@@ -78,9 +78,10 @@ const AppointmentsWrap = styled.div`
   display: grid;
   grid-template-columns: ${(props) =>
     props.loaded
-      ? 'repeat(auto-fill, minmax(250px, 1fr))'
+      ? 'repeat(auto-fill, minmax(300px, 1fr))'
       : 'repeat(auto-fit, minmax(250px, 1fr))'};
   grid-template-rows: 1fr;
+  grid-gap: 32px;
 `;
 
 const AppointmentContainer = styled.div`
@@ -161,6 +162,7 @@ function Dashboard() {
           },
         )
         .json();
+        console.log(fetchedAppointments);
       setAppointments(fetchedAppointments);
       setLoadedAppointments(true);
     })();
@@ -181,7 +183,9 @@ function Dashboard() {
             {` ${new Date(appointment.time).getUTCHours() + 2}:00`}
           </AppointmentTimeSpan>
         </Heading4>
-        <Heading4>{`Name: ${appointment.firstName} ${appointment.lastName}`}</Heading4>
+        <Heading5>{`Name: ${appointment.firstName} ${appointment.lastName}`}</Heading5>
+        <Heading5>{`Service: ${appointment.serviceName}`}</Heading5>
+        <Heading5>{`Duration: ${appointment.duration} min`}</Heading5>
       </AppointmentContainer>
     ));
   }

@@ -139,7 +139,7 @@ function GetDetails({
     const newAppointment = {
       time: time.toISOString(),
       barberID: currentBarber.id,
-      serviceTitle: currentService.title,
+      serviceName: currentService.title,
       hourHalves: currentService.hourHalves,
       ...userInfo,
     };
