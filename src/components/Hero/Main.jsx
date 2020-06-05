@@ -117,8 +117,8 @@ function Main() {
           <Heading3>130zł</Heading3>
         </MainService>
       </MainServicesContainer>
-      <Link to="/reserve/step1">
-        <PrimaryButton>Rezerwować</PrimaryButton>
+      <Link to="https://booksy.com/pl-pl/71163_dywizjon-303-barbershop_barber-shop_3_warszawa">
+        <PrimaryButton>Rezerwować przez Booksy</PrimaryButton>
       </Link>
     </MainContainer>
   );

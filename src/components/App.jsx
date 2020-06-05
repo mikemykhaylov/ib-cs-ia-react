@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Suspense } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components/macro';
 import { Normalize } from 'styled-normalize';
 
@@ -8,13 +8,13 @@ import NotFound from '../containers/NotFound';
 
 import fontFaces from '../fonts/fontsSetup';
 import { darkGrayColor } from '../constants/websiteColors';
-import firebase from '../utils/firebaseSetup';
+// import firebase from '../utils/firebaseSetup';
 
 const Hero = React.lazy(() => import('../containers/Hero'));
-const Reservation = React.lazy(() => import('../containers/Reservation'));
-const Login = React.lazy(() => import('../containers/Login'));
-const Dashboard = React.lazy(() => import('../containers/Dashboard'));
-const ForgotPassword = React.lazy(() => import('../containers/ForgotPassword'));
+// const Reservation = React.lazy(() => import('../containers/Reservation'));
+// const Login = React.lazy(() => import('../containers/Login'));
+// const Dashboard = React.lazy(() => import('../containers/Dashboard'));
+// const ForgotPassword = React.lazy(() => import('../containers/ForgotPassword'));
 
 const GlobalStyle = createGlobalStyle`
 ${fontFaces}
@@ -33,21 +33,21 @@ html {
 `;
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(null);
-  useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setLoggedIn(true);
-      } else {
-        setLoggedIn(false);
-      }
-    });
-    return () => unsubscribe();
-  }, []);
-  let dashboardComponent;
-  if (loggedIn !== null) {
-    dashboardComponent = loggedIn ? <Dashboard /> : <Redirect to="/" />;
-  }
+  // const [loggedIn, setLoggedIn] = useState(null);
+  // useEffect(() => {
+  //   const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+  //     if (user) {
+  //       setLoggedIn(true);
+  //     } else {
+  //       setLoggedIn(false);
+  //     }
+  //   });
+  //   return () => unsubscribe();
+  // }, []);
+  // let dashboardComponent;
+  // if (loggedIn !== null) {
+  //   dashboardComponent = loggedIn ? <Dashboard /> : <Redirect to="/" />;
+  // }
   return (
     <Router>
       <Normalize />
@@ -58,7 +58,7 @@ function App() {
             <Hero />
           </Suspense>
         </Route>
-        <Route path="/reserve">
+        {/* <Route path="/reserve">
           <Suspense fallback={<Loading width="100vw" height="100vh" />}>
             <Reservation />
           </Suspense>
@@ -77,7 +77,7 @@ function App() {
           <Suspense fallback={<Loading width="100vw" height="100vh" />}>
             <ForgotPassword />
           </Suspense>
-        </Route>
+        </Route> */}
         <Route path="/">
           <NotFound />
         </Route>
