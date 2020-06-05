@@ -104,8 +104,8 @@ function Gallery() {
   ];
   return (
     <GalleryContainer>
-      <GalleryTitle>Gallery</GalleryTitle>
-      <GallerySubtitle color={primaryColor}>A place to fall in love with</GallerySubtitle>
+      <GalleryTitle>Galeria</GalleryTitle>
+      <GallerySubtitle color={primaryColor}>Miejsce, w którym można się zakochać</GallerySubtitle>
       <GalleryWrap width={width}>
         {imageData.map((image) => (
           <GalleryImage key={image.src} width={width} style={image.style} src={image.src}>

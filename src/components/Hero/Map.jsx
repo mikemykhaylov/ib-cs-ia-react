@@ -32,8 +32,8 @@ const MapGL = ReactMapboxGl({
 function Map() {
   return (
     <MapContainer>
-      <MapTitle>Location</MapTitle>
-      <MapSubtitle color={primaryColor}>We are waiting for you</MapSubtitle>
+      <MapTitle>Lokalizacja</MapTitle>
+      <MapSubtitle color={primaryColor}>Czekamy na Ciebie</MapSubtitle>
       <MapGL
         // eslint-disable-next-line react/style-prop-object
         style="mapbox://styles/jayteejee/ckab8ccdh2dt31io598i49sz3"

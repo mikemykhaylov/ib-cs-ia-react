@@ -18,7 +18,7 @@ import PlaneRight from '../Icons/PlaneRight';
 const MainContainer = styled.div`
   align-items: center;
   background: linear-gradient(rgba(35, 35, 35, 0.8), rgba(35, 35, 35, 0.8)),
-    url('https://firebasestorage.googleapis.com/v0/b/dywizjon-303.appspot.com/o/mainPhotos%2FHero%20Image.jpg?alt=media&token=7451d4ef-82d1-4caf-a235-7fff1146bde8');
+    url('https://firebasestorage.googleapis.com/v0/b/dywizjon-303.appspot.com/o/mainPhotos%2FNew%20Hero%20Image.jpeg?alt=media&token=fe618088-1052-4e31-b158-f29c6a4aa9f3');
   background-position: center center;
   background-size: cover;
   background-attachment: fixed;
@@ -103,12 +103,12 @@ function Main() {
       <MainServicesContainer>
         <MainService>
           <Scissors color={primaryColor} height={60} />
-          <MainServiceName>Haircut</MainServiceName>
+          <MainServiceName>Ostrzyżenie</MainServiceName>
           <Heading3>80zł</Heading3>
         </MainService>
         <MainService>
           <Razor color={primaryColor} height={60} />
-          <MainServiceName>Shaving</MainServiceName>
+          <MainServiceName>Golenie</MainServiceName>
           <Heading3>65zł</Heading3>
         </MainService>
         <MainService>
@@ -118,7 +118,7 @@ function Main() {
         </MainService>
       </MainServicesContainer>
       <Link to="/reserve/step1">
-        <PrimaryButton>Reserve</PrimaryButton>
+        <PrimaryButton>Rezerwować</PrimaryButton>
       </Link>
     </MainContainer>
   );

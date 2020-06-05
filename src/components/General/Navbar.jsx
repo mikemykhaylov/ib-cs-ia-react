@@ -159,14 +159,14 @@ function Navbar({ loginPage }) {
             <Link aria-label="Go to the main page" to="/">
               <Logo color={primaryColor} height={40} />
             </Link>
-            <Heading5>BARBERS</Heading5>
-            <Heading5>WORKS</Heading5>
-            <Heading5>LOCATIONS</Heading5>
-            <Heading5>CAREERS</Heading5>
+            <Heading5>BARBERY</Heading5>
+            <Heading5>NASZE PRACE</Heading5>
+            <Heading5>LOKALIZACJE</Heading5>
+            <Heading5>KARIERA</Heading5>
           </NavbarMenu>
           <NavbarMenu>
             <Heading5>RU</Heading5>
-            <Heading5>PL</Heading5>
+            <Heading5>EN</Heading5>
             {loginPage ? null : userActionButton}
           </NavbarMenu>
         </>
@@ -186,14 +186,14 @@ function Navbar({ loginPage }) {
           {showMobileNav ? (
             <>
               <NavbarMenu>
-                <Heading4>BARBERS</Heading4>
-                <Heading4>WORKS</Heading4>
-                <Heading4>LOCATIONS</Heading4>
-                <Heading4>CAREERS</Heading4>
+                <Heading5>BARBERY</Heading5>
+                <Heading5>NASZE PRACE</Heading5>
+                <Heading5>LOKALIZACJE</Heading5>
+                <Heading5>KARIERA</Heading5>
               </NavbarMenu>
               <NavbarMenu>
                 <Heading4>RU</Heading4>
-                <Heading4>PL</Heading4>
+                <Heading4>EN</Heading4>
                 {loginPage ? null : userActionButton}
               </NavbarMenu>
             </>

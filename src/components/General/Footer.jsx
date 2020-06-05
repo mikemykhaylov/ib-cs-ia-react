@@ -92,26 +92,22 @@ function Footer() {
         <Logo color={primaryColor} height={60} />
         {width > 768 && <PlaneRight height={64} color={lightGrayColor} />}
       </FooterArt>
-      <FooterTitle>Contact Us</FooterTitle>
+      <FooterTitle>Skontaktuj się z nami</FooterTitle>
       <FooterWrap>
         <FooterContactSection>
-          <Heading4>OUR ADRESS</Heading4>
-          <Text>7409 E Little York Rd Orlando, Washington 50418 United States</Text>
+          <Heading4>Nasz adres</Heading4>
+          <Text>Jurija Gagarina 33, 00-753 Warszawa, Polska</Text>
         </FooterContactSection>
         <FooterContactSection>
-          <Heading4>CONTACTS</Heading4>
+          <Heading4>Łączność</Heading4>
           <Text>
-            (303) 555-0105
-            <br />
-            stanley.baker@example.com
+            +48 575 233 135
           </Text>
         </FooterContactSection>
         <FooterContactSection>
-          <Heading4>WORKING HOURS</Heading4>
+          <Heading4>Godziny pracy</Heading4>
           <Text>
-            Mon-Fri — 8 AM to 6 PM
-            <br />
-            Sat-Sun — 9 AM to 4 PM
+            Pon-Sob — 11:00 - 21:00
           </Text>
         </FooterContactSection>
       </FooterWrap>

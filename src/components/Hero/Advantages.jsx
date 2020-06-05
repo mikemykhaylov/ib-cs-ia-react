@@ -63,35 +63,25 @@ const Advantage = styled.div`
 function Advantages() {
   return (
     <AdvantagesContainer>
-      <AdvantagesTitle>Advantages</AdvantagesTitle>
-      <AdvantagesSubtitle color={primaryColor}>We couldn’t fit all of them here</AdvantagesSubtitle>
+      <AdvantagesTitle>Zalety</AdvantagesTitle>
+      <AdvantagesSubtitle color={primaryColor}>
+        Nie mogliśmy zmieścić ich wszystkich tutaj
+      </AdvantagesSubtitle>
       <AdvantagesWrap>
         <Advantage>
           <Barber color={primaryColor} height={70} />
-          <Heading3>Professional Barbers</Heading3>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore libero minus expedita
-            officia asperiores labore sit soluta et aliquam tempore, reiciendis voluptatem qui quos
-            quasi! Perspiciatis delectus deleniti dignissimos eum.
-          </Text>
+          <Heading3>Profesjonalni barberzy</Heading3>
+          <Text>Barberzy, którzy zmienią twoja fryzurę, a z nimlą właśnie Ciebie</Text>
         </Advantage>
         <Advantage>
           <Equipment color={primaryColor} height={70} />
-          <Heading3>Best equipment</Heading3>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt necessitatibus
-            suscipit deserunt ea, optio a possimus ad aspernatur magni atque repellat ratione
-            voluptatibus laboriosam veritatis nulla illum aliquam excepturi dignissimos.
-          </Text>
+          <Heading3>Najlepszy sprzęt</Heading3>
+          <Text>Używany kosmetyków i narzędzi, które są znane na całym świecie</Text>
         </Advantage>
         <Advantage>
           <BarbershopLocation color={primaryColor} height={70} />
-          <Heading3>Suitable location</Heading3>
-          <Text>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum illo ipsam atque! Eum
-            vel explicabo iusto laudantium necessitatibus rem provident nam saepe maiores iste,
-            aliquid consequatur nisi, officia quaerat quidem.
-          </Text>
+          <Heading3>Przyzwoita lokalizacja</Heading3>
+          <Text>Jesteśmy w samym sercu Warszawy, nawprost Łazienek Królewskich</Text>
         </Advantage>
       </AdvantagesWrap>
     </AdvantagesContainer>

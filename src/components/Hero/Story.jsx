@@ -75,14 +75,10 @@ function Story() {
         src="https://firebasestorage.googleapis.com/v0/b/dywizjon-303.appspot.com/o/mainPhotos%2FStory%20Image.jpg?alt=media&token=b61c81ca-a625-45e0-9447-70db62744de7"
       />
       <StoryWrap>
-        <StoryTitle>Who are we?</StoryTitle>
-        <StorySubtitle color={primaryColor}>Traditions coupled with innovation</StorySubtitle>
-        <StoryDescription>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam, incidunt. Corporis
-          eligendi nam aut corrupti voluptate, quas officiis praesentium cum, odit atque quod magni
-          voluptatum, dolorem voluptas blanditiis!
-        </StoryDescription>
-        <SecondaryButton>Learn More</SecondaryButton>
+        <StoryTitle>Kim jesteśmy?</StoryTitle>
+        <StorySubtitle color={primaryColor}>Tradycje w połączeniu z innowacją</StorySubtitle>
+        <StoryDescription>Ludzie z pasją do barberingu i polskiej historii</StoryDescription>
+        <SecondaryButton>Ucz się więcej</SecondaryButton>
       </StoryWrap>
     </StoryContainer>
   );
