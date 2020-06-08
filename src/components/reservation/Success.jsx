@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Heading2, Heading3 } from '../General/Headings';
+import { Heading2, Heading3 } from '../general/Headings';
 import { grayColor, primaryColor } from '../../constants/websiteColors';
-import { PrimaryButton } from '../General/Buttons';
+import { PrimaryButton } from '../general/Buttons';
 
 function Success() {
   const history = useHistory();

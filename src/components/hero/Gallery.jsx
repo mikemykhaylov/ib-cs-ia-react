@@ -4,7 +4,7 @@ import useWindowWidth from '../../hooks/useWindowWidth';
 
 import { primaryColor } from '../../constants/websiteColors';
 
-import { Heading2 as GalleryTitle, Heading4 } from '../General/Headings';
+import { Heading2 as GalleryTitle, Heading4 } from '../general/Headings';
 
 const GalleryContainer = styled.section`
   box-sizing: border-box;

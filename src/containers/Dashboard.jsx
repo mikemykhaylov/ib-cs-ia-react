@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import ky from 'ky';
 
-import Navbar from '../components/General/Navbar';
-import { Heading2, Heading4, Heading5, Heading3 } from '../components/General/Headings';
+import Navbar from '../components/general/Navbar';
+import { Heading2, Heading4, Heading5, Heading3 } from '../components/general/Headings';
 
 import firebase from '../utils/firebaseSetup';
 import { grayColor, primaryColor, darkerGrayColor } from '../constants/websiteColors';
-import Calendar from '../components/General/Calendar';
-import Loading from '../components/General/Loading';
-import Footer from '../components/General/Footer';
+import Calendar from '../components/general/Calendar';
+import Loading from '../components/general/Loading';
+import Footer from '../components/general/Footer';
 
 const Container = styled.section`
   margin-top: calc(100vh * 96 / 1080);
@@ -162,7 +162,7 @@ function Dashboard() {
           },
         )
         .json();
-        console.log(fetchedAppointments);
+      console.log(fetchedAppointments);
       setAppointments(fetchedAppointments);
       setLoadedAppointments(true);
     })();

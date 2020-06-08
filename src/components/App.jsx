@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components/macro';
 import { Normalize } from 'styled-normalize';
 
-import Loading from './General/Loading';
+import Loading from './general/Loading';
 import NotFound from '../containers/NotFound';
 
 import fontFaces from '../fonts/fontsSetup';

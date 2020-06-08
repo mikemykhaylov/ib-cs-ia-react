@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 
-import Navbar from '../components/General/Navbar';
-import { Heading2, Heading3 } from '../components/General/Headings';
-import { FormContainer, FormRow, Input } from '../components/General/Form';
-import { PrimaryButton } from '../components/General/Buttons';
+import Navbar from '../components/general/Navbar';
+import { Heading2, Heading3 } from '../components/general/Headings';
+import { FormContainer, FormRow, Input } from '../components/general/Form';
+import { PrimaryButton } from '../components/general/Buttons';
 
 import firebase from '../utils/firebaseSetup';
 import { isEmail } from '../utils/validateInput';
-import Footer from '../components/General/Footer';
+import Footer from '../components/general/Footer';
 
 const ForgotPasswordContainer = styled.section`
   margin-top: calc(100vh * 96 / 1080);

@@ -4,8 +4,8 @@ import styled from 'styled-components/macro';
 
 import { Heading4 } from './Headings';
 
-import ArrowRight from '../Icons/ArrowRight';
-import ArrowLeft from '../Icons/ArrowLeft';
+import ArrowRight from '../icons/ArrowRight';
+import ArrowLeft from '../icons/ArrowLeft';
 import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
 
 const CalendarContainer = styled.div`

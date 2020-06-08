@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { Heading2 as StoryTitle, Heading4, Text } from '../General/Headings';
-import { SecondaryButton } from '../General/Buttons';
+import { Heading2 as StoryTitle, Heading4, Text } from '../general/Headings';
+import { SecondaryButton } from '../general/Buttons';
 
 import { primaryColor } from '../../constants/websiteColors';
 

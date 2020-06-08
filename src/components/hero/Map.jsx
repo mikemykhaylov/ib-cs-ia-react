@@ -3,8 +3,8 @@ import styled from 'styled-components/macro';
 
 import ReactMapboxGl, { Marker, ZoomControl } from 'react-mapbox-gl';
 
-import { Heading2 as MapTitle, Heading4 } from '../General/Headings';
-import Location from '../Icons/Location';
+import { Heading2 as MapTitle, Heading4 } from '../general/Headings';
+import Location from '../icons/Location';
 
 import { primaryColor } from '../../constants/websiteColors';
 

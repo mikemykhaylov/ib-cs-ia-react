@@ -1,13 +1,13 @@
 import React, { Suspense } from 'react';
 
-import Main from '../components/Hero/Main';
-import Advantages from '../components/Hero/Advantages';
-import Story from '../components/Hero/Story';
-import Gallery from '../components/Hero/Gallery';
-import Footer from '../components/General/Footer';
-import Loading from '../components/General/Loading';
+import Main from '../components/hero/Main';
+import Advantages from '../components/hero/Advantages';
+import Story from '../components/hero/Story';
+import Gallery from '../components/hero/Gallery';
+import Footer from '../components/general/Footer';
+import Loading from '../components/general/Loading';
 
-const Map = React.lazy(() => import('../components/Hero/Map'));
+const Map = React.lazy(() => import('../components/hero/Map'));
 
 function Hero() {
   return (

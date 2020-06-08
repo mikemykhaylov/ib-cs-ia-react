@@ -5,12 +5,12 @@ import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import ky from 'ky';
 
-import { Heading2, Heading3, Heading5 } from '../General/Headings';
-import { SecondaryButton, PrimaryButton } from '../General/Buttons';
-import Loading from '../General/Loading';
+import { Heading2, Heading3, Heading5 } from '../general/Headings';
+import { SecondaryButton, PrimaryButton } from '../general/Buttons';
+import Loading from '../general/Loading';
 
 import { darkerGrayColor, primaryColor } from '../../constants/websiteColors';
-import Barber from '../Icons/Barber';
+import Barber from '../icons/Barber';
 
 const SelectBarberWrap = styled.div`
   width: 100%;

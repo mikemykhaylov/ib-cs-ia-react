@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
 import useWindowWidth from '../../hooks/useWindowWidth';
 
-import { PrimaryButton } from '../General/Buttons';
-import Navbar from '../General/Navbar';
-import { Heading1, Heading3, Heading5 } from '../General/Headings';
+import { PrimaryButton } from '../general/Buttons';
+import Navbar from '../general/Navbar';
+import { Heading1, Heading3, Heading5 } from '../general/Headings';
 
-import Scissors from '../Icons/Scissors';
-import Razor from '../Icons/Razor';
-import Combo from '../Icons/Combo';
-import PlaneLeft from '../Icons/PlaneLeft';
-import PlaneRight from '../Icons/PlaneRight';
+import Scissors from '../icons/Scissors';
+import Razor from '../icons/Razor';
+import Combo from '../icons/Combo';
+import PlaneLeft from '../icons/PlaneLeft';
+import PlaneRight from '../icons/PlaneRight';
 
 const MainContainer = styled.div`
   align-items: center;

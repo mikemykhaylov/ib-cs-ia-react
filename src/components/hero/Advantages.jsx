@@ -3,11 +3,11 @@ import styled from 'styled-components/macro';
 
 import { primaryColor } from '../../constants/websiteColors';
 
-import Barber from '../Icons/Barber';
-import Equipment from '../Icons/Equipment';
-import BarbershopLocation from '../Icons/BarbershopLocation';
+import Barber from '../icons/Barber';
+import Equipment from '../icons/Equipment';
+import BarbershopLocation from '../icons/BarbershopLocation';
 
-import { Heading2 as AdvantagesTitle, Heading3, Heading4, Text } from '../General/Headings';
+import { Heading2 as AdvantagesTitle, Heading3, Heading4, Text } from '../general/Headings';
 
 const AdvantagesContainer = styled.section`
   box-sizing: border-box;

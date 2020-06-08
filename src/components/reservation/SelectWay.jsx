@@ -5,10 +5,10 @@ import styled from 'styled-components/macro';
 
 import useWindowWidth from '../../hooks/useWindowWidth';
 
-import { Heading2, Heading4 } from '../General/Headings';
+import { Heading2, Heading4 } from '../general/Headings';
 
-import Time from '../Icons/Time';
-import Barber from '../Icons/Barber';
+import Time from '../icons/Time';
+import Barber from '../icons/Barber';
 import { primaryColor } from '../../constants/websiteColors';
 
 const SelectWayWrap = styled.div`

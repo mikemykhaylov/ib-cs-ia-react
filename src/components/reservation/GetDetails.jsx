@@ -4,13 +4,13 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import ky from 'ky';
 
-import { Heading2, Heading4, Heading3 } from '../General/Headings';
+import { Heading2, Heading4, Heading3 } from '../general/Headings';
 import { grayColor, lightGrayColor, primaryColor } from '../../constants/websiteColors';
-import Barber from '../Icons/Barber';
-import { SecondaryButton, PrimaryButton } from '../General/Buttons';
+import Barber from '../icons/Barber';
+import { SecondaryButton, PrimaryButton } from '../general/Buttons';
 
 import { validateCreateAppointment } from '../../utils/validateInput';
-import { Input, FormRow, FormContainer } from '../General/Form';
+import { Input, FormRow, FormContainer } from '../general/Form';
 
 const GetDetailsWrap = styled.div`
   display: flex;

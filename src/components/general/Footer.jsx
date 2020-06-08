@@ -3,9 +3,9 @@ import styled from 'styled-components/macro';
 
 import { Heading2, Heading4, Text } from './Headings';
 
-import Logo from '../Icons/Logo';
-import PlaneRight from '../Icons/PlaneRight';
-import PlaneLeft from '../Icons/PlaneLeft';
+import Logo from '../icons/Logo';
+import PlaneRight from '../icons/PlaneRight';
+import PlaneLeft from '../icons/PlaneLeft';
 
 import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
 import useWindowWidth from '../../hooks/useWindowWidth';
@@ -100,15 +100,11 @@ function Footer() {
         </FooterContactSection>
         <FooterContactSection>
           <Heading4>Łączność</Heading4>
-          <Text>
-            +48 575 233 135
-          </Text>
+          <Text>+48 575 233 135</Text>
         </FooterContactSection>
         <FooterContactSection>
           <Heading4>Godziny pracy</Heading4>
-          <Text>
-            Pon-Sob — 11:00 - 21:00
-          </Text>
+          <Text>Pon-Sob — 11:00 - 21:00</Text>
         </FooterContactSection>
       </FooterWrap>
       <FooterCredits>

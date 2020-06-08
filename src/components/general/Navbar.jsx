@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
-import Logo from '../Icons/Logo';
-// import Login from '../Icons/Login';
-// import Logout from '../Icons/Logout';
-import Menu from '../Icons/Menu';
+import Logo from '../icons/Logo';
+// import Login from '../icons/Login';
+// import Logout from '../icons/Logout';
+import Menu from '../icons/Menu';
 
 import { Heading4, Heading5 } from './Headings';
 

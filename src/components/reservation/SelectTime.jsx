@@ -5,12 +5,12 @@ import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import ky from 'ky';
 
-import Scissors from '../Icons/Scissors';
+import Scissors from '../icons/Scissors';
 
-import { Heading2, Heading3, Heading4, Heading5 } from '../General/Headings';
-import { PrimaryButton, SecondaryButton } from '../General/Buttons';
-import Calendar from '../General/Calendar';
-import Loading from '../General/Loading';
+import { Heading2, Heading3, Heading4, Heading5 } from '../general/Headings';
+import { PrimaryButton, SecondaryButton } from '../general/Buttons';
+import Calendar from '../general/Calendar';
+import Loading from '../general/Loading';
 
 import {
   grayColor,
@@ -18,10 +18,10 @@ import {
   primaryColor,
   darkerGrayColor,
 } from '../../constants/websiteColors';
-import Razor from '../Icons/Razor';
-import Combo from '../Icons/Combo';
-import FatherSon from '../Icons/FatherSon';
-import Kid from '../Icons/Kid';
+import Razor from '../icons/Razor';
+import Combo from '../icons/Combo';
+import FatherSon from '../icons/FatherSon';
+import Kid from '../icons/Kid';
 
 const SelectTimeWrap = styled.div`
   display: flex;
