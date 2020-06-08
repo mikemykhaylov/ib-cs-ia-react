@@ -162,7 +162,6 @@ function Dashboard() {
           },
         )
         .json();
-      console.log(fetchedAppointments);
       setAppointments(fetchedAppointments);
       setLoadedAppointments(true);
     })();
