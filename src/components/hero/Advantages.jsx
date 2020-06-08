@@ -71,17 +71,17 @@ function Advantages() {
         <Advantage>
           <Barber color={primaryColor} height={70} />
           <Heading3>Profesjonalni barberzy</Heading3>
-          <Text>Barberzy, którzy zmienią twoja fryzurę, a z nimlą właśnie Ciebie</Text>
+          <Text>Barberzy, którzy zmienią twoją fryzurę, a z nią właśnie ciebie</Text>
         </Advantage>
         <Advantage>
           <Equipment color={primaryColor} height={70} />
           <Heading3>Najlepszy sprzęt</Heading3>
-          <Text>Używany kosmetyków i narzędzi, które są znane na całym świecie</Text>
+          <Text>Używamy kosmetyków i narzędzi, które są znane na całym świecie</Text>
         </Advantage>
         <Advantage>
           <BarbershopLocation color={primaryColor} height={70} />
           <Heading3>Przyzwoita lokalizacja</Heading3>
-          <Text>Jesteśmy w samym sercu Warszawy, nawprost Łazienek Królewskich</Text>
+          <Text>Jesteśmy w samym sercu Warszawy, tuż przy Łazienkach Królewskich</Text>
         </Advantage>
       </AdvantagesWrap>
     </AdvantagesContainer>

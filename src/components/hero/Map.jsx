@@ -41,10 +41,10 @@ function Map() {
           height: '50vh',
           width: '100%',
         }}
-        center={[21.033424, 52.207035]}
+        center={[21.03337213397026, 52.20676099997715]}
         zoom={[12]}
       >
-        <Marker coordinates={[21.033424, 52.207035]} anchor="bottom">
+        <Marker coordinates={[21.03337213397026, 52.20676099997715]} anchor="bottom">
           <Location color={primaryColor} height={48} />
         </Marker>
         <ZoomControl />

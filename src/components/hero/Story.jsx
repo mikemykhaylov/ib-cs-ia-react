@@ -76,7 +76,7 @@ function Story() {
         <StoryTitle>Kim jesteśmy?</StoryTitle>
         <StorySubtitle color={primaryColor}>Tradycje w połączeniu z innowacją</StorySubtitle>
         <StoryDescription>Ludzie z pasją do barberingu i polskiej historii</StoryDescription>
-        <SecondaryButton>Ucz się więcej</SecondaryButton>
+        <SecondaryButton>Więcej</SecondaryButton>
       </StoryWrap>
     </StoryContainer>
   );

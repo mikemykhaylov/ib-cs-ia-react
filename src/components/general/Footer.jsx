@@ -99,7 +99,7 @@ function Footer() {
           <Text>Jurija Gagarina 33, 00-753 Warszawa, Polska</Text>
         </FooterContactSection>
         <FooterContactSection>
-          <Heading4>Łączność</Heading4>
+          <Heading4>Telefon</Heading4>
           <Text>+48 575 233 135</Text>
         </FooterContactSection>
         <FooterContactSection>
