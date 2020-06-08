@@ -6,6 +6,12 @@ import { primaryColor } from '../../constants/websiteColors';
 
 import { Heading2 as GalleryTitle, Heading4 } from '../general/Headings';
 
+import galleryPhoto1 from '../../images/galleryPhoto1.jpg';
+import galleryPhoto2 from '../../images/galleryPhoto2.jpg';
+import galleryPhoto3 from '../../images/galleryPhoto3.jpg';
+import galleryPhoto4 from '../../images/galleryPhoto4.jpg';
+import galleryPhoto5 from '../../images/galleryPhoto5.jpg';
+
 const GalleryContainer = styled.section`
   box-sizing: border-box;
   width: 100%;
@@ -62,40 +68,35 @@ function Gallery() {
   const width = useWindowWidth();
   const imageData = [
     {
-      src:
-        'https://firebasestorage.googleapis.com/v0/b/dywizjon-303.appspot.com/o/mainPhotos%2FGallery%20Photo%201.jpg?alt=media&token=c0bbdb6d-6b0d-4a6a-81d4-eef9b6cb6c1d',
+      src: galleryPhoto1,
       style: {
         gridColumn: '1',
         gridRow: '1',
       },
     },
     {
-      src:
-        'https://firebasestorage.googleapis.com/v0/b/dywizjon-303.appspot.com/o/mainPhotos%2FGallery%20Photo%202.jpg?alt=media&token=714153bd-fbd6-4cd3-a4c1-e1ec3ac15873',
+      src: galleryPhoto2,
       style: {
         gridColumn: '2/4',
         gridRow: '1',
       },
     },
     {
-      src:
-        'https://firebasestorage.googleapis.com/v0/b/dywizjon-303.appspot.com/o/mainPhotos%2FGallery%20Photo%203.jpg?alt=media&token=46de676f-c305-491c-af0c-67969d463a70',
+      src: galleryPhoto3,
       style: {
         gridColumn: '4/6',
         gridRow: '1/3',
       },
     },
     {
-      src:
-        'https://firebasestorage.googleapis.com/v0/b/dywizjon-303.appspot.com/o/mainPhotos%2FGallery%20Photo%204.jpg?alt=media&token=4f67974e-f886-41bc-85d2-849f99f8749a',
+      src: galleryPhoto4,
       style: {
         gridColumn: '1/3',
         gridRow: '2',
       },
     },
     {
-      src:
-        'https://firebasestorage.googleapis.com/v0/b/dywizjon-303.appspot.com/o/mainPhotos%2FGallery%20Photo%205.jpg?alt=media&token=0f68d489-e6b2-4646-81fd-4130a8b6a92e',
+      src: galleryPhoto5,
       style: {
         gridColumn: '3',
         gridRow: '2',

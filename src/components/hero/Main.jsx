@@ -15,10 +15,11 @@ import Combo from '../icons/Combo';
 import PlaneLeft from '../icons/PlaneLeft';
 import PlaneRight from '../icons/PlaneRight';
 
+import heroImage from '../../images/heroImage.jpg';
+
 const MainContainer = styled.div`
   align-items: center;
-  background: linear-gradient(rgba(35, 35, 35, 0.8), rgba(35, 35, 35, 0.8)),
-    url('https://firebasestorage.googleapis.com/v0/b/dywizjon-303.appspot.com/o/mainPhotos%2FNew%20Hero%20Image.jpeg?alt=media&token=fe618088-1052-4e31-b158-f29c6a4aa9f3');
+  background: linear-gradient(rgba(35, 35, 35, 0.8), rgba(35, 35, 35, 0.8)), url(${heroImage});
   background-position: center center;
   background-size: cover;
   background-attachment: fixed;

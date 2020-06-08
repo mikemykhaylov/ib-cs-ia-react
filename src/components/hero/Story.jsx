@@ -5,6 +5,7 @@ import { Heading2 as StoryTitle, Heading4, Text } from '../general/Headings';
 import { SecondaryButton } from '../general/Buttons';
 
 import { primaryColor } from '../../constants/websiteColors';
+import storyImage from '../../images/storyImage.jpg';
 
 const StoryContainer = styled.section`
   box-sizing: border-box;
@@ -70,10 +71,7 @@ const StoryDescription = styled(Text)`
 function Story() {
   return (
     <StoryContainer>
-      <StoryImage
-        alt="Front view of our barbershop"
-        src="https://firebasestorage.googleapis.com/v0/b/dywizjon-303.appspot.com/o/mainPhotos%2FStory%20Image.jpg?alt=media&token=b61c81ca-a625-45e0-9447-70db62744de7"
-      />
+      <StoryImage alt="Front view of our barbershop" src={storyImage} />
       <StoryWrap>
         <StoryTitle>Kim jesteśmy?</StoryTitle>
         <StorySubtitle color={primaryColor}>Tradycje w połączeniu z innowacją</StorySubtitle>
