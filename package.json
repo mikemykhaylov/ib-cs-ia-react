@@ -3,7 +3,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --config webpack.dev.js --hot",
-    "build": "rm -rf ./dist && webpack --watch --config webpack.prod.js",
+    "build": "webpack --config webpack.prod.js",
     "start": "http-server ./dist -g",
     "prettier": "prettier --config ./.prettierrc.yml --write \"./src/**/*.js?(x)\"",
     "eslint": "eslint -c ./.eslintrc.yml \"./src/**/*.js?(x)\""
