@@ -117,9 +117,13 @@ function Main() {
           <Heading3>130zł</Heading3>
         </MainService>
       </MainServicesContainer>
-      <Link to="https://booksy.com/pl-pl/71163_dywizjon-303-barbershop_barber-shop_3_warszawa">
-        <PrimaryButton>Rezerwować przez Booksy</PrimaryButton>
-      </Link>
+      <a
+        href="https://booksy.com/pl-pl/71163_dywizjon-303-barbershop_barber-shop_3_warszawa"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <PrimaryButton>Rezerwacja</PrimaryButton>
+      </a>
     </MainContainer>
   );
 }
