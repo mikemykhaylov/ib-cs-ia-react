@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { Link } from 'react-router-dom';
 
 import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
 import useWindowWidth from '../../hooks/useWindowWidth';
