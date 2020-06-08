@@ -11,6 +11,7 @@ import { darkGrayColor } from '../constants/websiteColors';
 // import firebase from '../utils/firebaseSetup';
 
 const Hero = React.lazy(() => import('../containers/Hero'));
+const Works = React.lazy(() => import('../containers/Works'));
 // const Reservation = React.lazy(() => import('../containers/Reservation'));
 // const Login = React.lazy(() => import('../containers/Login'));
 // const Dashboard = React.lazy(() => import('../containers/Dashboard'));
@@ -56,6 +57,11 @@ function App() {
         <Route path="/" exact>
           <Suspense fallback={<Loading width="100vw" height="100vh" />}>
             <Hero />
+          </Suspense>
+        </Route>
+        <Route path="/works" exact>
+          <Suspense fallback={<Loading width="100vw" height="100vh" />}>
+            <Works />
           </Suspense>
         </Route>
         {/* <Route path="/reserve">

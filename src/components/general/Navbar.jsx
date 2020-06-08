@@ -55,6 +55,10 @@ const NavbarMenu = styled.nav`
   }
 `;
 
+const NavbarLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const NavbarMobileTopMenu = styled.nav`
   display: flex;
   justify-content: space-between;
@@ -160,7 +164,9 @@ function Navbar() {
               <Logo color={primaryColor} height={40} />
             </Link>
             <Heading5>BARBERY</Heading5>
-            <Heading5>NASZE PRACE</Heading5>
+            <NavbarLink to="/works">
+              <Heading5>USŁUGI</Heading5>
+            </NavbarLink>
             <Heading5>LOKALIZACJE</Heading5>
             <Heading5>KARIERA</Heading5>
           </NavbarMenu>
@@ -187,7 +193,9 @@ function Navbar() {
             <>
               <NavbarMenu>
                 <Heading5>BARBERY</Heading5>
-                <Heading5>NASZE PRACE</Heading5>
+                <NavbarLink to="/works">
+                  <Heading5>USŁUGI</Heading5>
+                </NavbarLink>
                 <Heading5>LOKALIZACJE</Heading5>
                 <Heading5>KARIERA</Heading5>
               </NavbarMenu>
