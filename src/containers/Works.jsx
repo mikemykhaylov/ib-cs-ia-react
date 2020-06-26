@@ -58,15 +58,15 @@ function Works() {
         <WorksWrap>
           <Work>
             <Heading4>Strzyżenie włosów</Heading4>
-            <Heading4 color={primaryColor}>80zł</Heading4>
+            <Heading4 color={primaryColor}>60zł</Heading4>
           </Work>
           <Work>
             <Heading4>Trymowanie brody</Heading4>
-            <Heading4 color={primaryColor}>65zł</Heading4>
+            <Heading4 color={primaryColor}>40zł</Heading4>
           </Work>
           <Work>
             <Heading4>Combo (włosy + broda)</Heading4>
-            <Heading4 color={primaryColor}>130zł</Heading4>
+            <Heading4 color={primaryColor}>100zł</Heading4>
           </Work>
           <Work>
             <Heading4>Strzyżenie chlopca (10 lat)</Heading4>
@@ -74,7 +74,7 @@ function Works() {
           </Work>
           <Work>
             <Heading4>Ojciec + syn</Heading4>
-            <Heading4 color={primaryColor}>130zł</Heading4>
+            <Heading4 color={primaryColor}>100zł</Heading4>
           </Work>
           <Work>
             <Heading4>Strzyżenie seniora 65+</Heading4>

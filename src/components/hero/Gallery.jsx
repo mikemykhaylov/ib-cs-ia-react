@@ -11,6 +11,9 @@ import galleryPhoto2 from '../../images/galleryPhoto2.jpg';
 import galleryPhoto3 from '../../images/galleryPhoto3.jpg';
 import galleryPhoto4 from '../../images/galleryPhoto4.jpg';
 import galleryPhoto5 from '../../images/galleryPhoto5.jpg';
+import galleryPhoto6 from '../../images/galleryPhoto6.jpg';
+import galleryPhoto7 from '../../images/galleryPhoto7.jpg';
+import galleryPhoto8 from '../../images/galleryPhoto8.jpg';
 
 const GalleryContainer = styled.section`
   box-sizing: border-box;
@@ -100,6 +103,27 @@ function Gallery() {
       style: {
         gridColumn: '3',
         gridRow: '2',
+      },
+    },
+    {
+      src: galleryPhoto6,
+      style: {
+        gridColumn: '1',
+        gridRow: '3',
+      },
+    },
+    {
+      src: galleryPhoto7,
+      style: {
+        gridColumn: '2/4',
+        gridRow: '3',
+      },
+    },
+    {
+      src: galleryPhoto8,
+      style: {
+        gridColumn: '4/6',
+        gridRow: '3',
       },
     },
   ];

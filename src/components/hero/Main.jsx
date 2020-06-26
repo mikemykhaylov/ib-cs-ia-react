@@ -104,7 +104,7 @@ function Main() {
         <MainService>
           <Scissors color={primaryColor} height={60} />
           <MainServiceName>Strzyżenie</MainServiceName>
-          <Heading3>80zł</Heading3>
+          <Heading3>60zł</Heading3>
         </MainService>
         <MainService>
           <Razor color={primaryColor} height={60} />
@@ -113,7 +113,7 @@ function Main() {
             <br />
             brody
           </MainServiceName>
-          <Heading3>65zł</Heading3>
+          <Heading3>40zł</Heading3>
         </MainService>
         <MainService>
           <Combo color={primaryColor} height={60} />
@@ -122,7 +122,7 @@ function Main() {
             <br />
             (włosy + broda)
           </MainServiceName>
-          <Heading3>130zł</Heading3>
+          <Heading3>100zł</Heading3>
         </MainService>
       </MainServicesContainer>
       <a
