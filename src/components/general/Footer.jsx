@@ -104,7 +104,18 @@ function Footer() {
         </FooterContactSection>
         <FooterContactSection>
           <Heading4>Godziny pracy</Heading4>
-          <Text>Pon-Sob — 11:00 - 21:00</Text>
+          <Text>
+            Pn — 15:00 - 20:00
+            <br />
+            Wt-Sr — 11:00 - 20:00 
+            <br />
+            Czw-Pt — 8:00 - 20:00
+            <br />
+            Sb — 8:00 - 18:00
+          </Text>
+          {/* <Text>Wt-Sr — 11:00 - 20:00</Text>
+          <Text>Pt — 8:00 - 20:00</Text>
+          <Text>Sb — 8:00 - 18:00</Text> */}
         </FooterContactSection>
       </FooterWrap>
       <FooterCredits>
