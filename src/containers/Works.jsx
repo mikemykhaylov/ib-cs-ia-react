@@ -62,7 +62,7 @@ function Works() {
           </Work>
           <Work>
             <Heading4>Trymowanie brody</Heading4>
-            <Heading4 color={primaryColor}>40zł</Heading4>
+            <Heading4 color={primaryColor}>50zł</Heading4>
           </Work>
           <Work>
             <Heading4>Combo (włosy + broda)</Heading4>

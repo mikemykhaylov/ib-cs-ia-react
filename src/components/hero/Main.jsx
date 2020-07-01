@@ -113,7 +113,7 @@ function Main() {
             <br />
             brody
           </MainServiceName>
-          <Heading3>40zł</Heading3>
+          <Heading3>50zł</Heading3>
         </MainService>
         <MainService>
           <Combo color={primaryColor} height={60} />
