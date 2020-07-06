@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
 import useWindowWidth from '../../hooks/useWindowWidth';
@@ -88,6 +89,7 @@ const MainServiceName = styled(Heading5)`
 
 function Main() {
   const width = useWindowWidth();
+  const { t } = useTranslation();
   return (
     <MainContainer>
       <Navbar />
@@ -103,25 +105,17 @@ function Main() {
       <MainServicesContainer>
         <MainService>
           <Scissors color={primaryColor} height={60} />
-          <MainServiceName>Strzyżenie</MainServiceName>
+          <MainServiceName>{t('Haircut')}</MainServiceName>
           <Heading3>60zł</Heading3>
         </MainService>
         <MainService>
           <Razor color={primaryColor} height={60} />
-          <MainServiceName>
-            Trymowanie
-            <br />
-            brody
-          </MainServiceName>
+          <MainServiceName>{t('Beard trim')}</MainServiceName>
           <Heading3>50zł</Heading3>
         </MainService>
         <MainService>
           <Combo color={primaryColor} height={60} />
-          <MainServiceName>
-            Combo
-            <br />
-            (włosy + broda)
-          </MainServiceName>
+          <MainServiceName>{t('Combo (hair + beard)')}</MainServiceName>
           <Heading3>100zł</Heading3>
         </MainService>
       </MainServicesContainer>
@@ -130,7 +124,7 @@ function Main() {
         target="_blank"
         rel="noreferrer"
       >
-        <PrimaryButton>Rezerwacja</PrimaryButton>
+        <PrimaryButton>{t('Reserve')}</PrimaryButton>
       </a>
     </MainContainer>
   );

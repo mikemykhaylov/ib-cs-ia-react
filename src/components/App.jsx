@@ -2,6 +2,8 @@ import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components/macro';
 import { Normalize } from 'styled-normalize';
+import { I18nextProvider } from 'react-i18next';
+import i18n from '../i18n/i18n';
 
 import Loading from './general/Loading';
 import NotFound from '../containers/NotFound';
@@ -50,21 +52,22 @@ function App() {
   //   dashboardComponent = loggedIn ? <Dashboard /> : <Redirect to="/" />;
   // }
   return (
-    <Router>
-      <Normalize />
-      <GlobalStyle />
-      <Switch>
-        <Route path="/" exact>
-          <Suspense fallback={<Loading width="100vw" height="100vh" />}>
-            <Hero />
-          </Suspense>
-        </Route>
-        <Route path="/works" exact>
-          <Suspense fallback={<Loading width="100vw" height="100vh" />}>
-            <Works />
-          </Suspense>
-        </Route>
-        {/* <Route path="/reserve">
+    <I18nextProvider i18n={i18n}>
+      <Router>
+        <Normalize />
+        <GlobalStyle />
+        <Switch>
+          <Route path="/" exact>
+            <Suspense fallback={<Loading width="100vw" height="100vh" />}>
+              <Hero />
+            </Suspense>
+          </Route>
+          <Route path="/works" exact>
+            <Suspense fallback={<Loading width="100vw" height="100vh" />}>
+              <Works />
+            </Suspense>
+          </Route>
+          {/* <Route path="/reserve">
           <Suspense fallback={<Loading width="100vw" height="100vh" />}>
             <Reservation />
           </Suspense>
@@ -84,11 +87,12 @@ function App() {
             <ForgotPassword />
           </Suspense>
         </Route> */}
-        <Route path="/">
-          <NotFound />
-        </Route>
-      </Switch>
-    </Router>
+          <Route path="/">
+            <NotFound />
+          </Route>
+        </Switch>
+      </Router>
+    </I18nextProvider>
   );
 }
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import Logo from '../icons/Logo';
 // import Login from '../icons/Login';
@@ -66,7 +67,7 @@ const NavbarMobileTopMenu = styled.nav`
   width: 100%;
 `;
 
-const NavbarMobileButton = styled.button`
+const NavbarButton = styled.button`
   background: none;
   border: none;
   margin: 0;
@@ -114,6 +115,10 @@ const NavbarMobileButton = styled.button`
 
 function Navbar() {
   const width = useWindowWidth();
+  const { t, i18n } = useTranslation();
+  const handleLanguageChange = (language) => {
+    i18n.changeLanguage(language);
+  };
   // const history = useHistory();
   const [showMobileNav, setShowMobileNav] = useState(false);
   // const [loggedIn, setLoggedIn] = useState(null);
@@ -163,16 +168,20 @@ function Navbar() {
             <Link aria-label="Go to the main page" to="/">
               <Logo color={primaryColor} height={40} />
             </Link>
-            <Heading5>BARBERY</Heading5>
+            <Heading5>{t('BARBERS')}</Heading5>
             <NavbarLink to="/works">
-              <Heading5>USŁUGI</Heading5>
+              <Heading5>{t('SERVICES')}</Heading5>
             </NavbarLink>
-            <Heading5>LOKALIZACJE</Heading5>
-            <Heading5>KARIERA</Heading5>
+            <Heading5>{t('LOCATIONS')}</Heading5>
+            <Heading5>{t('CAREERS')}</Heading5>
           </NavbarMenu>
           <NavbarMenu>
-            <Heading5>RU</Heading5>
-            <Heading5>EN</Heading5>
+            <NavbarButton onClick={() => handleLanguageChange('pl')}>
+              <Heading5>PL</Heading5>
+            </NavbarButton>
+            <NavbarButton onClick={() => handleLanguageChange('en')}>
+              <Heading5>EN</Heading5>
+            </NavbarButton>
             {/* {loginPage ? null : userActionButton} */}
           </NavbarMenu>
         </>
@@ -182,26 +191,30 @@ function Navbar() {
             <Link aria-label="Go to the main page" to="/">
               <Logo color={primaryColor} height={40} />
             </Link>
-            <NavbarMobileButton
+            <NavbarButton
               aria-label="Show Mobile Navigation"
               onClick={() => setShowMobileNav(!showMobileNav)}
             >
               <Menu color={lightGrayColor} height={40} />
-            </NavbarMobileButton>
+            </NavbarButton>
           </NavbarMobileTopMenu>
           {showMobileNav ? (
             <>
               <NavbarMenu>
-                <Heading5>BARBERY</Heading5>
+                <Heading5>{t('BARBERS')}</Heading5>
                 <NavbarLink to="/works">
-                  <Heading5>USŁUGI</Heading5>
+                  <Heading5>{t('SERVICES')}</Heading5>
                 </NavbarLink>
-                <Heading5>LOKALIZACJE</Heading5>
-                <Heading5>KARIERA</Heading5>
+                <Heading5>{t('LOCATIONS')}</Heading5>
+                <Heading5>{t('CAREERS')}</Heading5>
               </NavbarMenu>
               <NavbarMenu>
-                <Heading4>RU</Heading4>
-                <Heading4>EN</Heading4>
+                <NavbarButton onClick={() => handleLanguageChange('pl')}>
+                  <Heading4>PL</Heading4>
+                </NavbarButton>
+                <NavbarButton onClick={() => handleLanguageChange('en')}>
+                  <Heading4>EN</Heading4>
+                </NavbarButton>
                 {/* {loginPage ? null : userActionButton} */}
               </NavbarMenu>
             </>

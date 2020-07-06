@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import ReactMapboxGl, { Marker, ZoomControl } from 'react-mapbox-gl';
 
@@ -30,10 +31,11 @@ const MapGL = ReactMapboxGl({
 });
 
 function Map() {
+  const { t } = useTranslation();
   return (
     <MapContainer>
-      <MapTitle>Lokalizacja</MapTitle>
-      <MapSubtitle color={primaryColor}>Czekamy na Ciebie</MapSubtitle>
+      <MapTitle>{t('Location')}</MapTitle>
+      <MapSubtitle color={primaryColor}>{t('We are waiting for you')}</MapSubtitle>
       <MapGL
         // eslint-disable-next-line react/style-prop-object
         style="mapbox://styles/jayteejee/ckab8ccdh2dt31io598i49sz3"

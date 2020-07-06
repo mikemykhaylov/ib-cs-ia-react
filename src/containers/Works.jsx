@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import Navbar from '../components/general/Navbar';
 import { Heading2, Heading4 } from '../components/general/Headings';
@@ -50,34 +51,35 @@ const Work = styled.div`
 `;
 
 function Works() {
+  const { t } = useTranslation();
   return (
     <>
       <Navbar />
       <WorksContainer>
-        <Heading2>Usługi</Heading2>
+        <Heading2>{t('Services')}</Heading2>
         <WorksWrap>
           <Work>
-            <Heading4>Strzyżenie włosów</Heading4>
+            <Heading4>{t('Haircut')}</Heading4>
             <Heading4 color={primaryColor}>60zł</Heading4>
           </Work>
           <Work>
-            <Heading4>Trymowanie brody</Heading4>
+            <Heading4>{t('Beard trim')}</Heading4>
             <Heading4 color={primaryColor}>50zł</Heading4>
           </Work>
           <Work>
-            <Heading4>Combo (włosy + broda)</Heading4>
+            <Heading4>{t('Combo (hair + beard)')}</Heading4>
             <Heading4 color={primaryColor}>100zł</Heading4>
           </Work>
           <Work>
-            <Heading4>Strzyżenie chlopca (10 lat)</Heading4>
+            <Heading4>{t('Junior haircut (10 years)')}</Heading4>
             <Heading4 color={primaryColor}>60zł</Heading4>
           </Work>
           <Work>
-            <Heading4>Ojciec + syn</Heading4>
+            <Heading4>{t('Father + son')}</Heading4>
             <Heading4 color={primaryColor}>100zł</Heading4>
           </Work>
           <Work>
-            <Heading4>Strzyżenie seniora 65+</Heading4>
+            <Heading4>{t('Elderly haircut 65+')}</Heading4>
             <Heading4 color={primaryColor}>40zł</Heading4>
           </Work>
         </WorksWrap>

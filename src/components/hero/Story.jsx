@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { Heading2 as StoryTitle, Heading4, Text } from '../general/Headings';
-import { SecondaryButton } from '../general/Buttons';
 
 import { primaryColor } from '../../constants/websiteColors';
 import storyImage from '../../images/storyImage.jpg';
@@ -69,14 +69,19 @@ const StoryDescription = styled(Text)`
 `;
 
 function Story() {
+  const { t } = useTranslation();
   return (
     <StoryContainer>
       <StoryImage alt="Front view of our barbershop" src={storyImage} />
       <StoryWrap>
-        <StoryTitle>Kim jesteśmy?</StoryTitle>
-        <StorySubtitle color={primaryColor}>Tradycje w połączeniu z innowacją</StorySubtitle>
-        <StoryDescription>Ludzie z pasją do barberingu i polskiej historii</StoryDescription>
-        <SecondaryButton>Więcej</SecondaryButton>
+        <StoryTitle>{t('Who are we?')}</StoryTitle>
+        <StorySubtitle color={primaryColor}>
+          {t('Traditions combined with innovation')}
+        </StorySubtitle>
+        <StoryDescription>
+          {t('People with a passion for barbering and Polish history')}
+        </StoryDescription>
+        {/* <SecondaryButton>{t('More')}</SecondaryButton> */}
       </StoryWrap>
     </StoryContainer>
   );

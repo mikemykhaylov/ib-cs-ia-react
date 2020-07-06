@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { Heading2, Heading4, Text } from './Headings';
 
@@ -85,6 +86,7 @@ const FooterCreditsText = styled(Text)`
 
 function Footer() {
   const width = useWindowWidth();
+  const { t } = useTranslation();
   return (
     <FooterContainer>
       <FooterArt>
@@ -92,30 +94,27 @@ function Footer() {
         <Logo color={primaryColor} height={60} />
         {width > 768 && <PlaneRight height={64} color={lightGrayColor} />}
       </FooterArt>
-      <FooterTitle>Skontaktuj się z nami</FooterTitle>
+      <FooterTitle>{t('Get in touch')}</FooterTitle>
       <FooterWrap>
         <FooterContactSection>
-          <Heading4>Nasz adres</Heading4>
+          <Heading4>{t('Our adress')}</Heading4>
           <Text>Jurija Gagarina 33, 00-753 Warszawa, Polska</Text>
         </FooterContactSection>
         <FooterContactSection>
-          <Heading4>Telefon</Heading4>
+          <Heading4>{t('Phone')}</Heading4>
           <Text>+48 575 233 135</Text>
         </FooterContactSection>
         <FooterContactSection>
-          <Heading4>Godziny pracy</Heading4>
+          <Heading4>{t('Working hours')}</Heading4>
           <Text>
             Pn — 15:00 - 20:00
             <br />
-            Wt-Sr — 11:00 - 20:00 
+            Wt-Sr — 11:00 - 20:00
             <br />
             Czw-Pt — 8:00 - 20:00
             <br />
             Sb — 8:00 - 18:00
           </Text>
-          {/* <Text>Wt-Sr — 11:00 - 20:00</Text>
-          <Text>Pt — 8:00 - 20:00</Text>
-          <Text>Sb — 8:00 - 18:00</Text> */}
         </FooterContactSection>
       </FooterWrap>
       <FooterCredits>

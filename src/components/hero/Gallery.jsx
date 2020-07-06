@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 import useWindowWidth from '../../hooks/useWindowWidth';
 
 import { primaryColor } from '../../constants/websiteColors';
@@ -68,6 +69,7 @@ const GalleryImageDarken = styled.div`
 // TODO Add fullscreen image view
 
 function Gallery() {
+  const { t } = useTranslation();
   const width = useWindowWidth();
   const imageData = [
     {
@@ -129,8 +131,8 @@ function Gallery() {
   ];
   return (
     <GalleryContainer>
-      <GalleryTitle>Galeria</GalleryTitle>
-      <GallerySubtitle color={primaryColor}>Miejsce, w którym można się zakochać</GallerySubtitle>
+      <GalleryTitle>{t('Gallery')}</GalleryTitle>
+      <GallerySubtitle color={primaryColor}>{t('A place to fall in love with')}</GallerySubtitle>
       <GalleryWrap width={width}>
         {imageData.map((image) => (
           <GalleryImage key={image.src} width={width} style={image.style} src={image.src}>

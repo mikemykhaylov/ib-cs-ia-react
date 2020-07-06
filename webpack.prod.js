@@ -23,8 +23,8 @@ const robotsTxtOptions = {
       allow: '/',
     },
   ],
-  sitemap: "https://303bs.pl/sitemap.xml",
-  host: "https://303bs.pl",
+  sitemap: 'https://303bs.pl/sitemap.xml',
+  host: 'https://303bs.pl',
 };
 
 module.exports = {
@@ -113,16 +113,6 @@ module.exports = {
     new CompressionPlugin(),
     new FaviconsWebpackPlugin('./public/logo.svg'),
     new RobotstxtPlugin(robotsTxtOptions),
-    new SitemapPlugin('https://303bs.pl', [
-      '/',
-      '/reserve/step1',
-      '/reserve/step2',
-      '/reserve/step3',
-      '/reserve/step4',
-      '/reserve/success',
-      '/login',
-      '/dashboard',
-      '/forgotpassword'
-    ]),
+    new SitemapPlugin('https://303bs.pl', ['/', '/works']),
   ],
 };

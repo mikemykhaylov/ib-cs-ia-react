@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { primaryColor } from '../../constants/websiteColors';
 
@@ -61,27 +62,28 @@ const Advantage = styled.div`
 `;
 
 function Advantages() {
+  const { t } = useTranslation();
   return (
     <AdvantagesContainer>
-      <AdvantagesTitle>Zalety</AdvantagesTitle>
+      <AdvantagesTitle>{t('Advantages')}</AdvantagesTitle>
       <AdvantagesSubtitle color={primaryColor}>
-        Nie mogliśmy zmieścić ich wszystkich tutaj
+        {t('We could not fit all of them here')}
       </AdvantagesSubtitle>
       <AdvantagesWrap>
         <Advantage>
           <Barber color={primaryColor} height={70} />
-          <Heading3>Profesjonalni barberzy</Heading3>
-          <Text>Barberzy, którzy zmienią twoją fryzurę, a z nią właśnie ciebie</Text>
+          <Heading3>{t('Professional barbers')}</Heading3>
+          <Text>{t('Barbers who will change your hairstyle and you')}</Text>
         </Advantage>
         <Advantage>
           <Equipment color={primaryColor} height={70} />
-          <Heading3>Najlepszy sprzęt</Heading3>
-          <Text>Używamy kosmetyków i narzędzi, które są znane na całym świecie</Text>
+          <Heading3>{t('Best equipment')}</Heading3>
+          <Text>{t('We use cosmetics and tools that are known all over the world')}</Text>
         </Advantage>
         <Advantage>
           <BarbershopLocation color={primaryColor} height={70} />
-          <Heading3>Przyzwoita lokalizacja</Heading3>
-          <Text>Jesteśmy w samym sercu Warszawy, tuż przy Łazienkach Królewskich</Text>
+          <Heading3>{t('Suitable location')}</Heading3>
+          <Text>{t('We are in the heart of Warsaw, next to the Łazienki Królewskie Park')}</Text>
         </Advantage>
       </AdvantagesWrap>
     </AdvantagesContainer>
