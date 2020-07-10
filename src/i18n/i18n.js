@@ -17,14 +17,14 @@ i18n.use(LanguageDetector).init({
         Advantages: 'Advantages',
         'We could not fit all of them here': 'We could not fit all of them here',
         'Professional barbers': 'Professional barbers',
-        'Barbers who will change your hairstyle and you':
-          'Barbers who will change your hairstyle and you',
+        'Barbers who will change your hairstyle and yourself':
+          'Barbers who will change your hairstyle and yourself',
         'Best equipment': 'Best equipment',
         'We use cosmetics and tools that are known all over the world':
           'We use cosmetics and tools that are known all over the world',
         'Suitable location': 'Suitable location',
-        'We are in the heart of Warsaw, next to the Łazienki Królewskie Park':
-          'We are in the heart of Warsaw, next to the Łazienki Królewskie Park',
+        'We are in the heart of Warsaw, next to the Royal Łazienki Park':
+          'We are in the heart of Warsaw, next to the Royal Łazienki Park',
         'Who are we?': 'Who are we?',
         'Traditions combined with innovation': 'Traditions combined with innovation',
         'People with a passion for barbering and Polish history':
@@ -57,13 +57,13 @@ i18n.use(LanguageDetector).init({
         Advantages: 'Zalety',
         'We could not fit all of them here': 'Nie mogliśmy zmieścić ich wszystkich tutaj',
         'Professional barbers': 'Profesjonalni barberzy',
-        'Barbers who will change your hairstyle and you':
+        'Barbers who will change your hairstyle and yourself':
           'Barberzy, którzy zmienią twoją fryzurę, a z nią właśnie ciebie',
         'Best equipment': 'Najlepszy sprzęt',
         'We use cosmetics and tools that are known all over the world':
           'Używamy kosmetyków i narzędzi, które są znane na całym świecie',
         'Suitable location': 'Przyzwoita lokalizacja',
-        'We are in the heart of Warsaw, next to the Łazienki Królewskie Park':
+        'We are in the heart of Warsaw, next to the Royal Łazienki Park':
           'Jesteśmy w samym sercu Warszawy, tuż przy Łazienkach Królewskich',
         'Who are we?': 'Kim jesteśmy?',
         'Traditions combined with innovation': 'Tradycje w połączeniu z innowacją',

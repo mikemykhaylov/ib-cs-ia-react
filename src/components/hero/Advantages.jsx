@@ -73,7 +73,7 @@ function Advantages() {
         <Advantage>
           <Barber color={primaryColor} height={70} />
           <Heading3>{t('Professional barbers')}</Heading3>
-          <Text>{t('Barbers who will change your hairstyle and you')}</Text>
+          <Text>{t('Barbers who will change your hairstyle and yourself')}</Text>
         </Advantage>
         <Advantage>
           <Equipment color={primaryColor} height={70} />
@@ -83,7 +83,7 @@ function Advantages() {
         <Advantage>
           <BarbershopLocation color={primaryColor} height={70} />
           <Heading3>{t('Suitable location')}</Heading3>
-          <Text>{t('We are in the heart of Warsaw, next to the Łazienki Królewskie Park')}</Text>
+          <Text>{t('We are in the heart of Warsaw, next to the Royal Łazienki Park')}</Text>
         </Advantage>
       </AdvantagesWrap>
     </AdvantagesContainer>
