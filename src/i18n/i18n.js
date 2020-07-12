@@ -48,15 +48,15 @@ i18n.use(LanguageDetector).init({
       translations: {
         BARBERS: 'МАСТЕРА',
         SERVICES: 'УСЛУГИ',
-        LOCATIONS: 'ЛОКАЦИИ',
-        CAREERS: 'КАРЬЕРЫ',
+        LOCATIONS: 'АДРЕС',
+        CAREERS: 'КАРЬЕРА',
         Haircut: 'Стрижка головы',
         'Beard trim': 'Стрижка бороды',
         'Combo (hair + beard)': 'Комбо \n (голова и борода)',
-        Reserve: 'Зарезервировать',
-        Advantages: 'Преимущества',
+        Reserve: 'Забронировать',
+        Advantages: 'Достоинства',
         'We could not fit all of them here': 'Мы не могли бы вместить их всех здесь',
-        'Professional barbers': 'Профессиональные барберы',
+        'Professional barbers': 'Опытные барберы',
         'Barbers who will change your hairstyle and yourself':
           'Парикмахеры, которые изменят вашу прическу и вас самих',
         'Best equipment': 'Лучшее оборудование',
@@ -64,7 +64,7 @@ i18n.use(LanguageDetector).init({
           'Мы используем косметику и средства, которые известны во всем мире',
         'Suitable location': 'Удобное расположение',
         'We are in the heart of Warsaw, next to the Royal Łazienki Park':
-          'Мы находимся в самом сердце Варшавы, рядом с Королевским парком Лазенки',
+          'Мы находимся в самом сердце Варшавы, рядом с парком Королевские Лазенки',
         'Who are we?': 'Кто мы?',
         'Traditions combined with innovation': 'Традиции в сочетании с инновациями',
         'People with a passion for barbering and Polish history':
@@ -74,7 +74,7 @@ i18n.use(LanguageDetector).init({
         'A place to fall in love with': 'Место, в которое можно влюбиться',
         Location: 'Расположение',
         'We are waiting for you': 'Мы ждем вас',
-        'Get in touch': 'Связаться',
+        'Get in touch': 'Контакт',
         'Our adress': 'Наш адрес',
         Phone: 'Телефон',
         'Working hours': 'Рабочие часы',

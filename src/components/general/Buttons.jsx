@@ -11,7 +11,7 @@ export const PrimaryButton = styled.button`
   font-size: 36px;
   font-weight: bold;
   margin: 0;
-  padding: 20px 60px;
+  padding: 15px 45px;
   text-align: center;
   cursor: pointer;
   transition-duration: 200ms;
