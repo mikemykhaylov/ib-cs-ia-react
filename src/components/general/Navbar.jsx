@@ -182,6 +182,9 @@ function Navbar() {
             <NavbarButton onClick={() => handleLanguageChange('en')}>
               <Heading5>EN</Heading5>
             </NavbarButton>
+            <NavbarButton onClick={() => handleLanguageChange('ru')}>
+              <Heading5>RU</Heading5>
+            </NavbarButton>
             {/* {loginPage ? null : userActionButton} */}
           </NavbarMenu>
         </>
@@ -214,6 +217,9 @@ function Navbar() {
                 </NavbarButton>
                 <NavbarButton onClick={() => handleLanguageChange('en')}>
                   <Heading4>EN</Heading4>
+                </NavbarButton>
+                <NavbarButton onClick={() => handleLanguageChange('ru')}>
+                  <Heading4>RU</Heading4>
                 </NavbarButton>
                 {/* {loginPage ? null : userActionButton} */}
               </NavbarMenu>

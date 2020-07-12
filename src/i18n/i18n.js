@@ -44,6 +44,46 @@ i18n.use(LanguageDetector).init({
         'Elderly haircut 65+': 'Elderly haircut 65+',
       },
     },
+    ru: {
+      translations: {
+        BARBERS: 'МАСТЕРА',
+        SERVICES: 'УСЛУГИ',
+        LOCATIONS: 'ЛОКАЦИИ',
+        CAREERS: 'КАРЬЕРЫ',
+        Haircut: 'Стрижка головы',
+        'Beard trim': 'Стрижка бороды',
+        'Combo (hair + beard)': 'Комбо \n (голова и борода)',
+        Reserve: 'Зарезервировать',
+        Advantages: 'Преимущества',
+        'We could not fit all of them here': 'Мы не могли бы вместить их всех здесь',
+        'Professional barbers': 'Профессиональные барберы',
+        'Barbers who will change your hairstyle and yourself':
+          'Парикмахеры, которые изменят вашу прическу и вас самих',
+        'Best equipment': 'Лучшее оборудование',
+        'We use cosmetics and tools that are known all over the world':
+          'Мы используем косметику и средства, которые известны во всем мире',
+        'Suitable location': 'Удобное расположение',
+        'We are in the heart of Warsaw, next to the Royal Łazienki Park':
+          'Мы находимся в самом сердце Варшавы, рядом с Королевским парком Лазенки',
+        'Who are we?': 'Кто мы?',
+        'Traditions combined with innovation': 'Традиции в сочетании с инновациями',
+        'People with a passion for barbering and Polish history':
+          'Люди со страстью к стрижке и польской истории',
+        // "More": "More",
+        Gallery: 'Галерея',
+        'A place to fall in love with': 'Место, в которое можно влюбиться',
+        Location: 'Расположение',
+        'We are waiting for you': 'Мы ждем вас',
+        'Get in touch': 'Связаться',
+        'Our adress': 'Наш адрес',
+        Phone: 'Телефон',
+        'Working hours': 'Рабочие часы',
+        Services: 'Услуги',
+        'Junior haircut (10 years)': 'Стрижка юнца (10 лет)',
+        'Father + son': 'Отец + сын',
+        'Elderly haircut 65+': 'Стрижка пожилого человека 65+',
+      },
+    },
     pl: {
       translations: {
         BARBERS: 'BARBERY',
