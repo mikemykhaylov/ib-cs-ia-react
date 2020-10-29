@@ -104,6 +104,7 @@ module.exports = (env, argv) => {
     config.performance.hints = false;
   } else {
     config.module.rules[1].use[1].options.sourceMap = false;
+    config.plugins = config.plugins.slice(0, config.plugins.length - 1);
   }
   return config;
 };
