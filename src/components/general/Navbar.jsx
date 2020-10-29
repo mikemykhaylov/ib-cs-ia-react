@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 
 import Logo from '../icons/Logo';
-// import Login from '../icons/Login';
-// import Logout from '../icons/Logout';
+import Login from '../icons/Login';
+import Logout from '../icons/Logout';
 import Menu from '../icons/Menu';
 
 import { Heading4, Heading5 } from './Headings';
 
 import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
-// import firebase from '../../utils/firebaseSetup';
+import firebase from '../../utils/firebaseSetup';
 import useWindowWidth from '../../hooks/useWindowWidth';
 
 const NavbarContainer = styled.header`
@@ -75,91 +75,91 @@ const NavbarButton = styled.button`
   cursor: pointer;
 `;
 
-// const UserActions = styled.div`
-//   display: flex;
-//   justify-content: flex-start;
-//   align-items: center;
-//   flex-direction: row;
-//   & > *:not(:last-child) {
-//     margin-right: 20px;
-//   }
-//   @media (min-width: 1520px) {
-//     & > *:not(:last-child) {
-//       margin-right: 40px;
-//     }
-//   }
-// `;
+const UserActions = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  & > *:not(:last-child) {
+    margin-right: 20px;
+  }
+  @media (min-width: 1520px) {
+    & > *:not(:last-child) {
+      margin-right: 40px;
+    }
+  }
+`;
 
-// const UserImage = styled.img`
-//   width: 40px;
-//   height: 40px;
-//   object-fit: cover;
-//   object-position: center;
-//   border-radius: 50%;
-// `;
+const UserImage = styled.img`
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+`;
 
-// const CenteredLink = styled(Link)`
-//   display: flex;
-//   align-items: center;
-// `;
+const CenteredLink = styled(Link)`
+  display: flex;
+  align-items: center;
+`;
 
-// const LogoutButton = styled.button`
-//   padding: 0;
-//   margin: 0;
-//   border: none;
-//   background: none;
-//   cursor: pointer;
-//   display: flex;
-//   align-items: center;
-// `;
+const LogoutButton = styled.button`
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`;
 
-function Navbar() {
+function Navbar({ loginPage }) {
   const width = useWindowWidth();
   const { t, i18n } = useTranslation();
   const handleLanguageChange = (language) => {
     i18n.changeLanguage(language);
   };
-  // const history = useHistory();
+  const history = useHistory();
   const [showMobileNav, setShowMobileNav] = useState(false);
-  // const [loggedIn, setLoggedIn] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(null);
 
   // Logout handler
-  // const handleLogout = async () => {
-  //   setLoggedIn(false);
-  //   await firebase.auth().signOut();
-  //   history.push('/');
-  // };
+  const handleLogout = async () => {
+    setLoggedIn(false);
+    await firebase.auth().signOut();
+    history.push('/');
+  };
 
   // Showing the user login or logout button and a photo
-  // let userActionButton;
-  // if (loggedIn !== null) {
-  //   userActionButton = loggedIn ? (
-  //     <UserActions>
-  //       <CenteredLink to="/dashboard">
-  //         <UserImage src={firebase.auth().currentUser.photoURL} />
-  //       </CenteredLink>
-  //       <LogoutButton onClick={handleLogout}>
-  //         <Logout firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
-  //       </LogoutButton>
-  //     </UserActions>
-  //   ) : (
-  //     <CenteredLink to="/login">
-  //       <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
-  //     </CenteredLink>
-  //   );
-  // }
+  let userActionButton;
+  if (loggedIn !== null) {
+    userActionButton = loggedIn ? (
+      <UserActions>
+        <CenteredLink to="/dashboard">
+          <UserImage src={firebase.auth().currentUser.photoURL} />
+        </CenteredLink>
+        <LogoutButton onClick={handleLogout}>
+          <Logout firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+        </LogoutButton>
+      </UserActions>
+    ) : (
+      <CenteredLink to="/login">
+        <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+      </CenteredLink>
+    );
+  }
 
   // Subscribing to auth change to display proper user actions
-  // useEffect(() => {
-  //   const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //       setLoggedIn(true);
-  //     } else {
-  //       setLoggedIn(false);
-  //     }
-  //   });
-  //   return () => unsubscribe();
-  // }, []);
+  useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
   return (
     <NavbarContainer>
       {width >= 992 ? (
@@ -185,7 +185,7 @@ function Navbar() {
             <NavbarButton onClick={() => handleLanguageChange('ru')}>
               <Heading5>RU</Heading5>
             </NavbarButton>
-            {/* {loginPage ? null : userActionButton} */}
+            {loginPage ? null : userActionButton}
           </NavbarMenu>
         </>
       ) : (
@@ -221,7 +221,7 @@ function Navbar() {
                 <NavbarButton onClick={() => handleLanguageChange('ru')}>
                   <Heading4>RU</Heading4>
                 </NavbarButton>
-                {/* {loginPage ? null : userActionButton} */}
+                {loginPage ? null : userActionButton}
               </NavbarMenu>
             </>
           ) : null}
@@ -231,12 +231,12 @@ function Navbar() {
   );
 }
 
-// Navbar.propTypes = {
-//   loginPage: PropTypes.bool,
-// };
+Navbar.propTypes = {
+  loginPage: PropTypes.bool,
+};
 
-// Navbar.defaultProps = {
-//   loginPage: false,
-// };
+Navbar.defaultProps = {
+  loginPage: false,
+};
 
 export default Navbar;

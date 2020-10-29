@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
@@ -119,13 +120,9 @@ function Main() {
           <Heading3>100zł</Heading3>
         </MainService>
       </MainServicesContainer>
-      <a
-        href="https://booksy.com/pl-pl/71163_dywizjon-303-barbershop_barber-shop_3_warszawa"
-        target="_blank"
-        rel="noreferrer"
-      >
+      <Link to="/reserve/step1">
         <PrimaryButton>{t('Reserve')}</PrimaryButton>
-      </a>
+      </Link>
     </MainContainer>
   );
 }
