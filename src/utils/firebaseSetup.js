@@ -9,11 +9,9 @@ const firebaseConfig = {
   projectId: 'dywizjon-303',
   storageBucket: 'dywizjon-303.appspot.com',
   messagingSenderId: '69401916518',
-  appId: '1:69401916518:web:e9c98f928b6658a03e69a7',
-  measurementId: 'G-90FD27N3BC',
+  appId: '1:69401916518:web:80b85fc2d712f8063e69a7',
 };
 
 firebase.initializeApp(firebaseConfig);
-// firebase.analytics();
 
 export default firebase;
