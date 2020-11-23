@@ -3,18 +3,18 @@ import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 import useWindowWidth from '../../hooks/useWindowWidth';
 
-import { primaryColor } from '../../constants/websiteColors';
+import { secondaryColor } from '../../constants/websiteColors';
 
 import { Heading2 as GalleryTitle, Heading4 } from '../general/Headings';
 
-import galleryPhoto1 from '../../images/galleryPhoto1.jpg';
-import galleryPhoto2 from '../../images/galleryPhoto2.jpg';
-import galleryPhoto3 from '../../images/galleryPhoto3.jpg';
-import galleryPhoto4 from '../../images/galleryPhoto4.jpg';
-import galleryPhoto5 from '../../images/galleryPhoto5.jpg';
-import galleryPhoto6 from '../../images/galleryPhoto6.jpg';
-import galleryPhoto7 from '../../images/galleryPhoto7.jpg';
-import galleryPhoto8 from '../../images/galleryPhoto8.jpg';
+import galleryPhoto1 from '../../images/galleryPhoto1.webp';
+import galleryPhoto2 from '../../images/galleryPhoto2.webp';
+import galleryPhoto3 from '../../images/galleryPhoto3.webp';
+import galleryPhoto4 from '../../images/galleryPhoto4.webp';
+import galleryPhoto5 from '../../images/galleryPhoto5.webp';
+import galleryPhoto6 from '../../images/galleryPhoto6.webp';
+import galleryPhoto7 from '../../images/galleryPhoto7.webp';
+import galleryPhoto8 from '../../images/galleryPhoto8.webp';
 
 const GalleryContainer = styled.section`
   box-sizing: border-box;
@@ -132,7 +132,7 @@ function Gallery() {
   return (
     <GalleryContainer>
       <GalleryTitle>{t('Gallery')}</GalleryTitle>
-      <GallerySubtitle color={primaryColor}>{t('A place to fall in love with')}</GallerySubtitle>
+      <GallerySubtitle color={secondaryColor}>{t('A place to fall in love with')}</GallerySubtitle>
       <GalleryWrap width={width}>
         {imageData.map((image) => (
           <GalleryImage key={image.src} width={width} style={image.style} src={image.src}>

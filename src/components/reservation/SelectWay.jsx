@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
+import { useTranslation } from 'react-i18next';
 import useWindowWidth from '../../hooks/useWindowWidth';
 
-import { Heading2, Heading4 } from '../general/Headings';
+import { Heading2, Heading3, Heading4 } from '../general/Headings';
 
 import Time from '../icons/Time';
 import Barber from '../icons/Barber';
@@ -40,6 +41,7 @@ const Way = styled.div`
 function SelectWay({ setTimeFirst }) {
   const history = useHistory();
   const windowWidth = useWindowWidth();
+  const { t } = useTranslation();
   const handleWaySelect = (timeFirst) => {
     setTimeFirst(timeFirst);
     history.push('/reserve/step2');
@@ -47,19 +49,16 @@ function SelectWay({ setTimeFirst }) {
 
   return (
     <>
-      <Heading2>
-        Reservation
-        <br />
-        Step 1: Select a way:
-      </Heading2>
+      <Heading2>{t('Reservation')}</Heading2>
+      <Heading3>{`${t('Step')} 1: ${t('Select a way')}:`}</Heading3>
       <SelectWayWrap>
         <Way onClick={() => handleWaySelect(true)}>
           <Time color={primaryColor} height={windowWidth >= 768 ? 180 : 240} />
-          <Heading4>Reserve for a specific time</Heading4>
+          <Heading4>{t('I want for a specific time')}</Heading4>
         </Way>
         <Way onClick={() => handleWaySelect(false)}>
           <Barber color={primaryColor} height={windowWidth >= 768 ? 180 : 240} />
-          <Heading4>Reserve for a specific master</Heading4>
+          <Heading4>{t('I want to a specific master')}</Heading4>
         </Way>
       </SelectWayWrap>
     </>

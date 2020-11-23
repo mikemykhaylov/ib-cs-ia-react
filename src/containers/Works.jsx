@@ -63,15 +63,15 @@ function Works() {
             <Heading4 color={primaryColor}>60zł</Heading4>
           </Work>
           <Work>
-            <Heading4>{t('Beard trim')}</Heading4>
+            <Heading4>{t('Shaving')}</Heading4>
             <Heading4 color={primaryColor}>50zł</Heading4>
           </Work>
           <Work>
-            <Heading4>{t('Combo (hair + beard)')}</Heading4>
+            <Heading4>{t('Combo')}</Heading4>
             <Heading4 color={primaryColor}>100zł</Heading4>
           </Work>
           <Work>
-            <Heading4>{t('Junior haircut (10 years)')}</Heading4>
+            <Heading4>{t('Junior haircut (<10 years)')}</Heading4>
             <Heading4 color={primaryColor}>60zł</Heading4>
           </Work>
           <Work>

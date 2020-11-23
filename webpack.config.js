@@ -38,7 +38,7 @@ let config = {
         ],
       },
       {
-        test: /\.(png|jpg|gif|svg|woff2?)$/,
+        test: /\.(webp|gif|svg|ttf|woff2?)$/,
         type: 'asset/resource',
       },
     ],
@@ -99,7 +99,7 @@ let config = {
 
 module.exports = (env, argv) => {
   if (argv.mode === 'development') {
-    config = { ...config, mode: 'development', devtool: 'eval-source-map' };
+    config = { ...config, mode: 'development', devtool: 'eval-cheap-module-source-map' };
     config.plugins = config.plugins.slice(0, config.plugins.length - 1);
     config.performance.hints = false;
   } else {

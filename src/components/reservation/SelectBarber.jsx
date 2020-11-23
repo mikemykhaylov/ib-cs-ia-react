@@ -3,13 +3,14 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 import ky from 'ky';
 
 import { Heading2, Heading3, Heading5 } from '../general/Headings';
 import { SecondaryButton, PrimaryButton } from '../general/Buttons';
 import Loading from '../general/Loading';
 
-import { darkerGrayColor, primaryColor } from '../../constants/websiteColors';
+import { darkerGrayColor, primaryColor, secondaryColor } from '../../constants/websiteColors';
 import Barber from '../icons/Barber';
 
 const SelectBarberWrap = styled.div`
@@ -27,11 +28,11 @@ const BarberCard = styled.div`
   border-radius: 10px;
   background-color: ${darkerGrayColor};
   border: 2px solid;
-  border-color: ${(props) => (props.active ? primaryColor : darkerGrayColor)};
+  border-color: ${(props) => (props.active ? secondaryColor : darkerGrayColor)};
   cursor: pointer;
   transition-duration: 200ms;
   &:hover {
-    border-color: ${primaryColor};
+    border-color: ${secondaryColor};
   }
 `;
 
@@ -81,6 +82,7 @@ const ButtonsContainer = styled.div`
 `;
 
 function SelectBarber({ time, timeFirst, currentBarber, setCurrentBarber }) {
+  const { t } = useTranslation();
   const [availableBarbers, setAvailableBarbers] = useState([]);
   const [loadedBarbers, setLoadedBarbers] = useState(false);
   const history = useHistory();
@@ -131,15 +133,12 @@ function SelectBarber({ time, timeFirst, currentBarber, setCurrentBarber }) {
       </SelectBarberWrap>
     ) : (
       // If no barber is available, we show the none are available message (only works in Time First)
-      <Heading3>Sorry, no barbers are available for that time</Heading3>
+      <Heading3>{t('Sorry, no barbers are available for that time')}</Heading3>
     );
   return (
     <>
-      <Heading2>
-        Reservation
-        <br />
-        {`Step ${timeFirst ? 3 : 2}: Select master`}
-      </Heading2>
+      <Heading2>{t('Reservation')}</Heading2>
+      <Heading3>{`${t('Step')} ${timeFirst ? 3 : 2}: ${t('Select a master')} :`}</Heading3>
       {loadedBarbers ? barberCards : <Loading width="100%" height="200px" />}
       {loadedBarbers ? (
         <ButtonsContainer>
@@ -156,11 +155,11 @@ function SelectBarber({ time, timeFirst, currentBarber, setCurrentBarber }) {
               history.goBack();
             }}
           >
-            Back
+            {t('Back')}
           </SecondaryButton>
           {currentBarber.firstName && (
             <Link to={`/reserve/step${timeFirst ? 4 : 3}`}>
-              <PrimaryButton>Next</PrimaryButton>
+              <PrimaryButton>{t('Next')}</PrimaryButton>
             </Link>
           )}
         </ButtonsContainer>

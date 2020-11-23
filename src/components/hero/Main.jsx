@@ -3,8 +3,7 @@ import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
-import useWindowWidth from '../../hooks/useWindowWidth';
+import { primaryColor } from '../../constants/websiteColors';
 
 import { PrimaryButton } from '../general/Buttons';
 import Navbar from '../general/Navbar';
@@ -13,14 +12,12 @@ import { Heading1, Heading3, Heading5 } from '../general/Headings';
 import Scissors from '../icons/Scissors';
 import Razor from '../icons/Razor';
 import Combo from '../icons/Combo';
-import PlaneLeft from '../icons/PlaneLeft';
-import PlaneRight from '../icons/PlaneRight';
 
-import heroImage from '../../images/heroImage.jpg';
+import heroImage from '../../images/heroImage.webp';
 
 const MainContainer = styled.div`
   align-items: center;
-  background: linear-gradient(rgba(35, 35, 35, 0.8), rgba(35, 35, 35, 0.8)), url(${heroImage});
+  background: linear-gradient(rgba(35, 35, 35, 0.8), rgba(35, 35, 35, 0.6)), url(${heroImage});
   background-position: center center;
   background-size: cover;
   background-attachment: fixed;
@@ -78,6 +75,7 @@ const MainServicesContainer = styled.div`
 `;
 
 const MainService = styled.div`
+  width: 150px;
   text-align: center;
   & > *:first-child {
     margin-bottom: 20px;
@@ -89,19 +87,16 @@ const MainServiceName = styled(Heading5)`
 `;
 
 function Main() {
-  const width = useWindowWidth();
   const { t } = useTranslation();
   return (
     <MainContainer>
       <Navbar />
       <MainHeadingContainer>
-        {width > 768 && <PlaneLeft height={64} color={lightGrayColor} />}
         <Heading1>
-          Dywizjon 303
+          Cyberpunk
           <br />
           Barbershop
         </Heading1>
-        {width > 768 && <PlaneRight height={64} color={lightGrayColor} />}
       </MainHeadingContainer>
       <MainServicesContainer>
         <MainService>
@@ -111,12 +106,12 @@ function Main() {
         </MainService>
         <MainService>
           <Razor color={primaryColor} height={60} />
-          <MainServiceName>{t('Beard trim')}</MainServiceName>
+          <MainServiceName>{t('Shaving')}</MainServiceName>
           <Heading3>50zł</Heading3>
         </MainService>
         <MainService>
           <Combo color={primaryColor} height={60} />
-          <MainServiceName>{t('Combo (hair + beard)')}</MainServiceName>
+          <MainServiceName>{t('Combo')}</MainServiceName>
           <Heading3>100zł</Heading3>
         </MainService>
       </MainServicesContainer>

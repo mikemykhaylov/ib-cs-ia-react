@@ -4,8 +4,9 @@ import { useTranslation } from 'react-i18next';
 
 import { Heading2 as StoryTitle, Heading4, Text } from '../general/Headings';
 
-import { primaryColor } from '../../constants/websiteColors';
-import storyImage from '../../images/storyImage.jpg';
+import { secondaryColor } from '../../constants/websiteColors';
+import storyImage from '../../images/storyImage.webp';
+import { SecondaryButton } from '../general/Buttons';
 
 const StoryContainer = styled.section`
   box-sizing: border-box;
@@ -34,6 +35,7 @@ const StoryImage = styled.img`
   filter: grayscale(100%);
   @media (min-width: 1200px) {
     width: calc(100vw / 2 - 10px - 100vw * 245 / 1920);
+    align-self: center;
   }
 `;
 
@@ -75,13 +77,17 @@ function Story() {
       <StoryImage alt="Front view of our barbershop" src={storyImage} />
       <StoryWrap>
         <StoryTitle>{t('Who are we?')}</StoryTitle>
-        <StorySubtitle color={primaryColor}>
-          {t('Traditions combined with innovation')}
+        <StorySubtitle color={secondaryColor}>
+          {t('Scisor prosthetics are on our todo list')}
         </StorySubtitle>
         <StoryDescription>
-          {t('People with a passion for barbering and Polish history')}
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam reprehenderit, doloribus
+          perferendis unde ea aliquid non nobis cum molestias fuga facere autem eaque consectetur
+          ratione! Eligendi ipsam minima ex sint. Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Dolores, et quam minus accusantium mollitia sed asperiores, illum magni quod eveniet
+          repellendus autem ratione velit beatae doloribus dolore quisquam ab. Sed!
         </StoryDescription>
-        {/* <SecondaryButton>{t('More')}</SecondaryButton> */}
+        <SecondaryButton>{t('More')}</SecondaryButton>
       </StoryWrap>
     </StoryContainer>
   );

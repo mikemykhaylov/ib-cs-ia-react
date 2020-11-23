@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 
-import { primaryColor } from '../../constants/websiteColors';
+import { primaryColor, secondaryColor } from '../../constants/websiteColors';
 
 import Barber from '../icons/Barber';
 import Equipment from '../icons/Equipment';
@@ -66,7 +66,7 @@ function Advantages() {
   return (
     <AdvantagesContainer>
       <AdvantagesTitle>{t('Advantages')}</AdvantagesTitle>
-      <AdvantagesSubtitle color={primaryColor}>
+      <AdvantagesSubtitle color={secondaryColor}>
         {t('We could not fit all of them here')}
       </AdvantagesSubtitle>
       <AdvantagesWrap>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 import ky from 'ky';
 
 import Navbar from '../components/general/Navbar';
@@ -100,6 +101,7 @@ const AppointmentTimeSpan = styled.span`
 `;
 
 function Dashboard() {
+  const { t, i18n } = useTranslation();
   // User data from firebase.auth()
   const { currentUser: firebaseCurrentUser } = firebase.auth();
 
@@ -128,13 +130,12 @@ function Dashboard() {
     const controller = new AbortController();
     const { signal } = controller;
     (async () => {
-      const barber = await ky.post(
-        'https://europe-west3-dywizjon-303.cloudfunctions.net/api/barbers/email',
-        {
+      const barber = await ky
+        .post('https://europe-west3-dywizjon-303.cloudfunctions.net/api/barbers/email', {
           json: { email: currentUser.email },
           signal,
-        },
-      );
+        })
+        .json();
       // Adding this new data to existing component user
       setCurrentUser({ ...currentUser, ...barber });
     })();
@@ -172,19 +173,19 @@ function Dashboard() {
   // Mapping appointments to cards
   let appointmentsCards;
   if (appointments.length === 0) {
-    appointmentsCards = <Heading4>No appointments for this day</Heading4>;
+    appointmentsCards = <Heading4>{t('No appointments for this day')}</Heading4>;
   } else {
     appointmentsCards = appointments.map((appointment) => (
       <AppointmentContainer key={appointment.id}>
         <Heading4>
-          Time:
+          {`${t('Time')}:`}
           <AppointmentTimeSpan>
             {` ${new Date(appointment.time).getUTCHours() + 2}:00`}
           </AppointmentTimeSpan>
         </Heading4>
-        <Heading5>{`Name: ${appointment.firstName} ${appointment.lastName}`}</Heading5>
-        <Heading5>{`Service: ${appointment.serviceName}`}</Heading5>
-        <Heading5>{`Duration: ${appointment.duration} min`}</Heading5>
+        <Heading5>{`${t('Name')}: ${appointment.firstName} ${appointment.lastName}`}</Heading5>
+        <Heading5>{`${t('Service')}: ${t(appointment.serviceName)}`}</Heading5>
+        <Heading5>{`${t('Duration')}: ${appointment.duration} min`}</Heading5>
       </AppointmentContainer>
     ));
   }
@@ -192,27 +193,28 @@ function Dashboard() {
     <>
       <Navbar />
       <Container>
-        <Heading2>{`Welcome back, ${currentUser.displayName}`}</Heading2>
+        <Heading2>{`${t('Welcome back')}, ${currentUser.displayName}`}</Heading2>
         <Wrap>
           <ElementContainer>
             <BarberImage src={currentUser.profileImageURL} />
             <BarberInfo>
               <BarberMainInfo>
                 <Heading4>{currentUser.displayName}</Heading4>
-                <Heading5 color={grayColor}>Barber</Heading5>
+                <Heading5 color={grayColor}>{t('Barber')}</Heading5>
               </BarberMainInfo>
               <Heading4>
-                {currentUser.specialization && `Specialization: ${currentUser.specialization}`}
+                {currentUser.specialization &&
+                  `${t('Specialisation')}: ${currentUser.specialization}`}
               </Heading4>
             </BarberInfo>
           </ElementContainer>
           <ElementContainer>
-            <Heading3>View Appointments:</Heading3>
+            <Heading3>{`${t('View appointments')}:`}</Heading3>
             <Calendar time={time} setTime={setTime} allDates />
           </ElementContainer>
         </Wrap>
         <Heading3>
-          {`Showing appointments for ${time.toLocaleString('en-GB', {
+          {`${t('Showing appointments for')} ${time.toLocaleString(i18n.language, {
             year: 'numeric',
             month: 'long',
             day: 'numeric',

@@ -5,11 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { Heading2, Heading4, Text } from './Headings';
 
 import Logo from '../icons/Logo';
-import PlaneRight from '../icons/PlaneRight';
-import PlaneLeft from '../icons/PlaneLeft';
 
 import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
-import useWindowWidth from '../../hooks/useWindowWidth';
 
 const FooterContainer = styled.footer`
   width: calc(100vw - 2 * 100vw * 50 / 1920);
@@ -85,41 +82,38 @@ const FooterCreditsText = styled(Text)`
 `;
 
 function Footer() {
-  const width = useWindowWidth();
   const { t } = useTranslation();
   return (
     <FooterContainer>
       <FooterArt>
-        {width > 768 && <PlaneLeft height={64} color={lightGrayColor} />}
         <Logo color={primaryColor} height={60} />
-        {width > 768 && <PlaneRight height={64} color={lightGrayColor} />}
       </FooterArt>
       <FooterTitle>{t('Get in touch')}</FooterTitle>
       <FooterWrap>
         <FooterContactSection>
           <Heading4>{t('Our adress')}</Heading4>
-          <Text>Jurija Gagarina 33, 00-753 Warszawa, Polska</Text>
+          <Text>1877 Colony Street, Westport, CT 06880, USA</Text>
         </FooterContactSection>
         <FooterContactSection>
           <Heading4>{t('Phone')}</Heading4>
-          <Text>+48 575 233 135</Text>
+          <Text>+1-203-291-7370</Text>
         </FooterContactSection>
         <FooterContactSection>
           <Heading4>{t('Working hours')}</Heading4>
           <Text>
-            Pn — 15:00 - 20:00
+            {`${t('Mo')} — 15:00 - 20:00`}
             <br />
-            Wt-Sr — 11:00 - 20:00
+            {`${t('Tu')}-${t('We')} — 11:00 - 20:00`}
             <br />
-            Czw-Pt — 8:00 - 20:00
+            {`${t('Th')}-${t('Fr')} — 8:00 - 20:00`}
             <br />
-            Sb — 8:00 - 18:00
+            {`${t('Sa')} — 8:00 - 18:00`}
           </Text>
         </FooterContactSection>
       </FooterWrap>
       <FooterCredits>
         <FooterCreditsText color={lightGrayColor}>
-          Copyright © Dywizjon 303 all rights reserved. Developed by Mykhaylo Mykhaylov
+          Copyright © Cyberpunk Barbershop all rights reserved. Developed by Mykhaylo Mykhaylov
         </FooterCreditsText>
         <FooterCreditsText color={lightGrayColor}>
           Icons made by Freepik and Eucalyp from www.flaticon.com

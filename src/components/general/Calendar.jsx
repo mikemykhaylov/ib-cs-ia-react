@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { Heading4 } from './Headings';
 
 import ArrowRight from '../icons/ArrowRight';
 import ArrowLeft from '../icons/ArrowLeft';
-import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
+import { secondaryColor, lightGrayColor } from '../../constants/websiteColors';
 
 const CalendarContainer = styled.div`
   display: flex;
@@ -61,15 +62,16 @@ const Day = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 16px;
-  background-color: ${(props) => props.active && primaryColor};
+  background-color: ${(props) => props.active && secondaryColor};
   cursor: pointer;
   transition-duration: 200ms;
   &:hover {
-    background-color: ${primaryColor};
+    background-color: ${secondaryColor};
   }
 `;
 
 function Calendar({ time, setTime, allDates }) {
+  const { t, i18n } = useTranslation();
   const dayOfWeekOfMonthBeginning = new Date(time.getFullYear(), time.getMonth(), 1).getDay();
   const daysInCurrentMonth = new Date(time.getFullYear(), time.getMonth() + 1, 0).getDate();
   const days = [];
@@ -100,20 +102,22 @@ function Calendar({ time, setTime, allDates }) {
         >
           <ArrowLeft height={24} color={lightGrayColor} />
         </ChangeMonthButton>
-        <Heading4>{time.toLocaleString('en-GB', { year: 'numeric', month: 'long' })}</Heading4>
+        <Heading4>
+          {time.toLocaleString(i18n.language, { year: 'numeric', month: 'long' })}
+        </Heading4>
         <ChangeMonthButton onClick={() => setTime(new Date(time.setMonth(time.getMonth() + 1)))}>
           <ArrowRight height={24} color={lightGrayColor} />
         </ChangeMonthButton>
       </MonthWrap>
       <DatePicker>
         <WeekDays>
-          <Heading4 color={primaryColor}>Mo</Heading4>
-          <Heading4 color={primaryColor}>Tu</Heading4>
-          <Heading4 color={primaryColor}>We</Heading4>
-          <Heading4 color={primaryColor}>Th</Heading4>
-          <Heading4 color={primaryColor}>Fr</Heading4>
-          <Heading4 color={primaryColor}>Sa</Heading4>
-          <Heading4 color={primaryColor}>Su</Heading4>
+          <Heading4 color={secondaryColor}>{t('Mo')}</Heading4>
+          <Heading4 color={secondaryColor}>{t('Tu')}</Heading4>
+          <Heading4 color={secondaryColor}>{t('We')}</Heading4>
+          <Heading4 color={secondaryColor}>{t('Th')}</Heading4>
+          <Heading4 color={secondaryColor}>{t('Fr')}</Heading4>
+          <Heading4 color={secondaryColor}>{t('Sa')}</Heading4>
+          <Heading4 color={secondaryColor}>{t('Su')}</Heading4>
         </WeekDays>
         <Days dayOfWeekOfMonthBeginning={dayOfWeekOfMonthBeginning}>{days}</Days>
       </DatePicker>

@@ -1,12 +1,15 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-import React from 'react';
+/* eslint-disable react/forbid-prop-types */
+
 import PropTypes from 'prop-types';
+import React from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
+
 import {
-  primaryColor,
   darkerGrayColor,
-  lightGrayColor,
   grayColor,
+  lightGrayColor,
+  primaryColor,
 } from '../../constants/websiteColors';
 import { Heading4, Heading5 } from './Headings';
 
@@ -47,7 +50,7 @@ const GetDetailsInput = styled.input`
   margin: 0;
   padding: 9px 12px;
   width: 100%;
-  font-family: Montserrat;
+  font-family: LibreFrank;
   font-size: 16px;
   line-height: 24px;
   color: ${lightGrayColor};
@@ -65,15 +68,16 @@ const toCamelCase = (str) => {
 };
 
 export const Input = ({ heading, value, type, onChange, errorsObj }) => {
+  const { t } = useTranslation();
   return (
     <GetDetailsInputGroup>
-      <Heading4>{heading}:</Heading4>
+      <Heading4>{`${t(heading)}:`}</Heading4>
       <GetDetailsInput
         name={toCamelCase(heading)}
         onChange={onChange}
         value={value}
         type={type}
-        placeholder={`Enter ${heading.toLowerCase()}:`}
+        placeholder={t(`Enter ${heading.toLowerCase()}`)}
       />
       {errorsObj && !errorsObj.valid && errorsObj.errors[toCamelCase(heading)] && (
         <Heading5 color={primaryColor}>{errorsObj.errors[toCamelCase(heading)]}</Heading5>

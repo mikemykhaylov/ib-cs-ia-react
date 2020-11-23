@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import Navbar from '../components/general/Navbar';
 import { Heading2, Heading3, LinkText } from '../components/general/Headings';
@@ -38,6 +39,7 @@ const ErrorContainer = styled.div`
 
 function Login() {
   const history = useHistory();
+  const { t } = useTranslation();
 
   // Email and password user enters
   const [userInfo, setUserInfo] = useState({
@@ -83,7 +85,7 @@ function Login() {
     <>
       <Navbar loginPage />
       <LoginContainer>
-        <Heading2>Login</Heading2>
+        <Heading2>{t('Login')}</Heading2>
         {DBErrors.error && (
           <ErrorContainer>
             <Heading3>{DBErrors.error}</Heading3>
@@ -109,10 +111,10 @@ function Login() {
             />
           </FormRow>
           <Link to="/forgotpassword">
-            <LinkText color={grayColor}>Forgot your password?</LinkText>
+            <LinkText color={grayColor}>{t('Forgot password?')}</LinkText>
           </Link>
           <PrimaryButton type="submit" onClick={handleSubmit}>
-            {inProcessOfLoggingIn ? <Loading height="100%" width="100%" /> : 'Log in'}
+            {inProcessOfLoggingIn ? <Loading height="100%" width="100%" /> : t('Log in')}
           </PrimaryButton>
         </FormContainer>
       </LoginContainer>

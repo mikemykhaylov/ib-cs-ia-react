@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 import ky from 'ky';
 
 import Scissors from '../icons/Scissors';
@@ -17,6 +18,7 @@ import {
   lightGrayColor,
   primaryColor,
   darkerGrayColor,
+  secondaryColor,
 } from '../../constants/websiteColors';
 import Razor from '../icons/Razor';
 import Combo from '../icons/Combo';
@@ -77,7 +79,7 @@ const Time = styled.div`
   border: ${(props) => (props.active ? 'none' : `1px solid ${grayColor}`)};
   border-radius: 5px;
   transition-duration: 200ms;
-  background-color: ${(props) => props.active && primaryColor};
+  background-color: ${(props) => props.active && secondaryColor};
   cursor: pointer;
   &:hover {
     border-color: ${lightGrayColor};
@@ -150,6 +152,7 @@ function SelectTime({
   currentBarber,
 }) {
   const history = useHistory();
+  const { t } = useTranslation();
 
   const [busyHours, setBusyHours] = useState([]);
   const [loadedBusyHours, setLoadedBusyHours] = useState(false);
@@ -261,13 +264,13 @@ function SelectTime({
     {
       icon: FatherSon({ color: primaryColor, height: 60 }),
       price: 125,
-      title: 'Father / son',
+      title: 'Father + son',
       hourHalves: 4,
     },
     {
       icon: Kid({ color: primaryColor, height: 60 }),
       price: 50,
-      title: 'Kid',
+      title: 'Junior haircut (<10 years)',
       hourHalves: 2,
     },
   ];
@@ -283,18 +286,15 @@ function SelectTime({
 
   return (
     <>
-      <Heading2>
-        Reservation
-        <br />
-        {`Step ${timeFirst ? 2 : 3}: Select time and service`}
-      </Heading2>
+      <Heading2>{t('Reservation')}</Heading2>
+      <Heading3>{`${t('Step')} ${timeFirst ? 2 : 3}: ${t('Select time and service')} :`}</Heading3>
       <SelectTimeWrap>
         <SelectorContainer>
-          <Heading3>Select Date:</Heading3>
+          <Heading3>{`${t('Select date')}:`}</Heading3>
           <Calendar time={time} setTime={handleDateChange} />
         </SelectorContainer>
         <SelectorContainer>
-          <Heading3>Select Time:</Heading3>
+          <Heading3>{`${t('Select time')}:`}</Heading3>
           {timeSection}
         </SelectorContainer>
       </SelectTimeWrap>
@@ -306,19 +306,19 @@ function SelectTime({
             onClick={() => handleServiceChange({ price, title, hourHalves })}
           >
             {icon}
-            <Heading5>{title}</Heading5>
+            <Heading5>{t(title)}</Heading5>
             <Heading5>{`${hourHalves * 30} min.`}</Heading5>
             <Heading3>{`${price}zł`}</Heading3>
           </Service>
         ))}
       </SelectServiceWrap>
       <ButtonsContainer>
-        <SecondaryButton onClick={handleGoBack}>Back</SecondaryButton>
+        <SecondaryButton onClick={handleGoBack}>{t('Back')}</SecondaryButton>
         {
           // Showing the button only after user selected time
           selectedTime && selectedService && (
             <Link to={`/reserve/step${timeFirst ? 3 : 4}`}>
-              <PrimaryButton>Next</PrimaryButton>
+              <PrimaryButton>{t('Next')}</PrimaryButton>
             </Link>
           )
         }

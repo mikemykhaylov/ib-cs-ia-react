@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import Navbar from '../components/general/Navbar';
 import { Heading2 } from '../components/general/Headings';
@@ -28,13 +29,15 @@ const NotFoundContainer = styled.section`
 
 function ForgotPassword() {
   const history = useHistory();
-
+  const { t } = useTranslation();
   return (
     <>
       <Navbar />
       <NotFoundContainer>
-        <Heading2>Looks like you are lost</Heading2>
-        <SecondaryButton onClick={() => history.push('/')}>Go to homepage</SecondaryButton>
+        <Heading2>{t('Looks like you are lost')}</Heading2>
+        <SecondaryButton onClick={() => history.push('/')}>
+          {t('Go back to main page')}
+        </SecondaryButton>
       </NotFoundContainer>
       <Footer />
     </>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import Navbar from '../components/general/Navbar';
 import { Heading2, Heading3 } from '../components/general/Headings';
@@ -41,6 +42,7 @@ const ErrorContainer = styled.div`
 `;
 
 function ForgotPassword() {
+  const { t } = useTranslation();
   // The email user enters
   const [userEmail, setUserEmail] = useState('');
 
@@ -84,7 +86,9 @@ function ForgotPassword() {
       <Navbar />
       <ForgotPasswordContainer>
         <Heading2>
-          {sentPasswordReset ? 'Successfully sent password reset link' : 'Reset password'}
+          {sentPasswordReset
+            ? t('Go check your mailbox for reset instructions')
+            : t('Reset password')}
         </Heading2>
         {!sentPasswordReset && (
           <>
@@ -105,7 +109,7 @@ function ForgotPassword() {
               </FormRow>
             </FormContainer>
             <FormControls>
-              <PrimaryButton onClick={handleSubmit}>Reset password</PrimaryButton>
+              <PrimaryButton onClick={handleSubmit}>{t('Reset password')}</PrimaryButton>
             </FormControls>
           </>
         )}

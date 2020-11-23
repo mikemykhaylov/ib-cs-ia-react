@@ -7,9 +7,9 @@ export const PrimaryButton = styled.button`
   border: 5px solid ${lightGrayColor};
   box-sizing: border-box;
   color: ${primaryColor};
-  font-family: Merriweather;
+  font-family: SpaceGrotesk;
   font-size: 36px;
-  font-weight: bold;
+  font-variation-settings: 'wght' 700;
   margin: 0;
   padding: 15px 45px;
   text-align: center;
@@ -26,9 +26,9 @@ export const SecondaryButton = styled.button`
   border: 5px solid ${lightGrayColor};
   box-sizing: border-box;
   color: ${lightGrayColor};
-  font-family: Montserrat;
+  font-family: SpaceGrotesk;
   font-size: 24px;
-  font-weight: 600;
+  font-variation-settings: 'wght' 600;
   margin: 0;
   padding: 20px 40px;
   text-align: center;

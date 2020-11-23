@@ -4,7 +4,8 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import ky from 'ky';
 
-import { Heading2, Heading4, Heading3 } from '../general/Headings';
+import { useTranslation } from 'react-i18next';
+import { Heading2, Heading4, Heading3, Heading5 } from '../general/Headings';
 import { grayColor, lightGrayColor, primaryColor } from '../../constants/websiteColors';
 import Barber from '../icons/Barber';
 import { SecondaryButton, PrimaryButton } from '../general/Buttons';
@@ -48,6 +49,9 @@ const ReservationSummaryRow = styled.div`
 
 const ReservationSummaryColumn = styled.div`
   text-align: start;
+  & > :first-child {
+    margin-bottom: 1rem;
+  }
 `;
 
 const ReservationSummaryBarberContainer = styled.div`
@@ -121,6 +125,7 @@ function GetDetails({
   setUserInfo,
   setFinishedReservation,
 }) {
+  const { t, i18n } = useTranslation();
   const history = useHistory();
 
   // Object containing all validation errors
@@ -163,14 +168,11 @@ function GetDetails({
   };
   return (
     <>
-      <Heading2>
-        Reservation
-        <br />
-        Step 4: Details and confirmation
-      </Heading2>
+      <Heading2>{t('Reservation')}</Heading2>
+      <Heading3>{`${t('Step')} 4: ${t('Details and confirmation')} :`}</Heading3>
       <GetDetailsWrap>
         <FormContainer>
-          <Heading3>Contact information</Heading3>
+          <Heading3>{t('Contact information')}</Heading3>
           <FormRow>
             <Input
               heading="First name"
@@ -203,37 +205,37 @@ function GetDetails({
           </FormRow>
         </FormContainer>
         <GetDetailsContainer>
-          <Heading3>Reservation Summary</Heading3>
+          <Heading3>{t('Reservation Summary')}</Heading3>
           <ReservationSummaryRow>
             <ReservationSummaryColumn>
-              <Heading4 color={lightGrayColor}>Date</Heading4>
-              <Heading4 color={grayColor}>
-                {time.toLocaleDateString('en-GB', {
+              <Heading4 color={lightGrayColor}>{t('Date')}</Heading4>
+              <Heading5 color={grayColor}>
+                {time.toLocaleDateString(i18n.language, {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
                 })}
-              </Heading4>
+              </Heading5>
             </ReservationSummaryColumn>
             <ReservationSummaryColumn>
-              <Heading4 color={lightGrayColor}>Time</Heading4>
-              <Heading4 color={grayColor}>
+              <Heading4 color={lightGrayColor}>{t('Time')}</Heading4>
+              <Heading5 color={grayColor}>
                 {`${time.getUTCHours() + 2}:${time.getUTCMinutes().toString().padStart(2, '0')}`}
-              </Heading4>
+              </Heading5>
             </ReservationSummaryColumn>
           </ReservationSummaryRow>
           <ReservationSummaryRow>
             <ReservationSummaryColumn>
-              <Heading4 color={lightGrayColor}>Service</Heading4>
-              <Heading4 color={grayColor}>{currentService.title}</Heading4>
+              <Heading4 color={lightGrayColor}>{t('Service')}</Heading4>
+              <Heading5 color={grayColor}>{t(currentService.title)}</Heading5>
             </ReservationSummaryColumn>
             <ReservationSummaryColumn>
-              <Heading4 color={lightGrayColor}>Money to bring</Heading4>
-              <Heading4 color={grayColor}>{`${currentService.price}zł`}</Heading4>
+              <Heading4 color={lightGrayColor}>{t('Money to bring')}</Heading4>
+              <Heading5 color={grayColor}>{`${currentService.price}zł`}</Heading5>
             </ReservationSummaryColumn>
           </ReservationSummaryRow>
           <ReservationSummaryBarberContainer>
-            <Heading4>Barber</Heading4>
+            <Heading4>{t('Barber')}</Heading4>
             <ReservationSummaryBarber>
               {currentBarber.profileImageURL ? (
                 <ReservationSummaryBarberPhoto src={currentBarber.profileImageURL} />
@@ -253,8 +255,8 @@ function GetDetails({
         </ErrorContainer>
       )}
       <ButtonsContainer>
-        <SecondaryButton onClick={() => history.goBack()}>Back</SecondaryButton>
-        <PrimaryButton onClick={() => handleSubmit()}>Confirm</PrimaryButton>
+        <SecondaryButton onClick={() => history.goBack()}>{t('Back')}</SecondaryButton>
+        <PrimaryButton onClick={() => handleSubmit()}>{t('Confirm')}</PrimaryButton>
       </ButtonsContainer>
     </>
   );
