@@ -1,13 +1,13 @@
-import React from 'react';
+/* eslint-disable react/jsx-curly-newline */
 import PropTypes from 'prop-types';
-import styled from 'styled-components/macro';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components/macro';
 
-import { Heading4 } from './Headings';
-
-import ArrowRight from '../icons/ArrowRight';
+import { grayColor, lightGrayColor, secondaryColor } from '../../constants/websiteColors';
 import ArrowLeft from '../icons/ArrowLeft';
-import { secondaryColor, lightGrayColor } from '../../constants/websiteColors';
+import ArrowRight from '../icons/ArrowRight';
+import { Heading4 } from './Headings';
 
 const CalendarContainer = styled.div`
   display: flex;
@@ -66,46 +66,104 @@ const Day = styled.div`
   cursor: pointer;
   transition-duration: 200ms;
   &:hover {
-    background-color: ${secondaryColor};
+    background-color: ${(props) => props.selectable && secondaryColor};
+  }
+  /* Making the date unselectable if it cant be selected */
+  & > * {
+    color: ${(props) => !props.selectable && grayColor};
+    cursor: ${(props) => !props.selectable && 'default'};
   }
 `;
 
-function Calendar({ time, setTime, allDates }) {
+function Calendar({ date, setDate, allDates }) {
   const { t, i18n } = useTranslation();
-  const dayOfWeekOfMonthBeginning = new Date(time.getFullYear(), time.getMonth(), 1).getDay();
-  const daysInCurrentMonth = new Date(time.getFullYear(), time.getMonth() + 1, 0).getDate();
+
+  // Function returns a date object with given date and time equal to 00:00:00 in UTC
+  // Example: makeZeroHourDate(2021,01,01).toISOString() => '2021-01-01T00:00:00Z'
+  const makeZeroHourDate = (year, month, day) => new Date(Date.UTC(year, month, day));
+
+  // Date selection handler
+  const handleDateChange = (year, month, day) => {
+    setDate(makeZeroHourDate(year, month, day));
+  };
+
+  // Indicates which day of week is the beginning of the month (Used for first row grid offset)
+  // Starts with 0: Sunday, 1: Monday... and the default grid-column start is 1
+  const dayOfWeekOfMonthBeginning = makeZeroHourDate(
+    date.getUTCFullYear(),
+    date.getUTCMonth(),
+    1,
+  ).getUTCDay();
+
+  // Indicates how many days are in the current month
+  // We make a date with the next month, but by setting the date to 0
+  // we get the last day of the previous (current) month
+  const daysInCurrentMonth = makeZeroHourDate(
+    date.getUTCFullYear(),
+    date.getUTCMonth() + 1,
+    0,
+  ).getUTCDate();
+
+  // Constructing day selectors
   const days = [];
   for (let i = 1; i <= daysInCurrentMonth; i += 1) {
+    // Indicates whether a date is selectable
+    // It is if it is later in this month
+    // or has a later month or year
+    const selectable =
+      i >= new Date().getUTCDate() ||
+      date.getUTCMonth() > new Date().getUTCMonth() ||
+      date.getUTCFullYear() > new Date().getUTCFullYear() ||
+      allDates;
+
+    const active = i === date.getUTCDate();
+
+    // If the date cannot be selected, but is active, we reset the date to today
+    // This can happen if the user goes forward a month, selects an earlier date and goes back
+    if (!selectable && active) {
+      setDate(new Date());
+      break;
+    }
+
     days[i] = (
       <Day
         key={i}
-        active={i === time.getDate()}
+        selectable={selectable}
+        active={active}
         onClick={
-          i >= new Date().getDate() || allDates ? () => setTime(new Date(time.setDate(i))) : null
+          selectable ? () => handleDateChange(date.getUTCFullYear(), date.getUTCMonth(), i) : null
         }
       >
         <Heading4>{i}</Heading4>
       </Day>
     );
   }
+
   return (
     <CalendarContainer>
       <MonthWrap>
         <ChangeMonthButton
           onClick={
-            time.getMonth() - 1 >= new Date().getMonth() ||
-            time.getFullYear() > new Date().getFullYear() ||
+            // If the current date is at least a month ahead of today
+            // or the component is rendered with all dates available, the button works
+            date.getUTCMonth() - 1 >= new Date().getUTCMonth() ||
+            date.getUTCFullYear() > new Date().getUTCFullYear() ||
             allDates
-              ? () => setTime(new Date(time.setMonth(time.getMonth() - 1)))
+              ? () =>
+                  handleDateChange(date.getUTCFullYear(), date.getUTCMonth() - 1, date.getUTCDate())
               : null
           }
         >
           <ArrowLeft height={24} color={lightGrayColor} />
         </ChangeMonthButton>
         <Heading4>
-          {time.toLocaleString(i18n.language, { year: 'numeric', month: 'long' })}
+          {date.toLocaleString(i18n.language, { year: 'numeric', month: 'long' })}
         </Heading4>
-        <ChangeMonthButton onClick={() => setTime(new Date(time.setMonth(time.getMonth() + 1)))}>
+        <ChangeMonthButton
+          onClick={() =>
+            handleDateChange(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate())
+          }
+        >
           <ArrowRight height={24} color={lightGrayColor} />
         </ChangeMonthButton>
       </MonthWrap>
@@ -126,8 +184,8 @@ function Calendar({ time, setTime, allDates }) {
 }
 
 Calendar.propTypes = {
-  time: PropTypes.instanceOf(Date).isRequired,
-  setTime: PropTypes.func.isRequired,
+  date: PropTypes.instanceOf(Date).isRequired,
+  setDate: PropTypes.func.isRequired,
   allDates: PropTypes.bool,
 };
 

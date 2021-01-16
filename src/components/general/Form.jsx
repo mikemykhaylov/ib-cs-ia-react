@@ -34,7 +34,7 @@ export const FormRow = styled.div`
   }
 `;
 
-const GetDetailsInputGroup = styled.div`
+const InputGroup = styled.div`
   flex-grow: 1;
   text-align: left;
   & > *:not(:last-child) {
@@ -42,7 +42,7 @@ const GetDetailsInputGroup = styled.div`
   }
 `;
 
-const GetDetailsInput = styled.input`
+const ReactiveInput = styled.input`
   background-color: ${darkerGrayColor};
   border: none;
   border-radius: 5px;
@@ -50,7 +50,7 @@ const GetDetailsInput = styled.input`
   margin: 0;
   padding: 9px 12px;
   width: 100%;
-  font-family: LibreFrank;
+  font-family: SpaceGrotesk, sans-serif;
   font-size: 16px;
   line-height: 24px;
   color: ${lightGrayColor};
@@ -59,30 +59,29 @@ const GetDetailsInput = styled.input`
   }
 `;
 
-const toCamelCase = (str) => {
-  return str
-    .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) => {
-      return index === 0 ? word.toLowerCase() : word.toUpperCase();
-    })
+const toCamelCase = (str) =>
+  str
+    .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) =>
+      index === 0 ? word.toLowerCase() : word.toUpperCase(),
+    )
     .replace(/\s+/g, '');
-};
 
-export const Input = ({ heading, value, type, onChange, errorsObj }) => {
+export const Input = ({ heading, value, type, onChange, errorsObj, placeholder }) => {
   const { t } = useTranslation();
   return (
-    <GetDetailsInputGroup>
+    <InputGroup>
       <Heading4>{`${t(heading)}:`}</Heading4>
-      <GetDetailsInput
+      <ReactiveInput
         name={toCamelCase(heading)}
         onChange={onChange}
         value={value}
         type={type}
-        placeholder={t(`Enter ${heading.toLowerCase()}`)}
+        placeholder={placeholder}
       />
       {errorsObj && !errorsObj.valid && errorsObj.errors[toCamelCase(heading)] && (
         <Heading5 color={primaryColor}>{errorsObj.errors[toCamelCase(heading)]}</Heading5>
       )}
-    </GetDetailsInputGroup>
+    </InputGroup>
   );
 };
 
@@ -91,6 +90,7 @@ Input.propTypes = {
   value: PropTypes.string.isRequired,
   type: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired,
   errorsObj: PropTypes.shape({
     valid: PropTypes.bool,
     errors: PropTypes.object,

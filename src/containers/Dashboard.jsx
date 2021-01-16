@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
-import ky from 'ky';
 
 import Navbar from '../components/general/Navbar';
 import { Heading2, Heading4, Heading5, Heading3 } from '../components/general/Headings';
 
-import firebase from '../utils/firebaseSetup';
 import { grayColor, primaryColor, darkerGrayColor } from '../constants/websiteColors';
 import Calendar from '../components/general/Calendar';
 import Loading from '../components/general/Loading';
@@ -103,7 +101,7 @@ const AppointmentTimeSpan = styled.span`
 function Dashboard() {
   const { t, i18n } = useTranslation();
   // User data from firebase.auth()
-  const { currentUser: firebaseCurrentUser } = firebase.auth();
+  // const { currentUser: firebaseCurrentUser } = firebase.auth();
 
   // Default date to show appointments for
   const currentLocalDate = new Date();
@@ -113,10 +111,10 @@ function Dashboard() {
 
   // Assembling used data from firebase to component user
   const [currentUser, setCurrentUser] = useState({
-    displayName: firebaseCurrentUser.displayName,
-    profileImageURL: firebaseCurrentUser.photoURL,
-    email: firebaseCurrentUser.email,
-    id: firebaseCurrentUser.uid,
+    // displayName: firebaseCurrentUser.displayName,
+    // profileImageURL: firebaseCurrentUser.photoURL,
+    // email: firebaseCurrentUser.email,
+    // id: firebaseCurrentUser.uid,
   });
 
   // Determines the appointments for selected time and whether appointments
@@ -126,49 +124,49 @@ function Dashboard() {
 
   // On component mount we load additional info about the barber,
   // which is not stored in firebase user
-  useEffect(() => {
-    const controller = new AbortController();
-    const { signal } = controller;
-    (async () => {
-      const barber = await ky
-        .post('https://europe-west3-dywizjon-303.cloudfunctions.net/api/barbers/email', {
-          json: { email: currentUser.email },
-          signal,
-        })
-        .json();
-      // Adding this new data to existing component user
-      setCurrentUser({ ...currentUser, ...barber });
-    })();
-    // Aborting request if user leaves page before loading available times
-    return () => controller.abort();
-  }, []);
+  // useEffect(() => {
+  //   const controller = new AbortController();
+  //   const { signal } = controller;
+  //   (async () => {
+  //     const barber = await ky
+  //       .post('https://europe-west3-dywizjon-303.cloudfunctions.net/api/barbers/email', {
+  //         json: { email: currentUser.email },
+  //         signal,
+  //       })
+  //       .json();
+  //     // Adding this new data to existing component user
+  //     setCurrentUser({ ...currentUser, ...barber });
+  //   })();
+  //   // Aborting request if user leaves page before loading available times
+  //   return () => controller.abort();
+  // }, []);
 
   // Loading all appointments for selected date
-  useEffect(() => {
-    setLoadedAppointments(false);
-    const controller = new AbortController();
-    const { signal } = controller;
-    (async () => {
-      const token = await firebaseCurrentUser.getIdToken();
-      const fetchedAppointments = await ky
-        .post(
-          'https://europe-west3-dywizjon-303.cloudfunctions.net/api/appointments/getforday/name',
-          {
-            json: { day: time.toISOString().substring(0, 10), barberID: currentUser.id },
-            // Getting and passing the user token with the request
-            headers: new Headers({
-              Authorization: `Bearer ${token}`,
-            }),
-            signal,
-          },
-        )
-        .json();
-      setAppointments(fetchedAppointments);
-      setLoadedAppointments(true);
-    })();
-    // Aborting request if user leaves page before loading available times
-    return () => controller.abort();
-  }, [time]);
+  // useEffect(() => {
+  //   setLoadedAppointments(false);
+  //   const controller = new AbortController();
+  //   const { signal } = controller;
+  //   (async () => {
+  //     const token = await firebaseCurrentUser.getIdToken();
+  //     const fetchedAppointments = await ky
+  //       .post(
+  //         'https://europe-west3-dywizjon-303.cloudfunctions.net/api/appointments/getforday/name',
+  //         {
+  //           json: { day: time.toISOString().substring(0, 10), barberID: currentUser.id },
+  //           // Getting and passing the user token with the request
+  //           headers: new Headers({
+  //             Authorization: `Bearer ${token}`,
+  //           }),
+  //           signal,
+  //         },
+  //       )
+  //       .json();
+  //     setAppointments(fetchedAppointments);
+  //     setLoadedAppointments(true);
+  //   })();
+  //   // Aborting request if user leaves page before loading available times
+  //   return () => controller.abort();
+  // }, [time]);
 
   // Mapping appointments to cards
   let appointmentsCards;

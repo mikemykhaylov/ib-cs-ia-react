@@ -29,6 +29,9 @@ export const validateCreateAppointment = async (appointment) => {
   if (appointment.email && !isEmail(appointment.email)) {
     errors.email = i18n.t('Must be valid email address');
   }
+  if (appointment.phoneNumber && !appointment.phoneNumber.match(/^\+\d+$/)) {
+    errors.phoneNumber = i18n.t('Must be valid phone number');
+  }
   Object.keys(appointment).forEach((key) => {
     if (
       !appointment[key] ||

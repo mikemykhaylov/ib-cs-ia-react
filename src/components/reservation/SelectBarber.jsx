@@ -1,16 +1,14 @@
-/* eslint-disable react/require-default-props */
-import React, { useState, useEffect } from 'react';
+import { gql, useQuery } from '@apollo/client';
 import PropTypes from 'prop-types';
-import { useHistory, Link } from 'react-router-dom';
-import styled from 'styled-components/macro';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import ky from 'ky';
-
-import { Heading2, Heading3, Heading5 } from '../general/Headings';
-import { SecondaryButton, PrimaryButton } from '../general/Buttons';
-import Loading from '../general/Loading';
+import { Link, useHistory } from 'react-router-dom';
+import styled from 'styled-components/macro';
 
 import { darkerGrayColor, primaryColor, secondaryColor } from '../../constants/websiteColors';
+import { PrimaryButton, SecondaryButton } from '../general/Buttons';
+import { Heading2, Heading3, Heading5 } from '../general/Headings';
+import Loading from '../general/Loading';
 import Barber from '../icons/Barber';
 
 const SelectBarberWrap = styled.div`
@@ -81,95 +79,117 @@ const ButtonsContainer = styled.div`
   }
 `;
 
-function SelectBarber({ time, timeFirst, currentBarber, setCurrentBarber }) {
+// GraphQL query getting all free barbers for date and time
+const GET_FREE_BARBERS = gql`
+  query GetFreeBarbers($dateTime: String) {
+    barbers(dateTime: $dateTime) {
+      fullName
+      profileImageURL
+      id
+      specialisation
+    }
+  }
+`;
+
+function SelectBarber({ timeFirst, currentAppointment, currentBarber, setCurrentBarber }) {
   const { t } = useTranslation();
-  const [availableBarbers, setAvailableBarbers] = useState([]);
-  const [loadedBarbers, setLoadedBarbers] = useState(false);
   const history = useHistory();
-  // Loading all barbers (only works in Barber First)
-  // Loading available barbers (only works in Time First)
-  useEffect(() => {
-    (async () => {
-      let fetchedAvailableBarbers;
-      if (timeFirst) {
-        fetchedAvailableBarbers = await ky
-          .post('https://europe-west3-dywizjon-303.cloudfunctions.net/api/barbers/available', {
-            json: { time: time.toISOString() },
-          })
-          .json();
-      } else {
-        fetchedAvailableBarbers = await ky
-          .get('https://europe-west3-dywizjon-303.cloudfunctions.net/api/barbers/all')
-          .json();
-      }
-      setAvailableBarbers(fetchedAvailableBarbers);
-      setLoadedBarbers(true);
-    })();
-  }, []);
+
+  // Retrieving all barbers (only barber-first)
+  // Retrieving free barbers for date and time (only time-first)
+  const { loading, data: loadedBarbers } = useQuery(GET_FREE_BARBERS, {
+    variables: {
+      dateTime: timeFirst ? currentAppointment.time.toISOString() : null,
+    },
+  });
+
+  // Determines whether user has already selected time
+  const [selectedBarber, setSelectedBarber] = useState(false);
+
+  // Barber selection handler (passed to BarberCard component)
+  const handleBarberChange = (barber) => {
+    // Cloning the barber object and deleting __typename added by GraphQL
+    const barberClone = { ...barber };
+    // eslint-disable-next-line no-underscore-dangle
+    delete barberClone.__typename;
+    setCurrentBarber({ ...barberClone });
+    setSelectedBarber(true);
+  };
+
+  // Going back handler
+  const handleGoBack = () => {
+    // Resetting the barber info
+    setCurrentBarber({
+      fullName: '',
+      specialisation: '',
+      profileImageURL: '',
+      id: '',
+    });
+    history.goBack();
+  };
 
   // Mapping available barbers to BarberCards
-  const barberCards =
-    availableBarbers.length > 0 ? (
-      <SelectBarberWrap loaded={loadedBarbers ? 1 : 0}>
-        {availableBarbers.map((availableBarber) => (
-          <BarberCard
-            key={availableBarber.id}
-            onClick={() => setCurrentBarber(availableBarber)}
-            active={currentBarber && currentBarber.id === availableBarber.id}
-          >
-            {availableBarber.profileImageURL ? (
-              <BarberImage src={availableBarber.profileImageURL} />
-            ) : (
-              <BarberImage>
-                <Barber height={250} color={primaryColor} />
-              </BarberImage>
-            )}
-            <BarberDescription>
-              <Heading3>{`${availableBarber.firstName} ${availableBarber.lastName}`}</Heading3>
-              <Heading5>{availableBarber.specialization}</Heading5>
-            </BarberDescription>
-          </BarberCard>
-        ))}
-      </SelectBarberWrap>
-    ) : (
-      // If no barber is available, we show the none are available message (only works in Time First)
-      <Heading3>{t('Sorry, no barbers are available for that time')}</Heading3>
-    );
+  let barberCards;
+  if (loadedBarbers) {
+    barberCards =
+      loadedBarbers.barbers.length > 0 ? (
+        <SelectBarberWrap loaded={loadedBarbers ? 1 : 0}>
+          {loadedBarbers.barbers.map((availableBarber) => (
+            <BarberCard
+              key={availableBarber.id}
+              onClick={() => handleBarberChange(availableBarber)}
+              active={currentBarber && currentBarber.id === availableBarber.id}
+            >
+              {availableBarber.profileImageURL ? (
+                <BarberImage src={availableBarber.profileImageURL} />
+              ) : (
+                <BarberImage>
+                  <Barber height={250} color={primaryColor} />
+                </BarberImage>
+              )}
+              <BarberDescription>
+                <Heading3>{availableBarber.fullName}</Heading3>
+                <Heading5>{t(availableBarber.specialisation)}</Heading5>
+              </BarberDescription>
+            </BarberCard>
+          ))}
+        </SelectBarberWrap>
+      ) : (
+        // If no barber is available, we show the none are available message (only time-first)
+        <Heading3>{t('Sorry, no barbers are available for that time')}</Heading3>
+      );
+  }
+
   return (
     <>
       <Heading2>{t('Reservation')}</Heading2>
       <Heading3>{`${t('Step')} ${timeFirst ? 3 : 2}: ${t('Select a master')} :`}</Heading3>
-      {loadedBarbers ? barberCards : <Loading width="100%" height="200px" />}
-      {loadedBarbers ? (
+      {loading ? <Loading width="100%" height="200px" /> : barberCards}
+      {!loading && (
         <ButtonsContainer>
-          <SecondaryButton
-            onClick={() => {
-              // Resetting the barber on going back to previous step
-              setCurrentBarber({
-                firstName: '',
-                lastName: '',
-                specialization: '',
-                profileImageURL: '',
-                id: '',
-              });
-              history.goBack();
-            }}
-          >
-            {t('Back')}
-          </SecondaryButton>
-          {currentBarber.firstName && (
+          <SecondaryButton onClick={handleGoBack}>{t('Back')}</SecondaryButton>
+          {selectedBarber && (
             <Link to={`/reserve/step${timeFirst ? 4 : 3}`}>
               <PrimaryButton>{t('Next')}</PrimaryButton>
             </Link>
           )}
         </ButtonsContainer>
-      ) : null}
+      )}
     </>
   );
 }
 
 SelectBarber.propTypes = {
-  time: PropTypes.instanceOf(Date).isRequired,
+  currentAppointment: PropTypes.shape({
+    duration: PropTypes.number,
+    email: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    phoneNumber: PropTypes.string,
+    serviceName: PropTypes.string,
+    time: PropTypes.instanceOf(Date),
+    price: PropTypes.number,
+  }).isRequired,
   timeFirst: PropTypes.bool,
   currentBarber: PropTypes.shape({
     firstName: PropTypes.string,
@@ -179,6 +199,10 @@ SelectBarber.propTypes = {
     id: PropTypes.string,
   }).isRequired,
   setCurrentBarber: PropTypes.func.isRequired,
+};
+
+SelectBarber.defaultProps = {
+  timeFirst: false,
 };
 
 export default SelectBarber;

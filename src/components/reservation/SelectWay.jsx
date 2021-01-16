@@ -1,16 +1,14 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
-import { useTranslation } from 'react-i18next';
-import useWindowWidth from '../../hooks/useWindowWidth';
-
-import { Heading2, Heading3, Heading4 } from '../general/Headings';
-
-import Time from '../icons/Time';
-import Barber from '../icons/Barber';
 import { primaryColor } from '../../constants/websiteColors';
+import useWindowWidth from '../../hooks/useWindowWidth';
+import { Heading2, Heading3, Heading4 } from '../general/Headings';
+import Barber from '../icons/Barber';
+import Time from '../icons/Time';
 
 const SelectWayWrap = styled.div`
   display: flex;
@@ -42,6 +40,8 @@ function SelectWay({ setTimeFirst }) {
   const history = useHistory();
   const windowWidth = useWindowWidth();
   const { t } = useTranslation();
+
+  // Reservation path selection handler (passed to Way component)
   const handleWaySelect = (timeFirst) => {
     setTimeFirst(timeFirst);
     history.push('/reserve/step2');

@@ -59,28 +59,24 @@ function Works() {
         <Heading2>{t('Services')}</Heading2>
         <WorksWrap>
           <Work>
-            <Heading4>{t('Haircut')}</Heading4>
-            <Heading4 color={primaryColor}>60zł</Heading4>
+            <Heading4>{t('HAIRCUT')}</Heading4>
+            <Heading4 color={primaryColor}>60$</Heading4>
           </Work>
           <Work>
-            <Heading4>{t('Shaving')}</Heading4>
-            <Heading4 color={primaryColor}>50zł</Heading4>
+            <Heading4>{t('SHAVING')}</Heading4>
+            <Heading4 color={primaryColor}>50$</Heading4>
           </Work>
           <Work>
-            <Heading4>{t('Combo')}</Heading4>
-            <Heading4 color={primaryColor}>100zł</Heading4>
+            <Heading4>{t('COMBO')}</Heading4>
+            <Heading4 color={primaryColor}>100$</Heading4>
           </Work>
           <Work>
-            <Heading4>{t('Junior haircut (<10 years)')}</Heading4>
-            <Heading4 color={primaryColor}>60zł</Heading4>
+            <Heading4>{t('FATHERSON')}</Heading4>
+            <Heading4 color={primaryColor}>100$</Heading4>
           </Work>
           <Work>
-            <Heading4>{t('Father + son')}</Heading4>
-            <Heading4 color={primaryColor}>100zł</Heading4>
-          </Work>
-          <Work>
-            <Heading4>{t('Elderly haircut 65+')}</Heading4>
-            <Heading4 color={primaryColor}>40zł</Heading4>
+            <Heading4>{t('JUNIOR')}</Heading4>
+            <Heading4 color={primaryColor}>60$</Heading4>
           </Work>
         </WorksWrap>
       </WorksContainer>

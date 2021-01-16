@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import { gql, useMutation } from '@apollo/client';
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import ky from 'ky';
 
-import { useTranslation } from 'react-i18next';
-import { Heading2, Heading4, Heading3, Heading5 } from '../general/Headings';
 import { grayColor, lightGrayColor, primaryColor } from '../../constants/websiteColors';
-import Barber from '../icons/Barber';
-import { SecondaryButton, PrimaryButton } from '../general/Buttons';
-
 import { validateCreateAppointment } from '../../utils/validateInput';
-import { Input, FormRow, FormContainer } from '../general/Form';
+import { PrimaryButton, SecondaryButton } from '../general/Buttons';
+import { FormContainer, FormRow, Input } from '../general/Form';
+import { Heading2, Heading3, Heading4, Heading5 } from '../general/Headings';
+import Barber from '../icons/Barber';
 
 const GetDetailsWrap = styled.div`
   display: flex;
@@ -92,11 +91,6 @@ const ReservationSummaryBarberPhoto = styled.div`
   align-items: center;
 `;
 
-const ErrorContainer = styled.div`
-  width: 100%;
-  text-align: center;
-`;
-
 const ButtonsContainer = styled.div`
   width: 100%;
   display: flex;
@@ -117,52 +111,64 @@ const ButtonsContainer = styled.div`
   }
 `;
 
+const CREATE_APPOINTMENT = gql`
+  mutation CreateAppointment($input: CreateAppointmentInput!) {
+    createAppointment(input: $input) {
+      id
+    }
+  }
+`;
+
 function GetDetails({
-  time,
   currentBarber,
-  currentService,
-  userInfo,
-  setUserInfo,
+  currentAppointment,
+  setCurrentAppointment,
   setFinishedReservation,
 }) {
   const { t, i18n } = useTranslation();
   const history = useHistory();
 
+  // Creating a new appointment
+  const [createAppointment] = useMutation(CREATE_APPOINTMENT);
+
   // Object containing all validation errors
-  const [errorsObj, setErrorsObj] = useState(null);
-  // Object containing all DB creation errors
-  // ! Not tested!
-  const [DBErrors, setDBErrors] = useState({ error: null });
+  const [validationErrors, setValidationErrors] = useState(null);
 
   // Form input handler
   const handleInput = (e) => {
-    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+    setCurrentAppointment({ ...currentAppointment, [e.target.name]: e.target.value });
   };
 
   // Form submit handler
   const handleSubmit = async () => {
+    const {
+      duration,
+      email,
+      phoneNumber,
+      serviceName,
+      time,
+      firstName,
+      lastName,
+    } = currentAppointment;
+
+    // Validating inputs
+    const errors = await validateCreateAppointment({ firstName, lastName, phoneNumber, email });
+    if (!errors.valid) {
+      setValidationErrors(errors);
+      return;
+    }
+
     const newAppointment = {
+      duration,
+      email,
+      phoneNumber,
+      serviceName,
+      name: { first: firstName, last: lastName },
       time: time.toISOString(),
       barberID: currentBarber.id,
-      serviceName: currentService.title,
-      hourHalves: currentService.hourHalves,
-      ...userInfo,
     };
-    const errors = await validateCreateAppointment(newAppointment);
-    if (!errors.valid) {
-      setErrorsObj(errors);
-      return;
-    }
-    const response = await ky
-      .post('https://europe-west3-dywizjon-303.cloudfunctions.net/api/appointments', {
-        json: newAppointment,
-      })
-      .json();
-    if (response.error) {
-      setDBErrors(response.error);
-      return;
-    }
-    // Setting finishedReservation to true and allowing access to /reserve/success
+
+    createAppointment({ variables: { input: newAppointment } });
     setFinishedReservation(true);
     history.push('/reserve/success');
   };
@@ -176,31 +182,35 @@ function GetDetails({
           <FormRow>
             <Input
               heading="First name"
-              value={userInfo.firstName}
+              value={currentAppointment.firstName}
+              placeholder="Clark"
               onChange={handleInput}
-              errorsObj={errorsObj}
+              errorsObj={validationErrors}
             />
             <Input
               heading="Last name"
-              value={userInfo.lastName}
+              value={currentAppointment.lastName}
+              placeholder="Kent"
               onChange={handleInput}
-              errorsObj={errorsObj}
+              errorsObj={validationErrors}
             />
           </FormRow>
           <FormRow>
             <Input
               heading="Email"
-              value={userInfo.email}
+              value={currentAppointment.email}
+              placeholder="example@email.com"
               onChange={handleInput}
-              errorsObj={errorsObj}
+              errorsObj={validationErrors}
             />
           </FormRow>
           <FormRow>
             <Input
               heading="Phone number"
-              value={userInfo.phoneNumber}
+              value={currentAppointment.phoneNumber}
+              placeholder="+XXXXXXXXXXXX"
               onChange={handleInput}
-              errorsObj={errorsObj}
+              errorsObj={validationErrors}
             />
           </FormRow>
         </FormContainer>
@@ -210,7 +220,7 @@ function GetDetails({
             <ReservationSummaryColumn>
               <Heading4 color={lightGrayColor}>{t('Date')}</Heading4>
               <Heading5 color={grayColor}>
-                {time.toLocaleDateString(i18n.language, {
+                {currentAppointment.time.toLocaleDateString(i18n.language, {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
@@ -220,18 +230,21 @@ function GetDetails({
             <ReservationSummaryColumn>
               <Heading4 color={lightGrayColor}>{t('Time')}</Heading4>
               <Heading5 color={grayColor}>
-                {`${time.getUTCHours() + 2}:${time.getUTCMinutes().toString().padStart(2, '0')}`}
+                {`${currentAppointment.time.getUTCHours()}:${currentAppointment.time
+                  .getUTCMinutes()
+                  .toString()
+                  .padStart(2, '0')}`}
               </Heading5>
             </ReservationSummaryColumn>
           </ReservationSummaryRow>
           <ReservationSummaryRow>
             <ReservationSummaryColumn>
               <Heading4 color={lightGrayColor}>{t('Service')}</Heading4>
-              <Heading5 color={grayColor}>{t(currentService.title)}</Heading5>
+              <Heading5 color={grayColor}>{t(currentAppointment.serviceName)}</Heading5>
             </ReservationSummaryColumn>
             <ReservationSummaryColumn>
               <Heading4 color={lightGrayColor}>{t('Money to bring')}</Heading4>
-              <Heading5 color={grayColor}>{`${currentService.price}zł`}</Heading5>
+              <Heading5 color={grayColor}>{`${currentAppointment.price}$`}</Heading5>
             </ReservationSummaryColumn>
           </ReservationSummaryRow>
           <ReservationSummaryBarberContainer>
@@ -244,16 +257,11 @@ function GetDetails({
                   <Barber height={100} color={primaryColor} />
                 </ReservationSummaryBarberPhoto>
               )}
-              <Heading4>{`${currentBarber.firstName} ${currentBarber.lastName}`}</Heading4>
+              <Heading4>{currentBarber.fullName}</Heading4>
             </ReservationSummaryBarber>
           </ReservationSummaryBarberContainer>
         </GetDetailsContainer>
       </GetDetailsWrap>
-      {DBErrors.error && (
-        <ErrorContainer>
-          <Heading3>{DBErrors.error}</Heading3>
-        </ErrorContainer>
-      )}
       <ButtonsContainer>
         <SecondaryButton onClick={() => history.goBack()}>{t('Back')}</SecondaryButton>
         <PrimaryButton onClick={() => handleSubmit()}>{t('Confirm')}</PrimaryButton>
@@ -263,26 +271,23 @@ function GetDetails({
 }
 
 GetDetails.propTypes = {
-  time: PropTypes.instanceOf(Date).isRequired,
-  currentBarber: PropTypes.shape({
+  currentAppointment: PropTypes.shape({
+    duration: PropTypes.number,
+    email: PropTypes.string,
     firstName: PropTypes.string,
     lastName: PropTypes.string,
+    phoneNumber: PropTypes.string,
+    serviceName: PropTypes.string,
+    time: PropTypes.instanceOf(Date),
+    price: PropTypes.number,
+  }).isRequired,
+  currentBarber: PropTypes.shape({
+    fullName: PropTypes.string,
     specialization: PropTypes.string,
     profileImageURL: PropTypes.string,
     id: PropTypes.string,
   }).isRequired,
-  currentService: PropTypes.shape({
-    price: PropTypes.number,
-    title: PropTypes.string,
-    hourHalves: PropTypes.number,
-  }).isRequired,
-  userInfo: PropTypes.shape({
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    email: PropTypes.string,
-    phoneNumber: PropTypes.string,
-  }).isRequired,
-  setUserInfo: PropTypes.func.isRequired,
+  setCurrentAppointment: PropTypes.func.isRequired,
   setFinishedReservation: PropTypes.func.isRequired,
 };
 

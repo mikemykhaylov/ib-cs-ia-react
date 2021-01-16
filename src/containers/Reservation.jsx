@@ -59,27 +59,21 @@ function Reservation() {
   const [timeFirst, setTimeFirst] = useState(null);
 
   // Setting up default appointment variables
-  const currentLocalDate = new Date();
-  const currentPolandISODate = `${currentLocalDate.toISOString().slice(0, 11)}02:00:00+02:00`;
-  const currentPolandDate = new Date(currentPolandISODate);
-  const [time, setTime] = useState(currentPolandDate);
   const [currentBarber, setCurrentBarber] = useState({
-    firstName: '',
-    lastName: '',
-    specialization: '',
+    fullName: '',
+    specialisation: '',
     profileImageURL: '',
     id: '',
   });
-  const [currentService, setCurrentService] = useState({
-    price: 0,
-    title: '',
-    hourHalves: 0,
-  });
-  const [userInfo, setUserInfo] = useState({
+  const [currentAppointment, setCurrentAppointment] = useState({
+    duration: 0,
+    email: '',
     firstName: '',
     lastName: '',
-    email: '',
     phoneNumber: '',
+    serviceName: '',
+    time: new Date(),
+    price: 0,
   });
 
   // Determines whether user has finished the reservation
@@ -90,27 +84,23 @@ function Reservation() {
     <SelectTime
       timeFirst={timeFirst}
       currentBarber={currentBarber}
-      time={time}
-      setTime={setTime}
-      currentService={currentService}
-      setCurrentService={setCurrentService}
+      currentAppointment={currentAppointment}
+      setCurrentAppointment={setCurrentAppointment}
     />
   );
   let Step3Component = (
     <SelectBarber
       timeFirst={timeFirst}
-      time={time}
+      currentAppointment={currentAppointment}
       currentBarber={currentBarber}
       setCurrentBarber={setCurrentBarber}
     />
   );
   let Step4Component = (
     <GetDetails
-      time={time}
       currentBarber={currentBarber}
-      currentService={currentService}
-      userInfo={userInfo}
-      setUserInfo={setUserInfo}
+      currentAppointment={currentAppointment}
+      setCurrentAppointment={setCurrentAppointment}
       setFinishedReservation={setFinishedReservation}
     />
   );

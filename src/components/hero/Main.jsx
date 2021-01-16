@@ -62,6 +62,7 @@ const MainServicesContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   flex-direction: column;
+  align-items: center;
   & > *:not(:last-child) {
     margin-bottom: 64px;
   }
@@ -101,18 +102,18 @@ function Main() {
       <MainServicesContainer>
         <MainService>
           <Scissors color={primaryColor} height={60} />
-          <MainServiceName>{t('Haircut')}</MainServiceName>
-          <Heading3>60zł</Heading3>
+          <MainServiceName>{t('HAIRCUT')}</MainServiceName>
+          <Heading3>60$</Heading3>
         </MainService>
         <MainService>
           <Razor color={primaryColor} height={60} />
-          <MainServiceName>{t('Shaving')}</MainServiceName>
-          <Heading3>50zł</Heading3>
+          <MainServiceName>{t('SHAVING')}</MainServiceName>
+          <Heading3>50$</Heading3>
         </MainService>
         <MainService>
           <Combo color={primaryColor} height={60} />
-          <MainServiceName>{t('Combo')}</MainServiceName>
-          <Heading3>100zł</Heading3>
+          <MainServiceName>{t('COMBO')}</MainServiceName>
+          <Heading3>100$</Heading3>
         </MainService>
       </MainServicesContainer>
       <Link to="/reserve/step1">

@@ -1,29 +1,26 @@
-/* eslint-disable react/require-default-props */
-import React, { useEffect, useState } from 'react';
+import { gql, useQuery } from '@apollo/client';
 import PropTypes from 'prop-types';
-import { useHistory, Link } from 'react-router-dom';
-import styled from 'styled-components/macro';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import ky from 'ky';
-
-import Scissors from '../icons/Scissors';
-
-import { Heading2, Heading3, Heading4, Heading5 } from '../general/Headings';
-import { PrimaryButton, SecondaryButton } from '../general/Buttons';
-import Calendar from '../general/Calendar';
-import Loading from '../general/Loading';
+import { Link, useHistory } from 'react-router-dom';
+import styled from 'styled-components/macro';
 
 import {
+  darkerGrayColor,
   grayColor,
   lightGrayColor,
   primaryColor,
-  darkerGrayColor,
   secondaryColor,
 } from '../../constants/websiteColors';
-import Razor from '../icons/Razor';
+import { PrimaryButton, SecondaryButton } from '../general/Buttons';
+import Calendar from '../general/Calendar';
+import { Heading2, Heading3, Heading4, Heading5 } from '../general/Headings';
+import Loading from '../general/Loading';
 import Combo from '../icons/Combo';
 import FatherSon from '../icons/FatherSon';
 import Kid from '../icons/Kid';
+import Razor from '../icons/Razor';
+import Scissors from '../icons/Scissors';
 
 const SelectTimeWrap = styled.div`
   display: flex;
@@ -143,92 +140,112 @@ const ButtonsContainer = styled.div`
   }
 `;
 
-function SelectTime({
-  time,
-  setTime,
-  timeFirst,
-  currentService,
-  setCurrentService,
-  currentBarber,
-}) {
+// GraphQL query getting all barber appointments for a date
+const GET_BUSY_TIMES = gql`
+  query GetBusyTimes($barberID: ID!, $date: String!) {
+    appointments(date: $date, barberID: $barberID) {
+      time
+      duration
+    }
+  }
+`;
+
+function SelectTime({ timeFirst, currentAppointment, setCurrentAppointment, currentBarber }) {
   const history = useHistory();
   const { t } = useTranslation();
 
-  const [busyHours, setBusyHours] = useState([]);
-  const [loadedBusyHours, setLoadedBusyHours] = useState(false);
+  // Retrieving appointments (only barber-first)
+  const { loading, data: loadedAppoinents } = useQuery(GET_BUSY_TIMES, {
+    variables: {
+      date: currentAppointment.time.toISOString().split('T')[0],
+      barberID: currentBarber.id,
+    },
+    skip: timeFirst,
+  });
 
-  // Determines whether user has already selected time, and not just got the value
-  // from previously rendered component
-  const [selectedTime, setSelectedTime] = useState(time.getUTCHours() !== 0);
+  // Determines whether user has already selected time
+  const [selectedTime, setSelectedTime] = useState(false);
 
-  // Determines whether user has already selected a service
+  // Determines whether user has already selected service
   const [selectedService, setSelectedService] = useState(false);
 
-  // Load the available times for the master (only works in Barber First)
-  if (!timeFirst) {
-    useEffect(() => {
-      const controller = new AbortController();
-      const { signal } = controller;
-      // Slowing down the loading, so user thinks it is loading
-      setTimeout(() => {
-        ky.post('https://europe-west3-dywizjon-303.cloudfunctions.net/api/appointments/getforday', {
-          json: { day: time.toISOString().substring(0, 10), barberID: currentBarber.id },
-          signal,
-        })
-          .json()
-          .then((busyTimes) => {
-            setBusyHours(
-              busyTimes.map((appointment) => new Date(appointment.time).getUTCHours() + 2),
-            );
-            setLoadedBusyHours(true);
-          })
-          .catch(() => {});
-      }, 500);
-      // Aborting request if user leaves page before loading available times
-      return () => controller.abort();
-    }, [time]);
-  }
-
-  // Date selection handler
+  // Date selection handler (passed to Calendar component)
   const handleDateChange = (date) => {
-    setTime(date);
-    setLoadedBusyHours(false);
+    setCurrentAppointment({ ...currentAppointment, time: date });
+    // When changing date time resets to 00:00, so user has to choose again
+    // Needed because user could go forward a day, check earlier time and go back
+    setSelectedTime(false);
   };
 
-  // Time selection handler
-  const handleTimeChange = (date) => {
-    setTime(date);
+  // Time selection handler (passed to Time component)
+  const handleTimeChange = (hour) => {
+    const appointmentDateTime = currentAppointment.time;
+    appointmentDateTime.setUTCHours(hour, 0, 0, 0);
+    setCurrentAppointment({ ...currentAppointment, time: appointmentDateTime });
     setSelectedTime(true);
   };
 
-  const handleServiceChange = ({ price, title, hourHalves }) => {
-    setCurrentService({ title, price, hourHalves });
+  // Service selection handler (passed to Service component)
+  const handleServiceChange = ({ price, serviceName, duration }) => {
+    setCurrentAppointment({ ...currentAppointment, serviceName, price, duration });
     setSelectedService(true);
   };
 
+  // Going back handler
   const handleGoBack = () => {
-    const currentLocalDate = new Date();
-    const currentPolandISODate = `${currentLocalDate.toISOString().slice(0, 11)}02:00:00+02:00`;
-    const currentPolandDate = new Date(currentPolandISODate);
-    setTime(currentPolandDate);
-    setCurrentService({
+    // Resetting the appointment info
+    setCurrentAppointment({
+      ...currentAppointment,
+      duration: 0,
+      serviceName: '',
+      time: new Date(),
       price: 0,
-      title: '',
-      hourHalves: 0,
     });
     history.goBack();
   };
 
+  // Function checks if the passed date is today, ignoring time
+  const isToday = (someDate) => {
+    const today = new Date();
+    return (
+      someDate.getDate() === today.getDate() &&
+      someDate.getMonth() === today.getMonth() &&
+      someDate.getFullYear() === today.getFullYear()
+    );
+  };
+
+  // Mapping appointments recieved from query to get their hours (only barber-first)
+  // If some appointment has a duration more than an hour, we block the next hour
+  // If time-first, it is assigned to empty array
+  const busyHours =
+    !timeFirst && !loading
+      ? loadedAppoinents.appointments.reduce((accum, appointment) => {
+          const newAccum = [...accum];
+          newAccum.push(new Date(appointment.time).getUTCHours());
+          if (appointment.duration > 60) {
+            newAccum.push(newAccum[newAccum.length - 1] + 1);
+          }
+          return newAccum;
+        }, [])
+      : [];
+
   // Time options assembled in an array
+  // Barbershop works 9 to 20
   const timeSelectors = [];
-  for (let i = 10; i <= 20; i += 1) {
-    // Checks if a time isn't busy for a master (only works in Barber First)
-    if (!busyHours.includes(i)) {
+  for (let i = 9; i <= 20; i += 1) {
+    // Checks if
+    // 1) Time isn't busy for a master (only works in Barber First) AND
+    // 2) Time is more than currently is in UTC
+    // 3) OR it is not today
+    if (
+      !busyHours.includes(i) &&
+      (i > new Date().getUTCHours() || !isToday(currentAppointment.time))
+    ) {
       timeSelectors.push(
         <Time
           key={i}
-          active={i === time.getUTCHours() + 2}
-          onClick={() => handleTimeChange(new Date(time.setUTCHours(i - 2)))}
+          active={i === currentAppointment.time.getUTCHours()}
+          onClick={() => handleTimeChange(i)}
         >
           <Heading4>{`${i}:00`}</Heading4>
         </Time>,
@@ -242,47 +259,47 @@ function SelectTime({
     }
   }
 
+  // Services data
   const serviceSelectors = [
     {
       icon: Scissors({ color: primaryColor, height: 60 }),
       price: 80,
-      title: 'Haircut',
-      hourHalves: 2,
+      serviceName: 'HAIRCUT',
+      duration: 60,
     },
     {
       icon: Razor({ color: primaryColor, height: 60 }),
       price: 65,
-      title: 'Shaving',
-      hourHalves: 2,
+      serviceName: 'SHAVING',
+      duration: 60,
     },
     {
       icon: Combo({ color: primaryColor, height: 60 }),
       price: 130,
-      title: 'Combo',
-      hourHalves: 3,
+      serviceName: 'COMBO',
+      duration: 90,
     },
     {
       icon: FatherSon({ color: primaryColor, height: 60 }),
       price: 125,
-      title: 'Father + son',
-      hourHalves: 4,
+      serviceName: 'FATHERSON',
+      duration: 120,
     },
     {
       icon: Kid({ color: primaryColor, height: 60 }),
       price: 50,
-      title: 'Junior haircut (<10 years)',
-      hourHalves: 2,
+      serviceName: 'JUNIOR',
+      duration: 60,
     },
   ];
 
-  let timeSection;
-  // If available times have loaded, or user chose Time First, we can show the timepicker
-  // If available times are loading, we show the loading spinner
-  if (timeFirst || (!timeFirst && loadedBusyHours)) {
-    timeSection = <TimePicker>{timeSelectors}</TimePicker>;
-  } else {
-    timeSection = <Loading height="200px" width="200px" />;
-  }
+  // If appointments are loading, we show the loading spinner
+  // If not, we show the time picker
+  const timeSection = loading ? (
+    <Loading height="200px" width="200px" />
+  ) : (
+    <TimePicker>{timeSelectors}</TimePicker>
+  );
 
   return (
     <>
@@ -291,7 +308,7 @@ function SelectTime({
       <SelectTimeWrap>
         <SelectorContainer>
           <Heading3>{`${t('Select date')}:`}</Heading3>
-          <Calendar time={time} setTime={handleDateChange} />
+          <Calendar date={currentAppointment.time} setDate={handleDateChange} />
         </SelectorContainer>
         <SelectorContainer>
           <Heading3>{`${t('Select time')}:`}</Heading3>
@@ -299,23 +316,23 @@ function SelectTime({
         </SelectorContainer>
       </SelectTimeWrap>
       <SelectServiceWrap>
-        {serviceSelectors.map(({ price, title, icon, hourHalves }) => (
+        {serviceSelectors.map(({ price, serviceName, icon, duration }) => (
           <Service
-            key={title}
-            active={title === currentService.title}
-            onClick={() => handleServiceChange({ price, title, hourHalves })}
+            key={serviceName}
+            active={serviceName === currentAppointment.serviceName}
+            onClick={() => handleServiceChange({ price, serviceName, duration })}
           >
             {icon}
-            <Heading5>{t(title)}</Heading5>
-            <Heading5>{`${hourHalves * 30} min.`}</Heading5>
-            <Heading3>{`${price}zł`}</Heading3>
+            <Heading5>{t(serviceName)}</Heading5>
+            <Heading5>{`${duration} min.`}</Heading5>
+            <Heading3>{`${price}$`}</Heading3>
           </Service>
         ))}
       </SelectServiceWrap>
       <ButtonsContainer>
         <SecondaryButton onClick={handleGoBack}>{t('Back')}</SecondaryButton>
         {
-          // Showing the button only after user selected time
+          // Showing the button only after user selected time and service
           selectedTime && selectedService && (
             <Link to={`/reserve/step${timeFirst ? 3 : 4}`}>
               <PrimaryButton>{t('Next')}</PrimaryButton>
@@ -328,22 +345,28 @@ function SelectTime({
 }
 
 SelectTime.propTypes = {
-  time: PropTypes.instanceOf(Date).isRequired,
-  setTime: PropTypes.func.isRequired,
   timeFirst: PropTypes.bool,
-  currentService: PropTypes.shape({
-    price: PropTypes.number,
-    title: PropTypes.string,
-    hourHalves: PropTypes.number,
-  }).isRequired,
-  setCurrentService: PropTypes.func.isRequired,
-  currentBarber: PropTypes.shape({
+  currentAppointment: PropTypes.shape({
+    duration: PropTypes.number,
+    email: PropTypes.string,
     firstName: PropTypes.string,
     lastName: PropTypes.string,
-    specialization: PropTypes.string,
+    phoneNumber: PropTypes.string,
+    serviceName: PropTypes.string,
+    time: PropTypes.instanceOf(Date),
+    price: PropTypes.number,
+  }).isRequired,
+  setCurrentAppointment: PropTypes.func.isRequired,
+  currentBarber: PropTypes.shape({
+    fullName: PropTypes.string,
+    specialisation: PropTypes.string,
     profileImageURL: PropTypes.string,
     id: PropTypes.string,
   }).isRequired,
+};
+
+SelectTime.defaultProps = {
+  timeFirst: true,
 };
 
 export default SelectTime;
