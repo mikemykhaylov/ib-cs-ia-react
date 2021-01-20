@@ -208,9 +208,9 @@ function SelectTime({ timeFirst, currentAppointment, setCurrentAppointment, curr
   const isToday = (someDate) => {
     const today = new Date();
     return (
-      someDate.getDate() === today.getDate() &&
-      someDate.getMonth() === today.getMonth() &&
-      someDate.getFullYear() === today.getFullYear()
+      someDate.getUTCDate() === today.getUTCDate() &&
+      someDate.getUTCMonth() === today.getUTCMonth() &&
+      someDate.getUTCFullYear() === today.getUTCFullYear()
     );
   };
 
