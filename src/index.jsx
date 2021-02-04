@@ -1,6 +1,7 @@
 import { Auth0Provider } from '@auth0/auth0-react';
-import React from 'react';
+import { StrictMode } from 'react';
 import { render } from 'react-dom';
+
 import App, { browserHistory } from './components/App';
 
 const onRedirectCallback = (appState) => {
@@ -8,7 +9,7 @@ const onRedirectCallback = (appState) => {
 };
 
 render(
-  <React.StrictMode>
+  <StrictMode>
     <Auth0Provider
       domain="dev-q6a92igd.eu.auth0.com"
       clientId="vZ6H3dwS70pmpBirT7xttpVcycKEtysJ"
@@ -19,7 +20,7 @@ render(
     >
       <App />
     </Auth0Provider>
-  </React.StrictMode>,
+  </StrictMode>,
   document.querySelector('#root'),
 );
 

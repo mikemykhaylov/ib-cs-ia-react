@@ -1,6 +1,4 @@
-/* eslint-disable react/jsx-curly-newline */
 import PropTypes from 'prop-types';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 
@@ -87,6 +85,16 @@ function Calendar({ date, setDate, allDates }) {
     setDate(makeZeroHourDate(year, month, day));
   };
 
+  // Previous month selection handler
+  const handleMonthBack = () => {
+    handleDateChange(date.getUTCFullYear(), date.getUTCMonth() - 1, date.getUTCDate());
+  };
+
+  // Next month selection handler
+  const handleMonthForward = () => {
+    handleDateChange(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate());
+  };
+
   // Indicates which day of week is the beginning of the month (Used for first row grid offset)
   // Starts with 0: Sunday, 1: Monday... and the default grid-column start is 1
   const dayOfWeekOfMonthBeginning = makeZeroHourDate(
@@ -109,7 +117,9 @@ function Calendar({ date, setDate, allDates }) {
   for (let i = 1; i <= daysInCurrentMonth; i += 1) {
     // Indicates whether a date is selectable
     // It is if it is later in this month
-    // or has a later month or year
+    // or has a later month
+    // or has a later year
+    // or the mode is allDdates
     const selectable =
       i >= new Date().getUTCDate() ||
       date.getUTCMonth() > new Date().getUTCMonth() ||
@@ -149,8 +159,7 @@ function Calendar({ date, setDate, allDates }) {
             date.getUTCMonth() - 1 >= new Date().getUTCMonth() ||
             date.getUTCFullYear() > new Date().getUTCFullYear() ||
             allDates
-              ? () =>
-                  handleDateChange(date.getUTCFullYear(), date.getUTCMonth() - 1, date.getUTCDate())
+              ? handleMonthBack
               : null
           }
         >
@@ -159,11 +168,7 @@ function Calendar({ date, setDate, allDates }) {
         <Heading4>
           {date.toLocaleString(i18n.language, { year: 'numeric', month: 'long' })}
         </Heading4>
-        <ChangeMonthButton
-          onClick={() =>
-            handleDateChange(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate())
-          }
-        >
+        <ChangeMonthButton onClick={handleMonthForward}>
           <ArrowRight height={24} color={lightGrayColor} />
         </ChangeMonthButton>
       </MonthWrap>

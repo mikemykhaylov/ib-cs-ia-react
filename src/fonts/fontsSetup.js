@@ -1,5 +1,5 @@
-import SpaceGroteskVariable from './SpaceGrotesk-Variable.woff2';
 import LibreFranklinVariable from './LibreFranklin-Variable.woff2';
+import SpaceGroteskVariable from './SpaceGrotesk-Variable.woff2';
 
 const fontFaces = `
 @font-face {

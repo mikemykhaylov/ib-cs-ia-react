@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import styled from 'styled-components/macro';
-import { Switch, Route, useRouteMatch, Redirect, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
+import { Redirect, Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
+import styled from 'styled-components/macro';
 
-import Navbar from '../components/general/Navbar';
 import Footer from '../components/general/Footer';
-
-import SelectWay from '../components/reservation/SelectWay';
-import SelectTime from '../components/reservation/SelectTime';
-import SelectBarber from '../components/reservation/SelectBarber';
+import Navbar from '../components/general/Navbar';
 import GetDetails from '../components/reservation/GetDetails';
+import SelectBarber from '../components/reservation/SelectBarber';
+import SelectTime from '../components/reservation/SelectTime';
+import SelectWay from '../components/reservation/SelectWay';
 import Success from '../components/reservation/Success';
 
 const pageVariants = {

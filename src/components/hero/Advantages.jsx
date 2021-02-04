@@ -1,14 +1,11 @@
-import React from 'react';
-import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components/macro';
 
 import { primaryColor, secondaryColor } from '../../constants/websiteColors';
-
-import Barber from '../icons/Barber';
-import Equipment from '../icons/Equipment';
-import BarbershopLocation from '../icons/BarbershopLocation';
-
 import { Heading2 as AdvantagesTitle, Heading3, Heading4, Text } from '../general/Headings';
+import Barber from '../icons/Barber';
+import BarbershopLocation from '../icons/BarbershopLocation';
+import Equipment from '../icons/Equipment';
 
 const AdvantagesContainer = styled.section`
   box-sizing: border-box;

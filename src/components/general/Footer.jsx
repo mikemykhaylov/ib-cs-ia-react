@@ -1,12 +1,9 @@
-import React from 'react';
-import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components/macro';
 
-import { Heading2, Heading4, Text } from './Headings';
-
+import { lightGrayColor, primaryColor } from '../../constants/websiteColors';
 import Logo from '../icons/Logo';
-
-import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
+import { Heading2, Heading4, Text } from './Headings';
 
 const FooterContainer = styled.footer`
   width: calc(100vw - 2 * 100vw * 50 / 1920);

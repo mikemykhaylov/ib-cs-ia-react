@@ -1,12 +1,8 @@
-import React from 'react';
-import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
-import useWindowWidth from '../../hooks/useWindowWidth';
+import styled from 'styled-components/macro';
 
 import { secondaryColor } from '../../constants/websiteColors';
-
-import { Heading2 as GalleryTitle, Heading4 } from '../general/Headings';
-
+import useWindowWidth from '../../hooks/useWindowWidth';
 import galleryPhoto1 from '../../images/galleryPhoto1.webp';
 import galleryPhoto2 from '../../images/galleryPhoto2.webp';
 import galleryPhoto3 from '../../images/galleryPhoto3.webp';
@@ -15,6 +11,7 @@ import galleryPhoto5 from '../../images/galleryPhoto5.webp';
 import galleryPhoto6 from '../../images/galleryPhoto6.webp';
 import galleryPhoto7 from '../../images/galleryPhoto7.webp';
 import galleryPhoto8 from '../../images/galleryPhoto8.webp';
+import { Heading2 as GalleryTitle, Heading4 } from '../general/Headings';
 
 const GalleryContainer = styled.section`
   box-sizing: border-box;

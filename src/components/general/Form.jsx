@@ -1,9 +1,6 @@
-/* eslint-disable react/forbid-prop-types */
-
 import PropTypes from 'prop-types';
-import React from 'react';
-import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components/macro';
 
 import {
   darkerGrayColor,
@@ -93,7 +90,7 @@ Input.propTypes = {
   placeholder: PropTypes.string.isRequired,
   errorsObj: PropTypes.shape({
     valid: PropTypes.bool,
-    errors: PropTypes.object,
+    errors: PropTypes.objectOf(PropTypes.string),
   }),
 };
 

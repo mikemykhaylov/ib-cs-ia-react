@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 
@@ -132,7 +132,7 @@ function Dashboard() {
     specialisation: '',
   });
 
-  // Getting barber access token 
+  // Getting barber access token
   useEffect(() => {
     const getAccessToken = async () => {
       try {
@@ -155,8 +155,8 @@ function Dashboard() {
     },
   });
 
-  if(data?.barber?.specialisation && !currentUser.specialisation) {
-    setCurrentUser({...currentUser, specialisation: data.barber.specialisation})
+  if (data?.barber?.specialisation && !currentUser.specialisation) {
+    setCurrentUser({ ...currentUser, specialisation: data.barber.specialisation });
   }
 
   // Mapping appointments to cards
@@ -215,9 +215,7 @@ function Dashboard() {
         </Heading3>
         {/* If appointments are loading, or there are none for the date,
         we set the loaded to false, therefore stretching the grids */}
-        <AppointmentsWrap
-          singleChild={loading || data?.barber?.appointments?.length === 0}
-        >
+        <AppointmentsWrap singleChild={loading || data?.barber?.appointments?.length === 0}>
           {!loading ? appointmentsCards : <Loading height="80px" width="100%" />}
         </AppointmentsWrap>
       </Container>

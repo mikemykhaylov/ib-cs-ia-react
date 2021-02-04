@@ -1,11 +1,10 @@
-import React from 'react';
-import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components/macro';
 
-import Navbar from '../components/general/Navbar';
-import { Heading2, Heading4 } from '../components/general/Headings';
-import { primaryColor, darkerGrayColor } from '../constants/websiteColors';
 import Footer from '../components/general/Footer';
+import { Heading2, Heading4 } from '../components/general/Headings';
+import Navbar from '../components/general/Navbar';
+import { darkerGrayColor, primaryColor } from '../constants/websiteColors';
 
 const WorksContainer = styled.section`
   margin-top: calc(100vh * 96 / 1080);

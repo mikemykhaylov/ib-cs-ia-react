@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro';
+
 import { lightGrayColor } from '../../constants/websiteColors';
 
 export const Heading1 = styled.h1`

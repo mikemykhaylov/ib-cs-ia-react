@@ -1,13 +1,11 @@
-import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { useTranslation } from 'react-i18next';
 
-import Navbar from '../components/general/Navbar';
-import { Heading2 } from '../components/general/Headings';
 import { SecondaryButton } from '../components/general/Buttons';
-
 import Footer from '../components/general/Footer';
+import { Heading2 } from '../components/general/Headings';
+import Navbar from '../components/general/Navbar';
 
 const NotFoundContainer = styled.section`
   margin-top: calc(100vh * 96 / 1080);

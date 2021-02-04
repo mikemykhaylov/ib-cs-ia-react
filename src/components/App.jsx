@@ -1,10 +1,8 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-props-no-spreading */
-import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import { createBrowserHistory } from 'history';
-import React, { Suspense } from 'react';
+import { Suspense, lazy } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { Route, Router, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components/macro';
@@ -18,8 +16,8 @@ import fontFaces from '../fonts/fontsSetup';
 import i18n from '../i18n/i18n';
 import Loading from './general/Loading';
 
-const Reservation = React.lazy(() => import('../containers/Reservation'));
-const Dashboard = React.lazy(() => import('../containers/Dashboard'));
+const Reservation = lazy(() => import('../containers/Reservation'));
+const Dashboard = lazy(() => import('../containers/Dashboard'));
 
 const httpLink = createHttpLink({
   uri: 'https://u06740719i.execute-api.eu-central-1.amazonaws.com/dev/graphql',
@@ -97,6 +95,6 @@ const App = () => (
       </Router>
     </I18nextProvider>
   </ApolloProvider>
-  );
+);
 
 export default App;

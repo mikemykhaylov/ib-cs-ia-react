@@ -1,19 +1,15 @@
-import React from 'react';
-import styled from 'styled-components/macro';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components/macro';
 
 import { primaryColor } from '../../constants/websiteColors';
-
-import { PrimaryButton } from '../general/Buttons';
-import Navbar from '../general/Navbar';
-import { Heading1, Heading3, Heading5 } from '../general/Headings';
-
-import Scissors from '../icons/Scissors';
-import Razor from '../icons/Razor';
-import Combo from '../icons/Combo';
-
 import heroImage from '../../images/heroImage.webp';
+import { PrimaryButton } from '../general/Buttons';
+import { Heading1, Heading3, Heading5 } from '../general/Headings';
+import Navbar from '../general/Navbar';
+import Combo from '../icons/Combo';
+import Razor from '../icons/Razor';
+import Scissors from '../icons/Scissors';
 
 const MainContainer = styled.div`
   align-items: center;

@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
-import { primaryColor, lightGrayColor } from '../../constants/websiteColors';
+
+import { lightGrayColor, primaryColor } from '../../constants/websiteColors';
 
 export const PrimaryButton = styled.button`
   background: none;

@@ -1,12 +1,10 @@
-import React from 'react';
-import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
-
-import { Heading2 as StoryTitle, Heading4, Text } from '../general/Headings';
+import styled from 'styled-components/macro';
 
 import { secondaryColor } from '../../constants/websiteColors';
 import storyImage from '../../images/storyImage.webp';
 import { SecondaryButton } from '../general/Buttons';
+import { Heading4, Heading2 as StoryTitle, Text } from '../general/Headings';
 
 const StoryContainer = styled.section`
   box-sizing: border-box;

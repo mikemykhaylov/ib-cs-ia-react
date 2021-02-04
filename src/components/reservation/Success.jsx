@@ -1,8 +1,8 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Heading2, Heading3 } from '../general/Headings';
+import { useHistory } from 'react-router-dom';
+
 import { PrimaryButton } from '../general/Buttons';
+import { Heading2, Heading3 } from '../general/Headings';
 
 function Success() {
   const history = useHistory();
