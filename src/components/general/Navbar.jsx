@@ -53,6 +53,10 @@ const NavbarMenu = styled.nav`
   }
 `;
 
+const LogoLink = styled(Link)`
+  height: 40px;
+`;
+
 const NavbarLink = styled(Link)`
   text-decoration: none;
 `;
@@ -124,9 +128,9 @@ function Navbar() {
       {width >= 992 ? (
         <>
           <NavbarMenu>
-            <Link aria-label="Go to the main page" to="/">
+            <LogoLink aria-label="Go to the main page" to="/">
               <Logo color={primaryColor} height={40} />
-            </Link>
+            </LogoLink>
             <Heading5>{t('BARBERS')}</Heading5>
             <NavbarLink to="/works">
               <Heading5>{t('SERVICES')}</Heading5>

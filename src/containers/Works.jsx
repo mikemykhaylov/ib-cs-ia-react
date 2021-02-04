@@ -10,7 +10,7 @@ const WorksContainer = styled.section`
   margin-top: calc(100vh * 96 / 1080);
   padding: 0 calc(100vw * 196 / 1920);
   margin-bottom: 100px;
-  min-height: calc(100vh - 45px - 100vh * 96 / 1080 - 100px);
+  height: calc(100vh - 100vw * 50 / 1920 - 40px - 100vh * 96 / 1080 - 100px);
   box-sizing: border-box;
   display: flex;
   justify-content: flex-start;
