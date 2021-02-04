@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -89,7 +89,7 @@ let config = {
       template: path.resolve(__dirname, './public/index.html'), // source html
     }),
     new MiniCssExtractPlugin(),
-    // new FaviconsWebpackPlugin('./public/logo.svg'),
+    new FaviconsWebpackPlugin('./public/logo.svg'),
     new CleanWebpackPlugin(),
     new CompressionPlugin(),
     new webpack.HotModuleReplacementPlugin(),

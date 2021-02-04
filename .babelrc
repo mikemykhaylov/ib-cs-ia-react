@@ -1,4 +1,12 @@
 {
-  "presets": ["@babel/react", "@babel/env"],
+  "presets": [
+    [
+      "@babel/preset-react",
+      {
+        "runtime": "automatic"
+      }
+    ],
+    ["@babel/preset-env", { "targets": "defaults" }]
+  ],
   "plugins": ["@babel/plugin-transform-runtime", "macros"]
 }

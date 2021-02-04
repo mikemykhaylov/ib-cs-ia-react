@@ -1,8 +1,27 @@
+import { Auth0Provider } from '@auth0/auth0-react';
 import React from 'react';
 import { render } from 'react-dom';
-import App from './components/App';
+import App, { browserHistory } from './components/App';
 
-render(<App />, document.querySelector('#root'));
+const onRedirectCallback = (appState) => {
+  browserHistory.replace((appState && appState.returnTo) || window.location.pathname);
+};
+
+render(
+  <React.StrictMode>
+    <Auth0Provider
+      domain="dev-q6a92igd.eu.auth0.com"
+      clientId="vZ6H3dwS70pmpBirT7xttpVcycKEtysJ"
+      redirectUri={window.location.origin}
+      audience="https://u06740719i.execute-api.eu-central-1.amazonaws.com/dev/graphql"
+      scope="read:contactInfo"
+      onRedirectCallback={onRedirectCallback}
+    >
+      <App />
+    </Auth0Provider>
+  </React.StrictMode>,
+  document.querySelector('#root'),
+);
 
 if (module.hot) {
   module.hot.accept();

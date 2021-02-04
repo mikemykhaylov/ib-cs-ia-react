@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -7,7 +8,7 @@ import { lightGrayColor, primaryColor } from '../../constants/websiteColors';
 import useWindowWidth from '../../hooks/useWindowWidth';
 import Login from '../icons/Login';
 import Logo from '../icons/Logo';
-// import Logout from '../icons/Logout';
+import Logout from '../icons/Logout';
 import Menu from '../icons/Menu';
 import { Heading4, Heading5 } from './Headings';
 
@@ -71,43 +72,43 @@ const NavbarButton = styled.button`
   cursor: pointer;
 `;
 
-// const UserActions = styled.div`
-//   display: flex;
-//   justify-content: flex-start;
-//   align-items: center;
-//   flex-direction: row;
-//   & > *:not(:last-child) {
-//     margin-right: 20px;
-//   }
-//   @media (min-width: 1520px) {
-//     & > *:not(:last-child) {
-//       margin-right: 40px;
-//     }
-//   }
-// `;
+const UserActions = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  & > *:not(:last-child) {
+    margin-right: 20px;
+  }
+  @media (min-width: 1520px) {
+    & > *:not(:last-child) {
+      margin-right: 40px;
+    }
+  }
+`;
 
-// const UserImage = styled.img`
-//   width: 40px;
-//   height: 40px;
-//   object-fit: cover;
-//   object-position: center;
-//   border-radius: 50%;
-// `;
+const UserImage = styled.img`
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+`;
 
 const CenteredLink = styled(Link)`
   display: flex;
   align-items: center;
 `;
 
-// const LogoutButton = styled.button`
-//   padding: 0;
-//   margin: 0;
-//   border: none;
-//   background: none;
-//   cursor: pointer;
-//   display: flex;
-//   align-items: center;
-// `;
+const UserActionButton = styled.button`
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`;
 
 function Navbar() {
   const width = useWindowWidth();
@@ -115,26 +116,8 @@ function Navbar() {
   const handleLanguageChange = (language) => {
     i18n.changeLanguage(language);
   };
+  const { loginWithRedirect, logout, isAuthenticated, isLoading, user } = useAuth0();
   const [showMobileNav, setShowMobileNav] = useState(false);
-
-  // Showing the user login or logout button and a photo
-  // let userActionButton;
-  // if (loggedIn !== null) {
-  //   userActionButton = loggedIn ? (
-  //     <UserActions>
-  //       <CenteredLink to="/dashboard">
-  //         <UserImage src={firebase.auth().currentUser.photoURL} />
-  //       </CenteredLink>
-  //       <LogoutButton onClick={handleLogout}>
-  //         <Logout firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
-  //       </LogoutButton>
-  //     </UserActions>
-  //   ) : (
-  //     <CenteredLink to="/login">
-  //       <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
-  //     </CenteredLink>
-  //   );
-  // }
 
   return (
     <NavbarContainer>
@@ -161,9 +144,21 @@ function Navbar() {
             <NavbarButton onClick={() => handleLanguageChange('ru')}>
               <Heading5>RU</Heading5>
             </NavbarButton>
-            <CenteredLink to="/login">
-              <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
-            </CenteredLink>
+            {!isLoading &&
+              (isAuthenticated ? (
+                <UserActions>
+                  <CenteredLink to="/dashboard">
+                    <UserImage src={user.picture} />
+                  </CenteredLink>
+                  <UserActionButton onClick={logout}>
+                    <Logout firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+                  </UserActionButton>
+                </UserActions>
+              ) : (
+                <UserActionButton onClick={loginWithRedirect}>
+                  <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+                </UserActionButton>
+              ))}
           </NavbarMenu>
         </>
       ) : (
@@ -199,9 +194,25 @@ function Navbar() {
                 <NavbarButton onClick={() => handleLanguageChange('ru')}>
                   <Heading4>RU</Heading4>
                 </NavbarButton>
-                <CenteredLink to="/login">
-                  <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
-                </CenteredLink>
+                {!isLoading &&
+                  (isAuthenticated ? (
+                    <UserActions>
+                      <CenteredLink to="/dashboard">
+                        <UserImage src={user.picture} />
+                      </CenteredLink>
+                      <UserActionButton onClick={logout}>
+                        <Logout
+                          firstColor={primaryColor}
+                          secondColor={lightGrayColor}
+                          height={40}
+                        />
+                      </UserActionButton>
+                    </UserActions>
+                  ) : (
+                    <UserActionButton onClick={loginWithRedirect}>
+                      <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+                    </UserActionButton>
+                  ))}
               </NavbarMenu>
             </>
           ) : null}

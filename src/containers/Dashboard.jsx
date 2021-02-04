@@ -1,14 +1,15 @@
+import { gql, useQuery } from '@apollo/client';
+import { useAuth0 } from '@auth0/auth0-react';
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components/macro';
 
-import Navbar from '../components/general/Navbar';
-import { Heading2, Heading4, Heading5, Heading3 } from '../components/general/Headings';
-
-import { grayColor, primaryColor, darkerGrayColor } from '../constants/websiteColors';
 import Calendar from '../components/general/Calendar';
-import Loading from '../components/general/Loading';
 import Footer from '../components/general/Footer';
+import { Heading2, Heading3, Heading4, Heading5 } from '../components/general/Headings';
+import Loading from '../components/general/Loading';
+import Navbar from '../components/general/Navbar';
+import { darkerGrayColor, grayColor, primaryColor } from '../constants/websiteColors';
 
 const Container = styled.section`
   margin-top: calc(100vh * 96 / 1080);
@@ -76,9 +77,9 @@ const AppointmentsWrap = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: ${(props) =>
-    props.loaded
-      ? 'repeat(auto-fill, minmax(300px, 1fr))'
-      : 'repeat(auto-fit, minmax(250px, 1fr))'};
+    props.singleChild
+      ? 'repeat(auto-fit, minmax(250px, 1fr))'
+      : 'repeat(auto-fill, minmax(300px, 1fr))'};
   grid-template-rows: 1fr;
   grid-gap: 32px;
 `;
@@ -98,121 +99,115 @@ const AppointmentTimeSpan = styled.span`
   color: ${primaryColor};
 `;
 
+// GraphQL query getting barber's specialisation and all appointments for a day
+const GET_BARBER_SPECIALISATION_AND_APPOINTMENTS_FOR_DAY = gql`
+  query getBarberByEmail($email: String!, $date: String!) {
+    barber(email: $email) {
+      specialisation
+      id
+      appointments(date: $date) {
+        duration
+        fullName
+        id
+        serviceName
+        time
+      }
+    }
+  }
+`;
+
 function Dashboard() {
   const { t, i18n } = useTranslation();
-  // User data from firebase.auth()
-  // const { currentUser: firebaseCurrentUser } = firebase.auth();
+  const { user, getAccessTokenSilently } = useAuth0();
 
   // Default date to show appointments for
-  const currentLocalDate = new Date();
-  const currentPolandISODate = `${currentLocalDate.toISOString().slice(0, 11)}02:00:00+02:00`;
-  const currentPolandDate = new Date(currentPolandISODate);
-  const [time, setTime] = useState(currentPolandDate);
+  const [date, setDate] = useState(new Date());
 
-  // Assembling used data from firebase to component user
+  // State of the current user
   const [currentUser, setCurrentUser] = useState({
-    // displayName: firebaseCurrentUser.displayName,
-    // profileImageURL: firebaseCurrentUser.photoURL,
-    // email: firebaseCurrentUser.email,
-    // id: firebaseCurrentUser.uid,
+    fullName: user.name,
+    profileImageURL: user.picture,
+    email: user.email,
+    id: '',
+    specialisation: '',
   });
 
-  // Determines the appointments for selected time and whether appointments
-  // are in the process of loading
-  const [appointments, setAppointments] = useState([]);
-  const [loadedAppointments, setLoadedAppointments] = useState(false);
+  // Getting barber access token 
+  useEffect(() => {
+    const getAccessToken = async () => {
+      try {
+        const accessToken = await getAccessTokenSilently({
+          audience: `https://u06740719i.execute-api.eu-central-1.amazonaws.com/dev/graphql`,
+        });
+        sessionStorage.setItem('accessToken', accessToken);
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
 
-  // On component mount we load additional info about the barber,
-  // which is not stored in firebase user
-  // useEffect(() => {
-  //   const controller = new AbortController();
-  //   const { signal } = controller;
-  //   (async () => {
-  //     const barber = await ky
-  //       .post('https://europe-west3-dywizjon-303.cloudfunctions.net/api/barbers/email', {
-  //         json: { email: currentUser.email },
-  //         signal,
-  //       })
-  //       .json();
-  //     // Adding this new data to existing component user
-  //     setCurrentUser({ ...currentUser, ...barber });
-  //   })();
-  //   // Aborting request if user leaves page before loading available times
-  //   return () => controller.abort();
-  // }, []);
+    getAccessToken();
+  }, []);
 
-  // Loading all appointments for selected date
-  // useEffect(() => {
-  //   setLoadedAppointments(false);
-  //   const controller = new AbortController();
-  //   const { signal } = controller;
-  //   (async () => {
-  //     const token = await firebaseCurrentUser.getIdToken();
-  //     const fetchedAppointments = await ky
-  //       .post(
-  //         'https://europe-west3-dywizjon-303.cloudfunctions.net/api/appointments/getforday/name',
-  //         {
-  //           json: { day: time.toISOString().substring(0, 10), barberID: currentUser.id },
-  //           // Getting and passing the user token with the request
-  //           headers: new Headers({
-  //             Authorization: `Bearer ${token}`,
-  //           }),
-  //           signal,
-  //         },
-  //       )
-  //       .json();
-  //     setAppointments(fetchedAppointments);
-  //     setLoadedAppointments(true);
-  //   })();
-  //   // Aborting request if user leaves page before loading available times
-  //   return () => controller.abort();
-  // }, [time]);
+  const { data, loading } = useQuery(GET_BARBER_SPECIALISATION_AND_APPOINTMENTS_FOR_DAY, {
+    variables: {
+      date: date.toISOString().split('T')[0],
+      email: currentUser.email,
+    },
+  });
+
+  if(data?.barber?.specialisation && !currentUser.specialisation) {
+    setCurrentUser({...currentUser, specialisation: data.barber.specialisation})
+  }
 
   // Mapping appointments to cards
-  let appointmentsCards;
-  if (appointments.length === 0) {
-    appointmentsCards = <Heading4>{t('No appointments for this day')}</Heading4>;
-  } else {
-    appointmentsCards = appointments.map((appointment) => (
-      <AppointmentContainer key={appointment.id}>
-        <Heading4>
-          {`${t('Time')}:`}
-          <AppointmentTimeSpan>
-            {` ${new Date(appointment.time).getUTCHours() + 2}:00`}
-          </AppointmentTimeSpan>
-        </Heading4>
-        <Heading5>{`${t('Name')}: ${appointment.firstName} ${appointment.lastName}`}</Heading5>
-        <Heading5>{`${t('Service')}: ${t(appointment.serviceName)}`}</Heading5>
-        <Heading5>{`${t('Duration')}: ${appointment.duration} min`}</Heading5>
-      </AppointmentContainer>
-    ));
+  let appointmentsCards = null;
+  if (data?.barber?.appointments) {
+    appointmentsCards =
+      data.barber.appointments.length === 0 ? (
+        <Heading4>{t('No appointments for this day')}</Heading4>
+      ) : (
+        data.barber.appointments.map((appointment) => (
+          <AppointmentContainer key={appointment.id}>
+            <Heading4>
+              {`${t('Time')}:`}
+              <AppointmentTimeSpan>
+                {` ${new Date(appointment.time).getUTCHours()}:00`}
+              </AppointmentTimeSpan>
+            </Heading4>
+            <Heading5>{`${t('Name')}: ${appointment.fullName}`}</Heading5>
+            <Heading5>{`${t('Service')}: ${t(appointment.serviceName)}`}</Heading5>
+            <Heading5>{`${t('Duration')}: ${appointment.duration} min`}</Heading5>
+          </AppointmentContainer>
+        ))
+      );
   }
+
   return (
     <>
       <Navbar />
       <Container>
-        <Heading2>{`${t('Welcome back')}, ${currentUser.displayName}`}</Heading2>
+        <Heading2>{`${t('Welcome back')}, ${currentUser.fullName}`}</Heading2>
         <Wrap>
           <ElementContainer>
             <BarberImage src={currentUser.profileImageURL} />
             <BarberInfo>
               <BarberMainInfo>
-                <Heading4>{currentUser.displayName}</Heading4>
+                <Heading4>{currentUser.fullName}</Heading4>
                 <Heading5 color={grayColor}>{t('Barber')}</Heading5>
               </BarberMainInfo>
               <Heading4>
-                {currentUser.specialization &&
-                  `${t('Specialisation')}: ${currentUser.specialization}`}
+                {currentUser.specialisation &&
+                  `${t('Specialisation')}: ${t(currentUser.specialisation)}`}
               </Heading4>
             </BarberInfo>
           </ElementContainer>
           <ElementContainer>
             <Heading3>{`${t('View appointments')}:`}</Heading3>
-            <Calendar time={time} setTime={setTime} allDates />
+            <Calendar date={date} setDate={setDate} allDates />
           </ElementContainer>
         </Wrap>
         <Heading3>
-          {`${t('Showing appointments for')} ${time.toLocaleString(i18n.language, {
+          {`${t('Showing appointments for')} ${date.toLocaleString(i18n.language, {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
@@ -220,8 +215,10 @@ function Dashboard() {
         </Heading3>
         {/* If appointments are loading, or there are none for the date,
         we set the loaded to false, therefore stretching the grids */}
-        <AppointmentsWrap loaded={!(!loadedAppointments || appointments.length === 0)}>
-          {loadedAppointments ? appointmentsCards : <Loading height="80px" width="100%" />}
+        <AppointmentsWrap
+          singleChild={loading || data?.barber?.appointments?.length === 0}
+        >
+          {!loading ? appointmentsCards : <Loading height="80px" width="100%" />}
         </AppointmentsWrap>
       </Container>
       <Footer />
