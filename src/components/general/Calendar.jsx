@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 
-import { grayColor, lightGrayColor, secondaryColor } from '../../constants/websiteColors';
+import { grayColor, lighterGrayColor, secondaryColor } from '../../constants/websiteColors';
 import ArrowLeft from '../icons/ArrowLeft';
 import ArrowRight from '../icons/ArrowRight';
 import { Heading4 } from './Headings';
@@ -163,13 +163,13 @@ function Calendar({ date, setDate, allDates }) {
               : null
           }
         >
-          <ArrowLeft height={24} color={lightGrayColor} />
+          <ArrowLeft height={24} color={lighterGrayColor} />
         </ChangeMonthButton>
         <Heading4>
           {date.toLocaleString(i18n.language, { year: 'numeric', month: 'long' })}
         </Heading4>
         <ChangeMonthButton onClick={handleMonthForward}>
-          <ArrowRight height={24} color={lightGrayColor} />
+          <ArrowRight height={24} color={lighterGrayColor} />
         </ChangeMonthButton>
       </MonthWrap>
       <DatePicker>

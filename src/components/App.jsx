@@ -8,7 +8,7 @@ import { Route, Router, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components/macro';
 import { Normalize } from 'styled-normalize';
 
-import { darkGrayColor } from '../constants/websiteColors';
+import { darkestGrayColor } from '../constants/websiteColors';
 import Hero from '../containers/Hero';
 import NotFound from '../containers/NotFound';
 import Works from '../containers/Works';
@@ -45,7 +45,7 @@ ${fontFaces}
   body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  background-color: ${darkGrayColor};
+  background-color: ${darkestGrayColor};
   margin: 0;
 }
 html {

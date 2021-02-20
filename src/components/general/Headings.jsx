@@ -1,14 +1,14 @@
 import styled from 'styled-components/macro';
 
-import { lightGrayColor } from '../../constants/websiteColors';
+import { lighterGrayColor } from '../../constants/websiteColors';
 
 export const Heading1 = styled.h1`
   margin: 0;
   font-family: SpaceGrotesk, sans-serif;
   font-style: normal;
-  font-variation-settings: 'wght' 900;
+  font-variation-settings: 'wght' 700;
   font-size: 4rem;
-  color: ${(props) => props.color || lightGrayColor};
+  color: ${(props) => props.color || lighterGrayColor};
   @media (min-width: 576px) {
     font-size: 5rem;
   }
@@ -18,9 +18,9 @@ export const Heading2 = styled.h2`
   margin: 0;
   font-family: SpaceGrotesk, sans-serif;
   font-style: normal;
-  font-variation-settings: 'wght' 800;
+  font-variation-settings: 'wght' 700;
   font-size: 3rem;
-  color: ${(props) => props.color || lightGrayColor};
+  color: ${(props) => props.color || lighterGrayColor};
 `;
 export const Heading3 = styled.h3`
   margin: 0;
@@ -28,7 +28,7 @@ export const Heading3 = styled.h3`
   font-style: normal;
   font-variation-settings: 'wght' 700;
   font-size: 2.25rem;
-  color: ${(props) => props.color || lightGrayColor};
+  color: ${(props) => props.color || lighterGrayColor};
   font-feature-settings: 'pnum' on, 'lnum' on;
 `;
 export const Heading4 = styled.h4`
@@ -37,7 +37,7 @@ export const Heading4 = styled.h4`
   font-style: normal;
   font-variation-settings: 'wght' 600;
   font-size: 1.5rem;
-  color: ${(props) => props.color || lightGrayColor};
+  color: ${(props) => props.color || lighterGrayColor};
 `;
 export const Heading5 = styled.h5`
   margin: 0;
@@ -45,7 +45,7 @@ export const Heading5 = styled.h5`
   font-style: normal;
   font-variation-settings: 'wght' 500;
   font-size: 1rem;
-  color: ${(props) => props.color || lightGrayColor};
+  color: ${(props) => props.color || lighterGrayColor};
 `;
 export const Text = styled.p`
   margin: 0;
@@ -54,7 +54,7 @@ export const Text = styled.p`
   font-variation-settings: 'wght' 400;
   font-size: 16px;
   line-height: 24px;
-  color: ${(props) => props.color || lightGrayColor};
+  color: ${(props) => props.color || lighterGrayColor};
 `;
 
 export const LinkText = styled(Text)`

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
-import { lightGrayColor, primaryColor } from '../../constants/websiteColors';
+import { lighterGrayColor, primaryColor } from '../../constants/websiteColors';
 import useWindowWidth from '../../hooks/useWindowWidth';
 import Login from '../icons/Login';
 import Logo from '../icons/Logo';
@@ -155,12 +155,12 @@ function Navbar() {
                     <UserImage src={user.picture} />
                   </CenteredLink>
                   <UserActionButton onClick={logout}>
-                    <Logout firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+                    <Logout firstColor={primaryColor} secondColor={lighterGrayColor} height={40} />
                   </UserActionButton>
                 </UserActions>
               ) : (
                 <UserActionButton onClick={loginWithRedirect}>
-                  <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+                  <Login firstColor={primaryColor} secondColor={lighterGrayColor} height={40} />
                 </UserActionButton>
               ))}
           </NavbarMenu>
@@ -175,7 +175,7 @@ function Navbar() {
               aria-label="Show Mobile Navigation"
               onClick={() => setShowMobileNav(!showMobileNav)}
             >
-              <Menu color={lightGrayColor} height={40} />
+              <Menu color={lighterGrayColor} height={40} />
             </NavbarButton>
           </NavbarMobileTopMenu>
           {showMobileNav ? (
@@ -207,14 +207,14 @@ function Navbar() {
                       <UserActionButton onClick={logout}>
                         <Logout
                           firstColor={primaryColor}
-                          secondColor={lightGrayColor}
+                          secondColor={lighterGrayColor}
                           height={40}
                         />
                       </UserActionButton>
                     </UserActions>
                   ) : (
                     <UserActionButton onClick={loginWithRedirect}>
-                      <Login firstColor={primaryColor} secondColor={lightGrayColor} height={40} />
+                      <Login firstColor={primaryColor} secondColor={lighterGrayColor} height={40} />
                     </UserActionButton>
                   ))}
               </NavbarMenu>

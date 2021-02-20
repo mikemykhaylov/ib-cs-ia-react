@@ -8,7 +8,7 @@ import styled from 'styled-components/macro';
 import {
   darkerGrayColor,
   grayColor,
-  lightGrayColor,
+  lighterGrayColor,
   primaryColor,
   secondaryColor,
 } from '../../constants/websiteColors';
@@ -79,7 +79,7 @@ const Time = styled.div`
   background-color: ${(props) => props.active && secondaryColor};
   cursor: pointer;
   &:hover {
-    border-color: ${lightGrayColor};
+    border-color: ${lighterGrayColor};
   }
 `;
 

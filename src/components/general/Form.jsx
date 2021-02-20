@@ -5,7 +5,7 @@ import styled from 'styled-components/macro';
 import {
   darkerGrayColor,
   grayColor,
-  lightGrayColor,
+  lighterGrayColor,
   primaryColor,
 } from '../../constants/websiteColors';
 import { Heading4, Heading5 } from './Headings';
@@ -50,7 +50,7 @@ const ReactiveInput = styled.input`
   font-family: SpaceGrotesk, sans-serif;
   font-size: 16px;
   line-height: 24px;
-  color: ${lightGrayColor};
+  color: ${lighterGrayColor};
   &::placeholder {
     color: ${grayColor};
   }

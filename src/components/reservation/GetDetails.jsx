@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
-import { grayColor, lightGrayColor, primaryColor } from '../../constants/websiteColors';
+import { grayColor, lighterGrayColor, primaryColor } from '../../constants/websiteColors';
 import { validateCreateAppointment } from '../../utils/validateInput';
 import { PrimaryButton, SecondaryButton } from '../general/Buttons';
 import { FormContainer, FormRow, Input } from '../general/Form';
@@ -218,7 +218,7 @@ function GetDetails({
           <Heading3>{t('Reservation Summary')}</Heading3>
           <ReservationSummaryRow>
             <ReservationSummaryColumn>
-              <Heading4 color={lightGrayColor}>{t('Date')}</Heading4>
+              <Heading4 color={lighterGrayColor}>{t('Date')}</Heading4>
               <Heading5 color={grayColor}>
                 {currentAppointment.time.toLocaleDateString(i18n.language, {
                   year: 'numeric',
@@ -228,7 +228,7 @@ function GetDetails({
               </Heading5>
             </ReservationSummaryColumn>
             <ReservationSummaryColumn>
-              <Heading4 color={lightGrayColor}>{t('Time')}</Heading4>
+              <Heading4 color={lighterGrayColor}>{t('Time')}</Heading4>
               <Heading5 color={grayColor}>
                 {`${currentAppointment.time.getUTCHours()}:${currentAppointment.time
                   .getUTCMinutes()
@@ -239,11 +239,11 @@ function GetDetails({
           </ReservationSummaryRow>
           <ReservationSummaryRow>
             <ReservationSummaryColumn>
-              <Heading4 color={lightGrayColor}>{t('Service')}</Heading4>
+              <Heading4 color={lighterGrayColor}>{t('Service')}</Heading4>
               <Heading5 color={grayColor}>{t(currentAppointment.serviceName)}</Heading5>
             </ReservationSummaryColumn>
             <ReservationSummaryColumn>
-              <Heading4 color={lightGrayColor}>{t('Money to bring')}</Heading4>
+              <Heading4 color={lighterGrayColor}>{t('Money to bring')}</Heading4>
               <Heading5 color={grayColor}>{`${currentAppointment.price}$`}</Heading5>
             </ReservationSummaryColumn>
           </ReservationSummaryRow>

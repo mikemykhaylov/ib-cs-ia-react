@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 
-import { lightGrayColor, primaryColor } from '../../constants/websiteColors';
+import { lighterGrayColor, primaryColor } from '../../constants/websiteColors';
 import Logo from '../icons/Logo';
 import { Heading2, Heading4, Text } from './Headings';
 
@@ -109,10 +109,10 @@ function Footer() {
         </FooterContactSection>
       </FooterWrap>
       <FooterCredits>
-        <FooterCreditsText color={lightGrayColor}>
+        <FooterCreditsText color={lighterGrayColor}>
           Copyright © Cyberpunk Barbershop all rights reserved. Developed by Mykhaylo Mykhaylov
         </FooterCreditsText>
-        <FooterCreditsText color={lightGrayColor}>
+        <FooterCreditsText color={lighterGrayColor}>
           Icons made by Freepik and Eucalyp from www.flaticon.com
         </FooterCreditsText>
       </FooterCredits>

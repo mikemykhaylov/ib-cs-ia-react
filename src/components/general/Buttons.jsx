@@ -1,11 +1,11 @@
 import styled from 'styled-components/macro';
 
-import { lightGrayColor, primaryColor } from '../../constants/websiteColors';
+import { lighterGrayColor, primaryColor } from '../../constants/websiteColors';
 
 export const PrimaryButton = styled.button`
   background: none;
   border-radius: 10px;
-  border: 5px solid ${lightGrayColor};
+  border: 5px solid ${lighterGrayColor};
   box-sizing: border-box;
   color: ${primaryColor};
   font-family: SpaceGrotesk, sans-serif;
@@ -24,9 +24,9 @@ export const PrimaryButton = styled.button`
 export const SecondaryButton = styled.button`
   background: none;
   border-radius: 10px;
-  border: 5px solid ${lightGrayColor};
+  border: 5px solid ${lighterGrayColor};
   box-sizing: border-box;
-  color: ${lightGrayColor};
+  color: ${lighterGrayColor};
   font-family: SpaceGrotesk, sans-serif;
   font-size: 24px;
   font-variation-settings: 'wght' 600;
