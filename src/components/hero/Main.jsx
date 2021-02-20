@@ -39,7 +39,7 @@ const MainContainer = styled.div`
 
 const MainHeadingContainer = styled.div`
   display: flex;
-  margin-top: calc(100vh * 96 / 1080);
+  margin-top: calc(100vh * 72 / 1080);
   align-items: center;
   text-align: center;
   & > *:not(:last-child) {

@@ -8,7 +8,7 @@ import { Heading2 } from '../components/general/Headings';
 import Navbar from '../components/general/Navbar';
 
 const NotFoundContainer = styled.section`
-  margin-top: calc(100vh * 96 / 1080);
+  margin-top: calc(100vh * 72 / 1080);
   padding: 0 calc(100vw * 196 / 1920);
   margin-bottom: 100px;
   height: calc(100vh - 100vw * 50 / 1920 - 40px - 100vh * 96 / 1080 - 100px);
