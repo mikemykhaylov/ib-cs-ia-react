@@ -1,4 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -15,7 +16,7 @@ import { Heading4, Heading5 } from './Headings';
 const NavbarContainer = styled.header`
   display: flex;
   justify-content: space-between;
-  width: calc(100vw - 2 * 100vw * 50 / 1920);
+  width: calc(100% - 2 * 100vw * 50 / 1920);
   margin: calc(100vw * 50 / 1920);
   margin-bottom: 0;
   flex-direction: column;
@@ -114,7 +115,7 @@ const UserActionButton = styled.button`
   align-items: center;
 `;
 
-function Navbar() {
+function Navbar({ noLogo }) {
   const width = useWindowWidth();
   const { t, i18n } = useTranslation();
   const handleLanguageChange = (language) => {
@@ -128,9 +129,11 @@ function Navbar() {
       {width >= 992 ? (
         <>
           <NavbarMenu>
-            <LogoLink aria-label="Go to the main page" to="/">
-              <Logo color={primaryColor} height={40} />
-            </LogoLink>
+            {!noLogo && (
+              <LogoLink aria-label="Go to the main page" to="/">
+                <Logo color={primaryColor} height={40} />
+              </LogoLink>
+            )}
             <Heading5>{t('BARBERS')}</Heading5>
             <NavbarLink to="/works">
               <Heading5>{t('SERVICES')}</Heading5>
@@ -168,9 +171,11 @@ function Navbar() {
       ) : (
         <>
           <NavbarMobileTopMenu>
-            <Link aria-label="Go to the main page" to="/">
-              <Logo color={primaryColor} height={40} />
-            </Link>
+            {!noLogo && (
+              <LogoLink aria-label="Go to the main page" to="/">
+                <Logo color={primaryColor} height={40} />
+              </LogoLink>
+            )}
             <NavbarButton
               aria-label="Show Mobile Navigation"
               onClick={() => setShowMobileNav(!showMobileNav)}
@@ -225,5 +230,13 @@ function Navbar() {
     </NavbarContainer>
   );
 }
+
+Navbar.defaultProps = {
+  noLogo: false,
+};
+
+Navbar.propTypes = {
+  noLogo: PropTypes.bool,
+};
 
 export default Navbar;

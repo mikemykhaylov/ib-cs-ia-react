@@ -1,97 +1,144 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { gql, useQuery } from '@apollo/client';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
 import Calendar from '../components/general/Calendar';
-import Footer from '../components/general/Footer';
-import { Heading2, Heading3, Heading4, Heading5 } from '../components/general/Headings';
+import { Heading2, Heading3, Heading4 } from '../components/general/Headings';
 import Loading from '../components/general/Loading';
 import Navbar from '../components/general/Navbar';
-import { darkerGrayColor, grayColor, primaryColor } from '../constants/websiteColors';
+import Delete from '../components/icons/Delete';
+import Home from '../components/icons/Home';
+import Logo from '../components/icons/Logo';
+import { darkerGrayColor, lighterGrayColor, primaryColor } from '../constants/websiteColors';
 
-const Container = styled.section`
-  margin-top: calc(100vh * 96 / 1080);
-  padding: 0 calc(100vw * 196 / 1920);
-  margin-bottom: 100px;
-  min-height: calc(100vh - 100vw * 50 / 1920 - 40px - 100vh * 96 / 1080 - 100px);
+const Container = styled.main`
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+`;
+
+const SideBar = styled.aside`
+  width: 100px;
+  background-color: ${darkerGrayColor};
   box-sizing: border-box;
+  padding: calc(100vw * 50 / 1920) 25px 0;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
   flex-direction: column;
-  & > * {
-    text-align: center;
-  }
+  align-items: center;
   & > *:not(:last-child) {
-    margin-bottom: 64px;
+    margin-bottom: 100px;
   }
 `;
 
-const Wrap = styled.div`
+const LogoContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+  & > *:not(:last-child) {
+    margin-bottom: 40px;
+  }
+`;
+
+const SideNav = styled.nav`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   & > *:not(:last-child) {
-    margin-bottom: 64px;
-  }
-  @media (min-width: 992px) {
-    align-items: flex-start;
-    flex-direction: row;
-    & > *:not(:last-child) {
-      margin-bottom: 0px;
-    }
+    margin-bottom: 40px;
   }
 `;
 
-const ElementContainer = styled.div`
+const SideNavElement = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 320px;
-  & > *:first-child {
+  box-sizing: border-box;
+  padding: 10px;
+  transition-duration: 100ms;
+  border-radius: 10px;
+  & > svg > path {
+    fill: ${(props) => (props.current ? primaryColor : lighterGrayColor)};
+  }
+  &:hover > svg > path {
+    fill: ${primaryColor};
+  }
+`;
+
+const HomePage = styled.section`
+  width: 100%;
+`;
+
+const HomePageWrap = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0px calc(100vw * 50 / 1920);
+  margin-top: calc(100vh * 72 / 1080);
+`;
+
+const HomePageGrid = styled.div`
+  margin-top: calc(100vh * 72 / 1080 / 2);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: calc(100vw * 50 / 1920);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+const Box = styled.div`
+  background-color: ${darkerGrayColor};
+  border-radius: calc(100vw * 50 / 1920 / 2);
+  box-sizing: border-box;
+  padding: calc(100vh * 72 / 1080 / 2);
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  & > *:not(:last-child) {
     margin-bottom: 32px;
-    text-align: center;
   }
 `;
 
-const BarberImage = styled.img`
-  width: 240px;
-  height: 240px;
-  border-radius: 50%;
-  object-fit: cover;
+const DoubleBox = styled(Box)`
+  @media (min-width: 768px) {
+    grid-column: auto / span 2;
+  }
 `;
 
-const BarberInfo = styled.div`
-  width: 100%;
+const EmptyBox = styled(Box)`
+  background: none;
+  border: 5px dashed ${darkerGrayColor};
+  height: 300px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 `;
 
-const BarberMainInfo = styled.div`
-  margin-bottom: 32px;
+const AppointmentsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
-const AppointmentsWrap = styled.div`
+const Appointment = styled.div`
+  height: 60px;
   width: 100%;
   display: grid;
-  grid-template-columns: ${(props) =>
-    props.singleChild
-      ? 'repeat(auto-fit, minmax(250px, 1fr))'
-      : 'repeat(auto-fill, minmax(300px, 1fr))'};
-  grid-template-rows: 1fr;
-  grid-gap: 32px;
-`;
-
-const AppointmentContainer = styled.div`
-  box-sizing: border-box;
-  background-color: ${darkerGrayColor};
-  text-align: left;
-  border-radius: 5px;
-  padding: 32px;
-  & > *:not(:last-child) {
-    margin-bottom: 16px;
+  grid-template-columns: 1fr 2fr 1fr 2fr 1fr;
+  place-items: center center;
+  @media (max-width: 810px) {
+    grid-template-columns: 1fr 1fr 2fr 1fr;
+    & > *:nth-child(2) {
+      display: none;
+    }
   }
 `;
 
@@ -100,10 +147,9 @@ const AppointmentTimeSpan = styled.span`
 `;
 
 // GraphQL query getting barber's specialisation and all appointments for a day
-const GET_BARBER_SPECIALISATION_AND_APPOINTMENTS_FOR_DAY = gql`
+const GET_BARBER_APPOINTMENTS_FOR_DAY = gql`
   query getBarberByEmail($email: String!, $date: String!) {
     barber(email: $email) {
-      specialisation
       id
       appointments(date: $date) {
         duration
@@ -116,112 +162,129 @@ const GET_BARBER_SPECIALISATION_AND_APPOINTMENTS_FOR_DAY = gql`
   }
 `;
 
-function Dashboard() {
+const Dashboard = () => {
   const { t, i18n } = useTranslation();
   const { user, getAccessTokenSilently } = useAuth0();
 
   // Default date to show appointments for
   const [date, setDate] = useState(new Date());
 
-  // State of the current user
-  const [currentUser, setCurrentUser] = useState({
-    fullName: user.name,
-    profileImageURL: user.picture,
-    email: user.email,
-    id: '',
-    specialisation: '',
-  });
-
-  // Getting barber access token
+  // Getting Auth0 ACCESS token to allow sentitive API calls
   useEffect(() => {
     const getAccessToken = async () => {
-      try {
-        const accessToken = await getAccessTokenSilently({
-          audience: `https://u06740719i.execute-api.eu-central-1.amazonaws.com/dev/graphql`,
-        });
-        sessionStorage.setItem('accessToken', accessToken);
-      } catch (e) {
-        console.log(e.message);
-      }
+      const accessToken = await getAccessTokenSilently({
+        audience: `https://u06740719i.execute-api.eu-central-1.amazonaws.com/dev/graphql`,
+      });
+      sessionStorage.setItem('accessToken', accessToken);
     };
 
     getAccessToken();
   }, []);
 
-  const { data, loading } = useQuery(GET_BARBER_SPECIALISATION_AND_APPOINTMENTS_FOR_DAY, {
+  // Loading barber appointments for the day
+  const { data, loading } = useQuery(GET_BARBER_APPOINTMENTS_FOR_DAY, {
     variables: {
       date: date.toISOString().split('T')[0],
-      email: currentUser.email,
+      email: user.email,
     },
   });
 
-  if (data?.barber?.specialisation && !currentUser.specialisation) {
-    setCurrentUser({ ...currentUser, specialisation: data.barber.specialisation });
-  }
-
-  // Mapping appointments to cards
+  // Mapping appointments to rows
   let appointmentsCards = null;
   if (data?.barber?.appointments) {
     appointmentsCards =
       data.barber.appointments.length === 0 ? (
         <Heading4>{t('No appointments for this day')}</Heading4>
       ) : (
-        data.barber.appointments.map((appointment) => (
-          <AppointmentContainer key={appointment.id}>
-            <Heading4>
-              {`${t('Time')}:`}
-              <AppointmentTimeSpan>
-                {` ${new Date(appointment.time).getUTCHours()}:00`}
-              </AppointmentTimeSpan>
-            </Heading4>
-            <Heading5>{`${t('Name')}: ${appointment.fullName}`}</Heading5>
-            <Heading5>{`${t('Service')}: ${t(appointment.serviceName)}`}</Heading5>
-            <Heading5>{`${t('Duration')}: ${appointment.duration} min`}</Heading5>
-          </AppointmentContainer>
-        ))
+        data.barber.appointments
+          .filter(
+            (appointment) =>
+              new Date(appointment.time).getUTCHours() > new Date().getUTCHours() ||
+              new Date(appointment.time).getUTCDate() > new Date().getUTCDate() ||
+              new Date(appointment.time).getUTCMonth() > new Date().getUTCMonth() ||
+              new Date(appointment.time).getUTCFullYear() > new Date().getUTCFullYear(),
+          )
+          .slice(0, 5)
+          .map((appointment) => (
+            <Appointment key={appointment.id}>
+              <Heading4>
+                <AppointmentTimeSpan>
+                  {` ${new Date(appointment.time).getUTCHours()}:00`}
+                </AppointmentTimeSpan>
+              </Heading4>
+              <Heading4>{appointment.fullName}</Heading4>
+              <Heading4>{t(appointment.serviceName)}</Heading4>
+              <Heading4>{`${appointment.duration} min`}</Heading4>
+              <Delete height={30} />
+            </Appointment>
+          ))
       );
   }
 
+  // Creating a timed greeting for the barber
+  const getGreeting = () => {
+    const time = new Date().getUTCHours();
+    if (time >= 0 && time < 6) {
+      return 'Good afternoon';
+    }
+    if (time >= 6 && time < 12) {
+      return 'Good morning';
+    }
+    if (time >= 12 && time < 18) {
+      return 'Good day';
+    }
+    return 'Good afternoon';
+  };
+
   return (
-    <>
-      <Navbar />
-      <Container>
-        <Heading2>{`${t('Welcome back')}, ${currentUser.fullName}`}</Heading2>
-        <Wrap>
-          <ElementContainer>
-            <BarberImage src={currentUser.profileImageURL} />
-            <BarberInfo>
-              <BarberMainInfo>
-                <Heading4>{currentUser.fullName}</Heading4>
-                <Heading5 color={grayColor}>{t('Barber')}</Heading5>
-              </BarberMainInfo>
-              <Heading4>
-                {currentUser.specialisation &&
-                  `${t('Specialisation')}: ${t(currentUser.specialisation)}`}
-              </Heading4>
-            </BarberInfo>
-          </ElementContainer>
-          <ElementContainer>
-            <Heading3>{`${t('View appointments')}:`}</Heading3>
-            <Calendar date={date} setDate={setDate} allDates />
-          </ElementContainer>
-        </Wrap>
-        <Heading3>
-          {`${t('Showing appointments for')} ${date.toLocaleString(i18n.language, {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}`}
-        </Heading3>
-        {/* If appointments are loading, or there are none for the date,
-        we set the loaded to false, therefore stretching the grids */}
-        <AppointmentsWrap singleChild={loading || data?.barber?.appointments?.length === 0}>
-          {!loading ? appointmentsCards : <Loading height="80px" width="100%" />}
-        </AppointmentsWrap>
-      </Container>
-      <Footer />
-    </>
+    <Container>
+      <SideBar>
+        <LogoContainer>
+          <Link aria-label="Go to the main page" to="/">
+            <Logo color={primaryColor} height={60} />
+          </Link>
+        </LogoContainer>
+        <SideNav>
+          <SideNavElement current>
+            <Home height={30} />
+          </SideNavElement>
+        </SideNav>
+      </SideBar>
+      <HomePage>
+        <Navbar noLogo />
+        <HomePageWrap>
+          <Heading2>{`${t(getGreeting())}, ${user.name}`}</Heading2>
+          <HomePageGrid>
+            <DoubleBox>
+              <Heading3>
+                {`${t('Showing appointments for')} ${date.toLocaleString(i18n.language, {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}`}
+              </Heading3>
+              <AppointmentsContainer>
+                {loading ? <Loading height="100%" width="100%" /> : appointmentsCards}
+              </AppointmentsContainer>
+            </DoubleBox>
+            <Box>
+              <Heading3>{t('Select date')}</Heading3>
+              <Calendar allDates date={date} setDate={setDate} />
+            </Box>
+            <EmptyBox>
+              <Heading3 color={darkerGrayColor}>Under construction</Heading3>
+            </EmptyBox>
+            <EmptyBox>
+              <Heading3 color={darkerGrayColor}>Under construction</Heading3>
+            </EmptyBox>
+            <EmptyBox>
+              <Heading3 color={darkerGrayColor}>Under construction</Heading3>
+            </EmptyBox>
+          </HomePageGrid>
+        </HomePageWrap>
+      </HomePage>
+    </Container>
   );
-}
+};
 
 export default Dashboard;

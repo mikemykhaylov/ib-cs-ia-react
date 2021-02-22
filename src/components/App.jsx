@@ -47,6 +47,7 @@ ${fontFaces}
   -webkit-font-smoothing: antialiased;
   background-color: ${darkestGrayColor};
   margin: 0;
+  line-height: 1;
 }
 html {
   font-size: 14px;
@@ -79,11 +80,6 @@ const App = () => (
             </Suspense>
           </Route>
           <Route path="/dashboard">
-            <Suspense fallback={<Loading width="100vw" height="100vh" />}>
-              <ProtectedDashboard />
-            </Suspense>
-          </Route>
-          <Route path="/welcome">
             <Suspense fallback={<Loading width="100vw" height="100vh" />}>
               <ProtectedDashboard />
             </Suspense>

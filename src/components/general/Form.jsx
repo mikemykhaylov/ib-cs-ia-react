@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 
 import {
   darkerGrayColor,
+  darkestGrayColor,
   grayColor,
   lighterGrayColor,
   primaryColor,
@@ -35,13 +36,13 @@ const InputGroup = styled.div`
   flex-grow: 1;
   text-align: left;
   & > *:not(:last-child) {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
   }
 `;
 
 const ReactiveInput = styled.input`
-  background-color: ${darkerGrayColor};
-  border: none;
+  background-color: ${(props) => (props.card ? darkestGrayColor : darkerGrayColor)};
+  border: ${(props) => (props.card ? `1px solid ${primaryColor}` : 'none')};
   border-radius: 5px;
   box-sizing: border-box;
   margin: 0;
@@ -63,12 +64,13 @@ const toCamelCase = (str) =>
     )
     .replace(/\s+/g, '');
 
-export const Input = ({ heading, value, type, onChange, errorsObj, placeholder }) => {
+export const Input = ({ heading, value, type, onChange, errorsObj, placeholder, card }) => {
   const { t } = useTranslation();
   return (
     <InputGroup>
       <Heading4>{`${t(heading)}:`}</Heading4>
       <ReactiveInput
+        card={card}
         name={toCamelCase(heading)}
         onChange={onChange}
         value={value}
@@ -92,6 +94,7 @@ Input.propTypes = {
     valid: PropTypes.bool,
     errors: PropTypes.objectOf(PropTypes.string),
   }),
+  card: PropTypes.bool,
 };
 
 Input.defaultProps = {
@@ -100,4 +103,5 @@ Input.defaultProps = {
     valid: true,
     errors: {},
   },
+  card: false,
 };

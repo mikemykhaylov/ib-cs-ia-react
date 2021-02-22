@@ -8,14 +8,12 @@ i18n.use(LanguageDetector).init({
   // we use content as keys
   interpolation: {
     escapeValue: false,
-    // not needed for react!!
-    formatSeparator: ',',
   },
   keySeparator: false,
   // have a common namespace used around the full app
   ns: ['translations'],
   react: {
-    wait: true,
+    useSuspense: true,
   },
   // we init with resources
   resources: {
@@ -36,7 +34,6 @@ i18n.use(LanguageDetector).init({
         'Contact information': 'Contact information',
         Date: 'Date',
         'Details and confirmation': 'Details and confirmation',
-        Duration: 'Duration',
         'Elderly haircut 65+': 'Elderly haircut 65+',
         Email: 'Email',
         'Enter email': 'Enter email',
@@ -53,6 +50,9 @@ i18n.use(LanguageDetector).init({
         'Go back to main page': 'Go back to main page',
         'Go check your mailbox for reset instructions':
           'Go check your mailbox for reset instructions',
+        'Good afternoon': 'Good afternoon',
+        'Good day': 'Good day',
+        'Good morning': 'Good morning',
         HAIRCUT: 'Haircut',
         HAIRCUTS: 'Haircuts',
         'I want for a specific time': 'I want for a specific time',
@@ -70,7 +70,6 @@ i18n.use(LanguageDetector).init({
         'Must be valid email address': 'Must be valid email address',
         'Must be valid phone number': 'Must be valid phone number',
         'Must not be empty': 'Must not be empty',
-        Name: 'Name',
         Next: 'Next',
         'No appointments for this day': 'No appointments for this day',
         'Our adress': 'Our adress',
@@ -99,7 +98,6 @@ i18n.use(LanguageDetector).init({
         'Showing appointments for': 'Showing appointments for',
         'Sorry, no barbers are available for that time':
           'Sorry, no barbers are available for that time',
-        Specialisation: 'Specialisation',
         Step: 'Step',
         Su: 'Su',
         'Suitable location': 'Suitable location',
@@ -107,7 +105,6 @@ i18n.use(LanguageDetector).init({
         'Thank you for your reservation!': 'Thank you for your reservation!',
         Time: 'Time',
         Tu: 'Tu',
-        'View appointments': 'View appointments',
         We: 'We',
         'We are in the heart of Warsaw, next to the Royal Łazienki Park':
           'We are in the heart of Warsaw, next to the Royal Łazienki Park',
@@ -115,7 +112,6 @@ i18n.use(LanguageDetector).init({
         'We could not fit all of them here': 'We could not fit all of them here',
         'We use cosmetics and tools that are known all over the world':
           'We use cosmetics and tools that are known all over the world',
-        'Welcome back': 'Welcome back',
         'Who are we?': 'Who are we?',
         'Working hours': 'Working hours',
       },
@@ -137,7 +133,6 @@ i18n.use(LanguageDetector).init({
         'Contact information': 'Szczegóły kontaktu',
         Date: 'Data',
         'Details and confirmation': 'Szczegóły i potwierdzenie',
-        Duration: 'Trwanie',
         'Elderly haircut 65+': 'Strzyżenie seniora 65+',
         Email: 'E-mail',
         'Enter email': 'Wpisz swój email',
@@ -154,6 +149,9 @@ i18n.use(LanguageDetector).init({
         'Go back to main page': 'Wróć do strony głównej',
         'Go check your mailbox for reset instructions':
           'Sprawdź pocztę, aby uzyskać instrukcje resetowania',
+        'Good afternoon': 'Dzień dobry',
+        'Good day': 'Dzień dobry',
+        'Good morning': 'Dobre rano',
         HAIRCUT: 'Strzyżenie włosów',
         HAIRCUTS: 'Fryzury',
         'I want for a specific time': 'Chcę na określony czas',
@@ -171,7 +169,6 @@ i18n.use(LanguageDetector).init({
         'Must be valid email address': 'Niepoprawny email',
         'Must be valid phone number': 'Niepoprawny numer telefonu',
         'Must not be empty': 'Nie powinno być puste',
-        Name: 'Nazwa',
         Next: 'Dalej',
         'No appointments for this day': 'Brak wpisów na ten dzień',
         'Our adress': 'Nasz adres',
@@ -201,7 +198,6 @@ i18n.use(LanguageDetector).init({
         'Showing appointments for': 'Wpisy włączone',
         'Sorry, no barbers are available for that time':
           'Niestety w tej chwili żaden wzorzec nie jest dostępny.',
-        Specialisation: 'Specjalizacja',
         Step: 'Krok',
         Su: 'Nd',
         'Suitable location': 'Przyzwoita lokalizacja',
@@ -209,7 +205,6 @@ i18n.use(LanguageDetector).init({
         'Thank you for your reservation!': 'Dziękuję za zgłoszenie!',
         Time: 'Czas',
         Tu: 'Wt',
-        'View appointments': 'Zobacz rekordy',
         We: 'Sr',
         'We are in the heart of Warsaw, next to the Royal Łazienki Park':
           'Jesteśmy w samym sercu Warszawy, tuż przy Łazienkach Królewskich',
@@ -217,7 +212,6 @@ i18n.use(LanguageDetector).init({
         'We could not fit all of them here': 'Nie mogliśmy zmieścić ich wszystkich tutaj',
         'We use cosmetics and tools that are known all over the world':
           'Używamy kosmetyków i narzędzi, które są znane na całym świecie',
-        'Welcome back': 'Witamy',
         'Who are we?': 'Kim jesteśmy?',
         'Working hours': 'Godziny pracy',
       },
@@ -239,7 +233,6 @@ i18n.use(LanguageDetector).init({
         'Contact information': 'Контактные данные',
         Date: 'Дата',
         'Details and confirmation': 'Детали и подтверждение',
-        Duration: 'Длительность',
         'Elderly haircut 65+': 'Стрижка пожилого человека 65+',
         Email: 'Электронная почта',
         'Enter email': 'Введите электронную почту',
@@ -256,6 +249,9 @@ i18n.use(LanguageDetector).init({
         'Go back to main page': 'Вернуться на главную',
         'Go check your mailbox for reset instructions':
           'Проверьте свою почту для инструкций по сбросу',
+        'Good afternoon': 'Добрый вечер',
+        'Good day': 'Добрый день',
+        'Good morning': 'Доброе утро',
         HAIRCUT: 'Стрижка головы',
         HAIRCUTS: 'Стрижки',
         'I want for a specific time': 'Я хочу на конкретное время',
@@ -273,7 +269,6 @@ i18n.use(LanguageDetector).init({
         'Must be valid email address': 'Недействительная электронная почта',
         'Must be valid phone number': 'Недействительный номер телефона',
         'Must not be empty': 'Не должно быть пустым',
-        Name: 'Имя',
         Next: 'Дальше',
         'No appointments for this day': 'Нет записей на этот день',
         'Our adress': 'Наш адрес',
@@ -302,7 +297,6 @@ i18n.use(LanguageDetector).init({
         'Showing appointments for': 'Записи на',
         'Sorry, no barbers are available for that time':
           'К сожалению на это время ни один мастер не доступен',
-        Specialisation: 'Специализация',
         Step: 'Шаг',
         Su: 'Вс',
         'Suitable location': 'Удобное расположение',
@@ -310,7 +304,6 @@ i18n.use(LanguageDetector).init({
         'Thank you for your reservation!': 'Благодарим за запись!',
         Time: 'Время',
         Tu: 'Вт',
-        'View appointments': 'Просмотреть записи',
         We: 'Ср',
         'We are in the heart of Warsaw, next to the Royal Łazienki Park':
           'Мы находимся в самом сердце Варшавы, рядом с парком Королевские Лазенки',
@@ -318,7 +311,6 @@ i18n.use(LanguageDetector).init({
         'We could not fit all of them here': 'Мы не могли бы вместить их всех здесь',
         'We use cosmetics and tools that are known all over the world':
           'Мы используем косметику и средства, которые известны во всем мире',
-        'Welcome back': 'Добро пожаловать',
         'Who are we?': 'Кто мы?',
         'Working hours': 'Рабочие часы',
       },

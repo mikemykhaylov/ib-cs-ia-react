@@ -31,7 +31,6 @@ const ChangeMonthButton = styled.button`
 `;
 
 const DatePicker = styled.div`
-  max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -41,13 +40,14 @@ const DatePicker = styled.div`
 `;
 
 const WeekDays = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
 `;
 
 const Days = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 32px);
+  grid-template-columns: repeat(7, 1fr);
   grid-auto-rows: 32px;
   grid-gap: 8px;
   & > :first-child {
