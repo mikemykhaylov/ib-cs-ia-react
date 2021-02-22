@@ -15,7 +15,6 @@ render(
       clientId="vZ6H3dwS70pmpBirT7xttpVcycKEtysJ"
       redirectUri={window.location.origin}
       audience="https://u06740719i.execute-api.eu-central-1.amazonaws.com/dev/graphql"
-      scope="read:contactInfo"
       onRedirectCallback={onRedirectCallback}
     >
       <App />
