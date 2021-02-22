@@ -200,9 +200,9 @@ const Dashboard = () => {
           .filter(
             (appointment) =>
               new Date(appointment.time).getUTCHours() > new Date().getUTCHours() ||
-              new Date(appointment.time).getUTCDate() > new Date().getUTCDate() ||
-              new Date(appointment.time).getUTCMonth() > new Date().getUTCMonth() ||
-              new Date(appointment.time).getUTCFullYear() > new Date().getUTCFullYear(),
+              new Date(appointment.time).getUTCDate() !== new Date().getUTCDate() ||
+              new Date(appointment.time).getUTCMonth() !== new Date().getUTCMonth() ||
+              new Date(appointment.time).getUTCFullYear() !== new Date().getUTCFullYear(),
           )
           .slice(0, 5)
           .map((appointment) => (
