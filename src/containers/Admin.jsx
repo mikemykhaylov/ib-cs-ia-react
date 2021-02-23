@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { gql, useLazyQuery, useMutation } from '@apollo/client';
+import { gql } from '@apollo/client';
 import { useAuth0 } from '@auth0/auth0-react';
 import ky from 'ky';
 import { useEffect, useState } from 'react';
@@ -180,11 +180,6 @@ const Admin = () => {
   const { t } = useTranslation();
   const { user, getAccessTokenSilently } = useAuth0();
 
-  const [createBarber, { loading: barberLoading, data: barberData }] = useMutation(CREATE_BARBER);
-  const [getSignedURL, { loading: urlLoading, data: urlData }] = useLazyQuery(GET_SIGNED_URL);
-
-  const [uploadedImage, setUploadedImage] = useState(false);
-
   // Object containing all validation errors
   const [validationErrors, setValidationErrors] = useState(null);
 
@@ -198,10 +193,12 @@ const Admin = () => {
     password: '',
   });
 
+  // Form input handler
   const handleInput = (e) => {
     setNewBarber({ ...newBarber, [e.target.name]: e.target.value });
   };
 
+  // Drag'n'drop handler
   const handleDrop = (acceptedFiles) => {
     setNewBarber({
       ...newBarber,
@@ -210,9 +207,20 @@ const Admin = () => {
     });
   };
 
+  // Form submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const { email, firstName, lastName, specialisation, password } = newBarber;
+    const domain = 'https://u06740719i.execute-api.eu-central-1.amazonaws.com/dev/graphql';
+    //! Only here we don't use Apollo for GraphQL requests
+    // This is due to the incovenience of chaining apollo useMutation and useLazyQuery
+    // Also, we already used ky to upload profileImage to signed URL, so why not use it?
+    // Here we are creating a new ky instance with the required adress
+    const api = ky.create({
+      prefixUrl: domain,
+      headers: { Authorization: `Bearer ${sessionStorage.getItem('accessToken')}` },
+    });
 
     // Validating inputs
     const errors = await validateCreateBarber({ email, firstName, lastName, password });
@@ -221,37 +229,55 @@ const Admin = () => {
       return;
     }
 
-    createBarber({
-      variables: {
-        input: {
-          email,
-          name: {
-            first: firstName,
-            last: lastName,
+    // GraphQL mutation creating a barber in Mongo and Auth0
+    const { data: createBarberData } = await api
+      .post('', {
+        json: {
+          query: CREATE_BARBER.loc.source.body,
+          variables: {
+            input: {
+              email,
+              name: {
+                first: firstName,
+                last: lastName,
+              },
+              specialisation,
+              password,
+            },
           },
-          specialisation,
-          password,
         },
-      },
+      })
+      .json();
+
+    // GraphQL query getting a signed URL for barber to upload profileImage
+    const { data: signedURLData } = await api
+      .post('', {
+        json: {
+          query: GET_SIGNED_URL.loc.source.body,
+          variables: {
+            fileExtension: newBarber.profileImage.name.split('.').pop(),
+            barberID: createBarberData.createBarber.id,
+          },
+        },
+      })
+      .json();
+
+    // Uploading profileImage to signed URL
+    await ky.put(signedURLData.getSignedURL, { body: newBarber.profileImage });
+
+    // Resetting for values after submit
+    setNewBarber({
+      email: '',
+      firstName: '',
+      lastName: '',
+      profileImage: null,
+      profileImageURL: '',
+      specialisation: 'BEARDS',
+      password: '',
     });
   };
 
-  if (!barberLoading && barberData?.createBarber && !urlLoading && !urlData) {
-    getSignedURL({
-      variables: {
-        fileExtension: newBarber.profileImage.name.split('.').pop(),
-        barberID: barberData.createBarber.id,
-      },
-    });
-  }
-
-  if (!urlLoading && urlData?.getSignedURL && !uploadedImage) {
-    (async () => {
-      ky.put(urlData.getSignedURL, { body: newBarber.profileImage });
-    })();
-    setUploadedImage(true);
-  }
-
+  // Drag'n'drop zone handler
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: handleDrop,
     accept: 'image/jpeg, image/png, image/webp',
