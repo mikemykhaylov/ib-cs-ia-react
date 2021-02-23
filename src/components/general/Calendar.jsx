@@ -8,6 +8,7 @@ import ArrowRight from '../icons/ArrowRight';
 import { Heading4 } from './Headings';
 
 const CalendarContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: stretch;

@@ -116,7 +116,7 @@ const DoubleBox = styled(Box)`
 const EmptyBox = styled(Box)`
   background: none;
   border: 5px dashed ${darkerGrayColor};
-  height: 300px;
+  min-height: 300px;
   justify-content: center;
   align-items: center;
   text-align: center;
