@@ -20,7 +20,7 @@ export const FormContainer = styled.form`
     margin-bottom: 16px;
   }
   @media (min-width: 576px) {
-    width: 400px;
+    width: ${(props) => (props.card ? '100%' : '400px')};
   }
 `;
 
@@ -32,7 +32,7 @@ export const FormRow = styled.div`
   }
 `;
 
-const InputGroup = styled.div`
+const TextInputGroup = styled.div`
   flex-grow: 1;
   text-align: left;
   & > *:not(:last-child) {
@@ -40,7 +40,7 @@ const InputGroup = styled.div`
   }
 `;
 
-const ReactiveInput = styled.input`
+const ReactiveTextInput = styled.input`
   background-color: ${(props) => (props.card ? darkestGrayColor : darkerGrayColor)};
   border: ${(props) => (props.card ? `1px solid ${primaryColor}` : 'none')};
   border-radius: 5px;
@@ -57,6 +57,30 @@ const ReactiveInput = styled.input`
   }
 `;
 
+const RadioInputGroup = styled.div`
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & > *:not(:last-child) {
+    margin-right: 16px;
+  }
+`;
+
+const ReactiveRadioInput = styled.input`
+  appearance: none;
+  border-radius: 50%;
+  border: 1px solid ${primaryColor};
+  width: 24px;
+  height: 24px;
+  transition: 0.1s all linear;
+  cursor: pointer;
+  &:checked {
+    border: 6px solid ${primaryColor};
+    background-color: ${darkerGrayColor};
+  }
+`;
+
 const toCamelCase = (str) =>
   str
     .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) =>
@@ -64,12 +88,12 @@ const toCamelCase = (str) =>
     )
     .replace(/\s+/g, '');
 
-export const Input = ({ heading, value, type, onChange, errorsObj, placeholder, card }) => {
+export const TextInput = ({ heading, value, type, onChange, errorsObj, placeholder, card }) => {
   const { t } = useTranslation();
   return (
-    <InputGroup>
+    <TextInputGroup>
       <Heading4>{`${t(heading)}:`}</Heading4>
-      <ReactiveInput
+      <ReactiveTextInput
         card={card}
         name={toCamelCase(heading)}
         onChange={onChange}
@@ -80,11 +104,11 @@ export const Input = ({ heading, value, type, onChange, errorsObj, placeholder, 
       {errorsObj && !errorsObj.valid && errorsObj.errors[toCamelCase(heading)] && (
         <Heading5 color={primaryColor}>{errorsObj.errors[toCamelCase(heading)]}</Heading5>
       )}
-    </InputGroup>
+    </TextInputGroup>
   );
 };
 
-Input.propTypes = {
+TextInput.propTypes = {
   heading: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   type: PropTypes.string,
@@ -97,11 +121,37 @@ Input.propTypes = {
   card: PropTypes.bool,
 };
 
-Input.defaultProps = {
+TextInput.defaultProps = {
   type: 'text',
   errorsObj: {
     valid: true,
     errors: {},
   },
   card: false,
+};
+
+export const RadioInput = ({ name, value, onChange, checked }) => {
+  const { t } = useTranslation();
+  return (
+    <RadioInputGroup>
+      <ReactiveRadioInput
+        type="radio"
+        name={name}
+        value={value}
+        id={toCamelCase(value)}
+        checked={checked}
+        onChange={onChange}
+      />
+      <label htmlFor={toCamelCase(value)}>
+        <Heading5>{t(value)}</Heading5>
+      </label>
+    </RadioInputGroup>
+  );
+};
+
+RadioInput.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  checked: PropTypes.bool.isRequired,
 };

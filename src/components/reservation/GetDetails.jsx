@@ -8,7 +8,7 @@ import styled from 'styled-components/macro';
 import { grayColor, lighterGrayColor, primaryColor } from '../../constants/websiteColors';
 import { validateCreateAppointment } from '../../utils/validateInput';
 import { PrimaryButton, SecondaryButton } from '../general/Buttons';
-import { FormContainer, FormRow, Input } from '../general/Form';
+import { FormContainer, FormRow, TextInput } from '../general/Form';
 import { Heading2, Heading3, Heading4, Heading5 } from '../general/Headings';
 import Barber from '../icons/Barber';
 
@@ -180,14 +180,14 @@ function GetDetails({
         <FormContainer>
           <Heading3>{t('Contact information')}</Heading3>
           <FormRow>
-            <Input
+            <TextInput
               heading="First name"
               value={currentAppointment.firstName}
               placeholder="Clark"
               onChange={handleInput}
               errorsObj={validationErrors}
             />
-            <Input
+            <TextInput
               heading="Last name"
               value={currentAppointment.lastName}
               placeholder="Kent"
@@ -196,7 +196,7 @@ function GetDetails({
             />
           </FormRow>
           <FormRow>
-            <Input
+            <TextInput
               heading="Email"
               value={currentAppointment.email}
               placeholder="example@email.com"
@@ -205,7 +205,7 @@ function GetDetails({
             />
           </FormRow>
           <FormRow>
-            <Input
+            <TextInput
               heading="Phone number"
               value={currentAppointment.phoneNumber}
               placeholder="+XXXXXXXXXXXX"

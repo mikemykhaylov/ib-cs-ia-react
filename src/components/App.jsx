@@ -18,6 +18,7 @@ import Loading from './general/Loading';
 
 const Reservation = lazy(() => import('../containers/Reservation'));
 const Dashboard = lazy(() => import('../containers/Dashboard'));
+const Admin = lazy(() => import('../containers/Admin'));
 
 const httpLink = createHttpLink({
   uri: 'https://u06740719i.execute-api.eu-central-1.amazonaws.com/dev/graphql',
@@ -60,6 +61,7 @@ html {
 export const browserHistory = createBrowserHistory();
 
 const ProtectedDashboard = withAuthenticationRequired(Dashboard);
+const ProtectedAdmin = withAuthenticationRequired(Admin);
 
 const App = () => (
   <ApolloProvider client={client}>
@@ -82,6 +84,11 @@ const App = () => (
           <Route path="/dashboard">
             <Suspense fallback={<Loading width="100vw" height="100vh" />}>
               <ProtectedDashboard />
+            </Suspense>
+          </Route>
+          <Route path="/admin">
+            <Suspense fallback={<Loading width="100vw" height="100vh" />}>
+              <ProtectedAdmin />
             </Suspense>
           </Route>
           <Route path="/">
