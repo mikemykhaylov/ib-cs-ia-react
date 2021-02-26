@@ -99,7 +99,7 @@ export const TextInput = ({ heading, value, type, onChange, errorsObj, placehold
         onChange={onChange}
         value={value}
         type={type}
-        placeholder={placeholder}
+        placeholder={t(placeholder)}
       />
       {errorsObj && !errorsObj.valid && errorsObj.errors[toCamelCase(heading)] && (
         <Heading5 color={primaryColor}>{errorsObj.errors[toCamelCase(heading)]}</Heading5>
