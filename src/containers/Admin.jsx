@@ -7,7 +7,8 @@ import styled from 'styled-components/macro';
 
 import { PrimaryButton } from '../components/general/Buttons';
 import { FormContainer, FormRow, RadioInput, TextInput } from '../components/general/Form';
-import { Heading3 } from '../components/general/Headings';
+import { Heading3, Heading5 } from '../components/general/Headings';
+import Loading from '../components/general/Loading';
 import Upload from '../components/icons/Upload';
 import { darkerGrayColor, primaryColor } from '../constants/websiteColors';
 import { validateCreateBarber } from '../utils/validateInput';
@@ -37,6 +38,13 @@ const NewBarberContainer = styled.div`
   gap: calc(100vw * 50 / 1920);
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
+  }
+`;
+
+const BarberImageContainer = styled.div`
+  text-align: center;
+  & > *:not(:last-child) {
+    margin-bottom: 16px;
   }
 `;
 
@@ -105,6 +113,8 @@ const Admin = () => {
     password: '',
   });
 
+  const [loading, setLoading] = useState(false);
+
   // Form input handler
   const handleInput = (e) => {
     setNewBarber({ ...newBarber, [e.target.name]: e.target.value });
@@ -122,8 +132,9 @@ const Admin = () => {
   // Form submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    const { email, firstName, lastName, specialisation, password } = newBarber;
+    const { email, firstName, lastName, specialisation, password, profileImage } = newBarber;
     const domain = 'https://u06740719i.execute-api.eu-central-1.amazonaws.com/dev/graphql';
     //! Only here we don't use Apollo for GraphQL requests
     // This is due to the incovenience of chaining apollo useMutation and useLazyQuery
@@ -135,9 +146,16 @@ const Admin = () => {
     });
 
     // Validating inputs
-    const errors = await validateCreateBarber({ email, firstName, lastName, password });
+    const errors = await validateCreateBarber({
+      email,
+      firstName,
+      lastName,
+      password,
+      profileImage,
+    });
     if (!errors.valid) {
       setValidationErrors(errors);
+      setLoading(false);
       return;
     }
 
@@ -167,7 +185,7 @@ const Admin = () => {
         json: {
           query: GET_SIGNED_URL.loc.source.body,
           variables: {
-            fileExtension: newBarber.profileImage.name.split('.').pop(),
+            fileExtension: profileImage.name.split('.').pop(),
             barberID: createBarberData.createBarber.id,
           },
         },
@@ -175,7 +193,9 @@ const Admin = () => {
       .json();
 
     // Uploading profileImage to signed URL
-    await ky.put(signedURLData.getSignedURL, { body: newBarber.profileImage });
+    await ky.put(signedURLData.getSignedURL, { body: profileImage });
+
+    setLoading(false);
 
     // Resetting for values after submit
     setNewBarber({
@@ -245,10 +265,15 @@ const Admin = () => {
           </FormContainer>
           <FormContainer card>
             <FormRow>
-              <BarberImage {...getRootProps()} profileImageURL={newBarber.profileImageURL}>
-                <input {...getInputProps()} />
-                <Upload height={40} />
-              </BarberImage>
+              <BarberImageContainer>
+                <BarberImage {...getRootProps()} profileImageURL={newBarber.profileImageURL}>
+                  <input {...getInputProps()} />
+                  <Upload height={40} />
+                </BarberImage>
+                {!validationErrors?.valid && validationErrors?.errors.profileImage ? (
+                  <Heading5 color={primaryColor}>{validationErrors?.errors.profileImage}</Heading5>
+                ) : null}
+              </BarberImageContainer>
               <RadioInput
                 name="specialisation"
                 value="BEARDS"
@@ -263,7 +288,9 @@ const Admin = () => {
               />
             </FormRow>
             <SubmitButtonContainer>
-              <PrimaryButton onClick={handleSubmit}>Create Barber</PrimaryButton>
+              <PrimaryButton onClick={handleSubmit}>
+                {loading ? <Loading width="100%" height="100%" /> : 'Create Barber'}
+              </PrimaryButton>
             </SubmitButtonContainer>
           </FormContainer>
         </NewBarberContainer>
