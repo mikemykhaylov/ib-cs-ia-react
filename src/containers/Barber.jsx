@@ -7,7 +7,6 @@ import styled from 'styled-components/macro';
 import Calendar from '../components/general/Calendar';
 import { Heading3, Heading4 } from '../components/general/Headings';
 import Loading from '../components/general/Loading';
-import Delete from '../components/icons/Delete';
 import { darkerGrayColor, primaryColor } from '../constants/websiteColors';
 
 const Box = styled.div`
@@ -48,10 +47,10 @@ const Appointment = styled.div`
   height: 60px;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr 2fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr 2fr;
   place-items: center center;
   @media (max-width: 810px) {
-    grid-template-columns: 1fr 1fr 2fr 1fr;
+    grid-template-columns: 1fr 1fr 2fr;
     & > *:nth-child(2) {
       display: none;
     }
@@ -101,6 +100,8 @@ const Barber = () => {
         <Heading4>{t('No appointments for this day')}</Heading4>
       ) : (
         data.barber.appointments
+          // Filtering to show only next appointments for today OR
+          // any if the date is not today
           .filter(
             (appointment) =>
               new Date(appointment.time).getUTCHours() > new Date().getUTCHours() ||
@@ -119,7 +120,6 @@ const Barber = () => {
               <Heading4>{appointment.fullName}</Heading4>
               <Heading4>{t(appointment.serviceName)}</Heading4>
               <Heading4>{`${appointment.duration} min`}</Heading4>
-              <Delete height={30} />
             </Appointment>
           ))
       );
