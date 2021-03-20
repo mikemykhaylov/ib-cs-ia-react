@@ -5,25 +5,6 @@ export const isEmail = (email) => {
   return email.match(emailRegEx);
 };
 
-export const validateUserCredentials = (user, signUp) => {
-  const errors = {};
-  if (signUp && user.password !== user.confirmPassword) {
-    errors.confirmPassword = i18n.t('Passwords must match');
-  }
-  if (user.email && !isEmail(user.email)) {
-    errors.email = i18n.t('Must be valid email address');
-  }
-  Object.keys(user).forEach((key) => {
-    if (!user[key] || user[key].trim() === '') {
-      errors[key] = i18n.t('Must not be empty');
-    }
-  });
-  return {
-    errors,
-    valid: Object.keys(errors).length === 0,
-  };
-};
-
 export const validateCreateAppointment = async (appointment) => {
   const errors = {};
   if (appointment.email && !isEmail(appointment.email)) {
