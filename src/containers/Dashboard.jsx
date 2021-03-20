@@ -96,6 +96,8 @@ const HomePageGrid = styled.div`
 const Dashboard = () => {
   const { t } = useTranslation();
   const { user, getAccessTokenSilently } = useAuth0();
+
+  // Determines whether the user is an admin
   const [isAdmin, setIsAdmin] = useState(null);
 
   // Getting Auth0 ACCESS token to allow sentitive API calls
@@ -105,6 +107,7 @@ const Dashboard = () => {
         audience: `https://u06740719i.execute-api.eu-central-1.amazonaws.com/dev/graphql`,
       });
       const payload = jwtDecode(accessToken);
+      // If create:barber permission is present, user is an admin
       setIsAdmin(payload.permissions.includes('create:barber'));
       sessionStorage.setItem('accessToken', accessToken);
     };
@@ -112,7 +115,7 @@ const Dashboard = () => {
     setTimeout(getAccessToken, 500);
   }, []);
 
-  // Creating a timed greeting for the barber
+  // Creating a timed greeting for the user
   const getGreeting = () => {
     const time = new Date().getUTCHours();
     if (time >= 0 && time < 6) {
@@ -145,6 +148,8 @@ const Dashboard = () => {
         <Navbar noLogo />
         <HomePageWrap>
           <Heading2>{`${t(getGreeting())}, ${user.name}`}</Heading2>
+          {/* If we don't know user rights, we wait for token to load
+              If it has loaded, we display dashboard accoarding to permissions */}
           {isAdmin !== null ? (
             <HomePageGrid>{isAdmin ? <Admin /> : <Barber />}</HomePageGrid>
           ) : (
