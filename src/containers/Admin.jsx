@@ -135,7 +135,7 @@ const Admin = () => {
     setLoading(true);
 
     const { email, firstName, lastName, specialisation, password, profileImage } = newBarber;
-    const domain = 'https://u06740719i.execute-api.eu-central-1.amazonaws.com/dev/graphql';
+    const domain = 'https://p9pua97kq2.execute-api.eu-central-1.amazonaws.com/prod/graphql';
     //! Only here we don't use Apollo for GraphQL requests
     // This is due to the incovenience of chaining apollo useMutation and useLazyQuery
     // Also, we already used ky to upload profileImage to signed URL, so why not use it?

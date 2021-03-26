@@ -14,7 +14,7 @@ render(
       domain="dev-q6a92igd.eu.auth0.com"
       clientId="vZ6H3dwS70pmpBirT7xttpVcycKEtysJ"
       redirectUri={window.location.origin}
-      audience="https://u06740719i.execute-api.eu-central-1.amazonaws.com/dev/graphql"
+      audience="https://p9pua97kq2.execute-api.eu-central-1.amazonaws.com/prod/graphql"
       onRedirectCallback={onRedirectCallback}
     >
       <App />

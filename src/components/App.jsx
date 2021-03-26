@@ -20,7 +20,7 @@ const Reservation = lazy(() => import('../containers/Reservation'));
 const Dashboard = lazy(() => import('../containers/Dashboard'));
 
 const httpLink = createHttpLink({
-  uri: 'https://u06740719i.execute-api.eu-central-1.amazonaws.com/dev/graphql',
+  uri: 'https://p9pua97kq2.execute-api.eu-central-1.amazonaws.com/prod/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {

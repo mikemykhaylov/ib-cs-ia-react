@@ -104,7 +104,7 @@ const Dashboard = () => {
   useEffect(() => {
     const getAccessToken = async () => {
       const accessToken = await getAccessTokenSilently({
-        audience: `https://u06740719i.execute-api.eu-central-1.amazonaws.com/dev/graphql`,
+        audience: `https://p9pua97kq2.execute-api.eu-central-1.amazonaws.com/prod/graphql`,
       });
       const payload = jwtDecode(accessToken);
       // If create:barber permission is present, user is an admin
